@@ -13,28 +13,27 @@
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f0f9ff; /* Latar belakang biru relaxa sangat muda */
+            background-color: #f0fdf4; /* Latar belakang hijau emerald sangat muda sejuk */
         }
-        /* Gradasi Mewah Kombinasi Biru Relaxa & Teal Segar */
-        .bg-gradient-luxury {
-            background: linear-gradient(135deg, #06b6d4 0%, #0db8a6 100%);
+        /* Gradasi Emerald Mewah Profesional */
+        .bg-gradient-emerald {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
         }
         .curve-premium {
             border-bottom-left-radius: 2.5rem;
             border-bottom-right-radius: 2.5rem;
         }
-        /* Kustomisasi Scrollbar agar tetap estetik */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #f0f9ff; }
-        ::-webkit-scrollbar-thumb { background: #06b6d4; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f0fdf4; }
+        ::-webkit-scrollbar-thumb { background: #059669; border-radius: 10px; }
     </style>
 </head>
 <body class="min-h-screen text-slate-700 pb-12">
 
-    <!-- SCREEN 1: GERBANG AUTENTIKASI KATA SANDI MAJU -->
-    <div id="auth-screen" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md flex justify-center items-center z-50 p-4">
-        <div class="bg-white w-full max-w-sm rounded-[30px] p-8 shadow-2xl border border-cyan-100 text-center space-y-6">
-            <div class="w-16 h-16 bg-gradient-luxury rounded-2xl mx-auto flex items-center justify-center shadow-md">
+    <!-- SCREEN 1: GERBANG AUTENTIKASI KATA SANDI -->
+    <div id="auth-screen" class="fixed inset-0 bg-emerald-950/40 backdrop-blur-md flex justify-center items-center z-50 p-4">
+        <div class="bg-white w-full max-w-sm rounded-[30px] p-8 shadow-2xl border border-emerald-100 text-center space-y-6">
+            <div class="w-16 h-16 bg-gradient-emerald rounded-2xl mx-auto flex items-center justify-center shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="w-8 h-8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
@@ -45,9 +44,9 @@
             </div>
             <div class="space-y-3">
                 <div class="relative">
-                    <input type="password" id="password-input" placeholder="Kata Sandi" class="w-full text-sm p-3 bg-cyan-50/50 border border-cyan-100 rounded-xl focus:outline-cyan-500 pr-10 font-medium">
+                    <input type="password" id="password-input" placeholder="Kata Sandi" class="w-full text-sm p-3.5 bg-emerald-50/50 border border-emerald-100 rounded-xl focus:outline-emerald-500 pr-10 font-medium">
                     <!-- Toggle Mata -->
-                    <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3.5 text-slate-400 hover:text-cyan-600">
+                    <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-4 text-slate-400 hover:text-emerald-600">
                         <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178a1.012 1.012 0 010 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -55,136 +54,173 @@
                     </button>
                 </div>
                 <p id="auth-error" class="text-[11px] text-rose-500 hidden font-semibold">Kata sandi salah, akses ditolak.</p>
-                <button onclick="verifikasiSandi()" class="w-full bg-gradient-luxury text-white text-xs font-bold py-3.5 rounded-xl shadow-md cursor-pointer hover:opacity-95 transition">
+                <button onclick="verifikasiSandi()" class="w-full bg-gradient-emerald text-white text-xs font-bold py-3.5 rounded-xl shadow-md cursor-pointer hover:opacity-95 transition">
                     Buka Dashboard
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- SCREEN 2: DASHBOARD UTAMA (HIDDEN UTK AWAL) -->
+    <!-- SCREEN 2: MAIN DASHBOARD UTAMA -->
     <div id="main-dashboard" class="hidden">
         
-        <!-- HEADER PREMIUM -->
-        <div class="bg-gradient-luxury text-white pt-6 pb-12 px-6 curve-premium shadow-lg relative overflow-hidden">
-            <div class="absolute top-[-20%] right-[-10%] w-56 h-56 bg-white/5 rounded-full blur-3xl"></div>
+        <!-- HEADER EMERALD LUXURY -->
+        <div class="bg-gradient-emerald text-white pt-8 pb-14 px-6 curve-premium shadow-xl relative overflow-hidden">
+            <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
             
-            <div class="flex justify-between items-center relative z-10">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl p-1 shadow-xs flex items-center justify-center border border-white/20">
-                        <img src="logo-mww.png" alt="MWW" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="object-contain w-full h-full">
-                        <span class="hidden text-[9px] font-bold text-white text-center">MWW</span>
-                    </div>
-                    <div>
-                        <h1 class="text-base font-extrabold tracking-tight">Muslimah Wahdah Wilayah</h1>
-                        <p class="text-[10px] text-cyan-100/90 font-medium tracking-wider">SULTENG • KAS INTERNAL</p>
-                    </div>
-                </div>
-                <span id="indicator-status" class="bg-white/20 text-white px-2.5 py-0.5 rounded-full text-[9px] font-bold border border-white/30 backdrop-blur-xs">
-                    Mode Offline
-                </span>
-            </div>
-
-            <!-- RINGKASAN SALDO UTAMA -->
-            <div class="mt-8 text-center relative z-10">
-                <p class="text-[10px] uppercase tracking-widest text-cyan-100 font-bold mb-1">Total Saldo Kas Tersedia</p>
-                <p class="text-3xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</p>
-            </div>
-        </div>
-
-        <!-- MATRIKS KARTU INDIKATOR -->
-        <div class="grid grid-cols-2 gap-4 px-6 -mt-6 relative z-20">
-            <div class="bg-white p-4 rounded-2xl shadow-xs border-b-4 border-cyan-400">
-                <span class="text-[9px] text-slate-400 uppercase font-bold block mb-0.5">Total Pemasukan</span>
-                <span class="text-sm font-extrabold text-cyan-600 block" id="total-masuk">Rp 0</span>
-            </div>
-            <div class="bg-white p-4 rounded-2xl shadow-xs border-b-4 border-rose-400">
-                <span class="text-[9px] text-slate-400 uppercase font-bold block mb-0.5">Total Pengeluaran</span>
-                <span class="text-sm font-extrabold text-rose-500 block" id="total-keluar">Rp 0</span>
-            </div>
-        </div>
-
-        <!-- MAIN GRID KONTEN -->
-        <div class="p-6 space-y-6">
-
-            <!-- SEKSI ANALISIS PERSENTASE ARUS KAS -->
-            <div class="bg-white p-5 rounded-2xl shadow-xs border border-cyan-100/30 flex items-center gap-6">
-                <div class="w-[110px] flex-shrink-0">
-                    <canvas id="cashFlowChart"></canvas>
-                </div>
-                <div class="flex-1 space-y-2">
-                    <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Presentase Arus Kas</h3>
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-[11px] font-bold text-cyan-600">
-                            <span>Pemasukan:</span>
-                            <span id="persen-masuk">0%</span>
-                        </div>
-                        <div class="flex justify-between text-[11px] font-bold text-rose-500">
-                            <span>Pengeluaran:</span>
-                            <span id="persen-keluar">0%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FORM INPUT TRANSAKSI -->
-            <div class="bg-white p-5 rounded-2xl shadow-xs border border-cyan-100/30">
-                <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                    <span class="w-1.5 h-3 bg-cyan-500 rounded-full"></span> Input Transaksi Arus Kas
-                </h3>
-                <form id="form-transaksi" class="space-y-3" onsubmit="simpanTransaksi(event)">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                            <input type="datetime-local" id="input-tanggal" required class="w-full text-xs p-2.5 bg-cyan-50/30 border border-cyan-100 rounded-xl focus:outline-cyan-500 font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus</label>
-                            <select id="input-jenis" class="w-full text-xs p-2.5 bg-cyan-50/30 border border-cyan-100 rounded-xl focus:outline-cyan-500 font-semibold">
-                                <option value="Masuk">Pemasukan (Kredit)</option>
-                                <option value="Keluar">Pengeluaran (Debit)</option>
-                            </select>
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4 relative z-10">
+                <div class="flex items-center gap-4">
+                    <!-- Logo Box dengan Fallback Otomatis -->
+                    <div class="w-14 h-14 bg-white rounded-2xl p-1.5 shadow-md flex items-center justify-center border border-emerald-100 flex-shrink-0">
+                        <img src="logo-mww.png" alt="Logo MWW" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="object-contain w-full h-full">
+                        <div class="hidden w-full h-full text-emerald-600">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-full h-full">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan</label>
-                        <input type="text" id="input-keterangan" placeholder="Contoh: Pemindahbukan Dana Alokasi Khusus" required class="w-full text-xs p-2.5 bg-cyan-50/30 border border-cyan-100 rounded-xl focus:outline-cyan-500 font-medium">
+                        <h1 class="text-lg md:text-xl font-extrabold tracking-tight">Muslimah Wahdah Wilayah</h1>
+                        <p class="text-xs md:text-sm text-emerald-100/90 font-medium tracking-wide">Sulawesi Tengah</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi</label>
-                            <input type="text" id="input-divisi" placeholder="Contoh: Qurban / Humas" required class="w-full text-xs p-2.5 bg-cyan-50/30 border border-cyan-100 rounded-xl focus:outline-cyan-500 font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rp)</label>
-                            <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-2.5 bg-cyan-50/30 border border-cyan-100 rounded-xl focus:outline-cyan-500 font-bold text-cyan-700">
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-luxury text-white font-bold text-xs py-3 rounded-xl shadow-md transition duration-150 mt-2 cursor-pointer hover:opacity-95">
-                        Amankan Data Transaksi
-                    </button>
-                </form>
+                </div>
+                <div class="flex items-center justify-between md:justify-end gap-3">
+                    <span id="indicator-status" class="bg-white/10 text-emerald-50 px-3 py-1 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-xs">
+                        Akses Offline Aktif
+                    </span>
+                </div>
             </div>
 
-            <!-- LOG RIWAYAT -->
-            <div class="bg-white p-5 rounded-2xl shadow-xs border border-cyan-100/30">
-                <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                    <span class="w-1.5 h-3 bg-cyan-500 rounded-full"></span> Log Arus Jurnal Terkini
-                </h3>
-                <div class="divide-y divide-slate-100 max-h-60 overflow-y-auto space-y-2 pr-1" id="container-jurnal"></div>
+            <!-- RINGKASAN REKAP SALDO KAS -->
+            <div class="mt-8 text-center relative z-10 max-w-md mx-auto">
+                <p class="text-[10px] uppercase tracking-widest text-emerald-200 font-bold mb-1">Total Saldo Kas Berjalan (Kolom E)</p>
+                <p class="text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</p>
             </div>
+        </div>
+
+        <!-- MATRIKS INTEGRASI KARTU INDIKATOR -->
+        <div class="max-w-6xl mx-auto grid grid-cols-2 gap-4 px-6 -mt-6 relative z-20">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-emerald-500">
+                <span class="text-[9px] md:text-[10px] text-slate-400 uppercase font-bold block mb-0.5">Total Kredit / Masuk (Kolom D)</span>
+                <span class="text-base md:text-xl font-extrabold text-emerald-600 block" id="total-masuk">Rp 0</span>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-rose-400">
+                <span class="text-[9px] md:text-[10px] text-slate-400 uppercase font-bold block mb-0.5">Total Debit / Keluar (Kolom C)</span>
+                <span class="text-base md:text-xl font-extrabold text-rose-500 block" id="total-keluar">Rp 0</span>
+            </div>
+        </div>
+
+        <!-- MAIN LAYOUT RESPONSIVE GRID -->
+        <div class="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- KOLOM KIRI (FORM INPUT & GRAFIK PERSENTASE) -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- CHART KAS -->
+                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30 flex items-center gap-6">
+                    <div class="w-[100px] flex-shrink-0">
+                        <canvas id="cashFlowChart"></canvas>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                        <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Proporsi Arus Kas</h3>
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold text-emerald-600">
+                                <span>Kredit (Masuk):</span>
+                                <span id="persen-masuk">0%</span>
+                            </div>
+                            <div class="flex justify-between text-[11px] font-bold text-rose-500">
+                                <span>Debit (Keluar):</span>
+                                <span id="persen-keluar">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM INPUT -->
+                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30">
+                    <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                        <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Form Input Kas Jurnal
+                    </h3>
+                    <form id="form-transaksi" class="space-y-3" onsubmit="simpanTransaksi(event)">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal (A)</label>
+                                <input type="datetime-local" id="input-tanggal" required class="w-full text-xs p-2.5 bg-emerald-50/20 border border-emerald-100 rounded-xl focus:outline-emerald-500 font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus (B)</label>
+                                <select id="input-jenis" class="w-full text-xs p-2.5 bg-emerald-50/20 border border-emerald-100 rounded-xl focus:outline-emerald-500 font-semibold">
+                                    <option value="Masuk">Kredit (Masuk)</option>
+                                    <option value="Keluar">Debit (Keluar)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan</label>
+                            <input type="text" id="input-keterangan" placeholder="Contoh: Pemindahbukan Kas Operasional" required class="w-full text-xs p-2.5 bg-emerald-50/20 border border-emerald-100 rounded-xl focus:outline-emerald-500 font-medium">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Kategori (F)</label>
+                                <input type="text" id="input-divisi" placeholder="Contoh: Dakwah / Humas" required class="w-full text-xs p-2.5 bg-emerald-50/20 border border-emerald-100 rounded-xl focus:outline-emerald-500 font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal Rupiah</label>
+                                <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-2.5 bg-emerald-50/20 border border-emerald-100 rounded-xl focus:outline-emerald-500 font-bold text-emerald-700">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-emerald text-white font-bold text-xs py-3 rounded-xl shadow-md transition duration-150 mt-2 cursor-pointer hover:opacity-95">
+                            Kirim & Amankan Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- KOLOM KANAN (TABEL PROFESIONAL & ELEGAN - DETEKSI PC/HP UTK RESPONSIVITAS) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30 h-full flex flex-col">
+                    <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                        <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Jurnal Kas Sinkronisasi Sesuai Kolom Spreadsheet
+                    </h3>
+                    
+                    <!-- Tampilan Tabel Atraktif Khusus PC / Tablet Besar -->
+                    <div class="hidden md:block flex-1 overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="bg-emerald-50 text-emerald-800 font-bold uppercase text-[10px] tracking-wider border-b border-emerald-100">
+                                    <th class="p-3">Tanggal (A)</th>
+                                    <th class="p-3">Jenis (B)</th>
+                                    <th class="p-3 text-right">Debit / Keluar (C)</th>
+                                    <th class="p-3 text-right">Kredit / Masuk (D)</th>
+                                    <th class="p-3 text-right">Saldo Berjalan (E)</th>
+                                    <th class="p-3 text-center">Divisi (F)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-body-pc" class="divide-y divide-slate-100 font-medium text-slate-600">
+                                <!-- Data diisi via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tampilan List Adaptif Khusus HP Android & iOS -->
+                    <div class="block md:hidden flex-1 space-y-3 max-h-[400px] overflow-y-auto pr-1" id="tabel-body-hp">
+                        <!-- Data diisi via JavaScript -->
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- LOGIC SYSTEM SCRIPT -->
+    <!-- UTILITY SYSTEMS SCRIPT -->
     <script>
-        // ISI CONFIG SPREADSHEET (Opsional)
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbx4ZLa5vOuR00me78wr_9At8_uBTPtEf_cxBi4wfLSLErGBktd1gZy9hnwoayVuIFH8Kw/exec";
+        // TEMPAT UTAMA MENEMPELKAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+        const URL_SPREADSHEET_API = "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI";
 
         let dataTransaksi = [];
         let chartInstance = null;
 
-        // 1. SISTEM PASSWORD VALIDATION & TOGGLE EYE
         function togglePasswordVisibility() {
             const pwdInput = document.getElementById('password-input');
             const eyeIcon = document.getElementById('eye-icon');
@@ -208,47 +244,76 @@
             }
         }
 
-        // 2. SISTEM OFFLINE ENGINE (LOCAL STORAGE LOGIC)
         function initAplikasi() {
-            const dataLokal = localStorage.getItem('mww_offline_cashflow');
+            const dataLokal = localStorage.getItem('mww_emerald_cashflow');
             dataTransaksi = dataLokal ? JSON.parse(dataLokal) : [];
             
-            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA") {
+            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
                 document.getElementById('indicator-status').innerText = "Terintegrasi Cloud";
-                document.getElementById('indicator-status').className = "bg-white/20 text-emerald-100 px-2.5 py-0.5 rounded-full text-[9px] font-bold border border-white/30 backdrop-blur-xs";
+                document.getElementById('indicator-status').className = "bg-white/20 text-emerald-100 px-3 py-1 rounded-full text-[10px] font-bold border border-white/30 backdrop-blur-xs";
             }
             renderDashboard();
         }
 
         function renderDashboard() {
-            let totalMasuk = 0, totalKeluar = 0, saldoAwal = 0;
-            const container = document.getElementById('container-jurnal');
-            container.innerHTML = '';
+            let totalMasuk = 0, totalKeluar = 0, saldoAkumulasi = 0;
+            const tbodyPC = document.getElementById('tabel-body-pc');
+            const tbodyHP = document.getElementById('tabel-body-hp');
+            
+            tbodyPC.innerHTML = '';
+            tbodyHP.innerHTML = '';
 
-            dataTransaksi.forEach(item => {
+            // Urutkan kronologis terbalik untuk visualisasi log (terbaru di atas)
+            // Namun perhitungan akumulasi saldo dihitung terbalik agar konsisten
+            let runningSaldo = 0;
+            const dataDihitung = [...dataTransaksi].reverse();
+            
+            const dataRender = dataDihitung.map(item => {
+                let debit = item.jenis === "Keluar" ? item.jumlah : 0;
+                let kredit = item.jenis === "Masuk" ? item.jumlah : 0;
+                runningSaldo += (kredit - debit);
+                
                 if (item.jenis === "Masuk") totalMasuk += item.jumlah;
                 if (item.jenis === "Keluar") totalKeluar += item.jumlah;
 
-                const isMasuk = item.jenis === "Masuk";
-                container.innerHTML += `
-                    <div class="flex justify-between items-center py-2.5 text-xs">
-                        <div>
-                            <p class="font-bold text-slate-700">${item.keterangan}</p>
-                            <p class="text-[9px] text-slate-400">${item.tanggal} • Div. ${item.divisi}</p>
+                return { ...item, debit, kredit, saldoSekarang: runningSaldo };
+            }).reverse();
+
+            dataRender.forEach(item => {
+                // Render Ke Model PC (Tabel Kolom Elegan)
+                tbodyPC.innerHTML += `
+                    <tr class="hover:bg-emerald-50/40 transition">
+                        <td class="p-3 text-slate-500 font-normal">${item.tanggal}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${item.jenis === 'Masuk' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${item.jenis === 'Masuk' ? 'Kredit' : 'Debit'}</span></td>
+                        <td class="p-3 text-right font-semibold text-rose-500">${item.debit > 0 ? 'Rp ' + item.debit.toLocaleString('id-ID') : '-'}</td>
+                        <td class="p-3 text-right font-semibold text-emerald-600">${item.kredit > 0 ? 'Rp ' + item.kredit.toLocaleString('id-ID') : '-'}</td>
+                        <td class="p-3 text-right font-bold text-slate-700">Rp ${item.saldoSekarang.toLocaleString('id-ID')}</td>
+                        <td class="p-3 text-center"><span class="bg-slate-100 px-2 py-0.5 rounded text-[10px] font-semibold text-slate-500">${item.divisi}</span></td>
+                    </tr>
+                `;
+
+                // Render Ke Model Smartphone (Card Kompak)
+                tbodyHP.innerHTML += `
+                    <div class="bg-emerald-50/30 p-3.5 rounded-xl border border-emerald-100/40 space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] text-slate-400 font-semibold">${item.tanggal}</span>
+                            <span class="text-[10px] font-bold text-slate-500">Div: ${item.divisi}</span>
                         </div>
-                        <span class="font-extrabold ${isMasuk ? 'text-cyan-600' : 'text-rose-500'}">
-                            ${isMasuk ? '+' : '-'} Rp ${item.jumlah.toLocaleString('id-ID')}
-                        </span>
+                        <p class="text-xs font-bold text-slate-700">${item.keterangan}</p>
+                        <div class="flex justify-between items-center pt-1 border-t border-dashed border-emerald-100">
+                            <span class="text-[10px] text-slate-400">Saldo: Rp ${item.saldoSekarang.toLocaleString('id-ID')}</span>
+                            <span class="text-xs font-extrabold ${item.jenis === 'Masuk' ? 'text-emerald-600' : 'text-rose-500'}">
+                                ${item.jenis === 'Masuk' ? '+' : '-'} Rp ${item.jumlah.toLocaleString('id-ID')}
+                            </span>
+                        </div>
                     </div>
                 `;
             });
 
-            let saldoAkhir = saldoAwal + totalMasuk - totalKeluar;
-            document.getElementById('saldo-akhir').innerText = "Rp " + saldoAkhir.toLocaleString('id-ID');
+            document.getElementById('saldo-akhir').innerText = "Rp " + runningSaldo.toLocaleString('id-ID');
             document.getElementById('total-masuk').innerText = "Rp " + totalMasuk.toLocaleString('id-ID');
             document.getElementById('total-keluar').innerText = "Rp " + totalKeluar.toLocaleString('id-ID');
 
-            // Kalkulasi Presentase Manusiawi
             let totalOmset = totalMasuk + totalKeluar;
             let pMasuk = totalOmset > 0 ? Math.round((totalMasuk / totalOmset) * 100) : 0;
             let pKeluar = totalOmset > 0 ? Math.round((totalKeluar / totalOmset) * 100) : 0;
@@ -263,9 +328,8 @@
             const ctx = document.getElementById('cashFlowChart').getContext('2d');
             if (chartInstance) chartInstance.destroy();
             
-            // Jika data kosong, tampilkan placeholder seimbang
             let chartData = (masuk === 0 && keluar === 0) ? [1, 1] : [masuk, keluar];
-            let colors = (masuk === 0 && keluar === 0) ? ['#e2e8f0', '#cbd5e1'] : ['#06b6d4', '#f43f5e'];
+            let colors = (masuk === 0 && keluar === 0) ? ['#e2e8f0', '#cbd5e1'] : ['#059669', '#f43f5e'];
 
             chartInstance = new Chart(ctx, {
                 type: 'doughnut',
@@ -273,7 +337,7 @@
                     labels: ['Masuk', 'Keluar'],
                     datasets: [{ data: chartData, backgroundColor: colors, borderWidth: 0 }]
                 },
-                options: { responsive: true, plugins: { legend: { display: false } }, cutout: '78%' }
+                options: { responsive: true, plugins: { legend: { display: false } }, cutout: '76%' }
             });
         }
 
@@ -290,11 +354,9 @@
                 jumlah: parseInt(document.getElementById('input-jumlah').value)
             };
 
-            // Masukkan ke array lokal (Akses Offline Instan)
             dataTransaksi.unshift(dataBaru);
-            localStorage.setItem('mww_offline_cashflow', JSON.stringify(dataTransaksi));
+            localStorage.setItem('mww_emerald_cashflow', JSON.stringify(dataTransaksi));
             
-            // Pengiriman ke Google Sheets (Async / Background Process)
             kirimKeGoogleSheetsCloud(dataBaru);
 
             document.getElementById('form-transaksi').reset();
@@ -302,7 +364,7 @@
         }
 
         function kirimKeGoogleSheetsCloud(data) {
-            if (!URL_SPREADSHEET_API || URL_SPREADSHEET_API === "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA") return;
+            if (!URL_SPREADSHEET_API || URL_SPREADSHEET_API === "https://script.google.com/macros/s/AKfycbx4ZLa5vOuR00me78wr_9At8_uBTPtEf_cxBi4wfLSLErGBktd1gZy9hnwoayVuIFH8Kw/exec") return;
             
             fetch(URL_SPREADSHEET_API, {
                 method: "POST",
@@ -310,8 +372,8 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             })
-            .then(() => console.log("Sinkronisasi cloud sukses."))
-            .catch(err => console.log("Gagal sinkronisasi, data tersimpan offline."));
+            .then(() => console.log("Data terkirim ke Kolom Spreadsheet."))
+            .catch(err => console.log("Gagal sinkronisasi, data tetap aman di memori offline."));
         }
     </script>
 </body>
