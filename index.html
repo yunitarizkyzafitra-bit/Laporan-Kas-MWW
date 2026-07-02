@@ -3,256 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Keuangan Syariah - MWW Sulteng</title>
+    <title>Get Started - MWW Sulteng</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f3faf6; 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a; 
         }
-        /* Kombinasi Hijau Muda Mewah Modern */
-        .bg-gradient-muda {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        /* Ornamen Atas - Sentuhan Gradasi Biru Relaxa Cerah */
+        .top-right-curve {
+            position: absolute;
+            top: -10%;
+            right: -15%;
+            width: 75vw;
+            height: 75vw;
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a5f3fc 0%, #06b6d4 100%); /* Cyan / Biru Relaxa */
         }
-        .curve-premium {
-            border-bottom-left-radius: 2rem;
-            border-bottom-right-radius: 2rem;
+        /* Ornamen Bawah - Gradasi Gelap ke Biru Relaxa yang Sejuk */
+        .bottom-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); /* Khas Relaxa Segar */
+            border-top-left-radius: 3.5rem;
         }
     </style>
 </head>
-<body class="min-h-screen text-slate-800 pb-12">
+<body class="flex justify-center items-center min-h-screen sm:p-4">
 
-    <!-- HEADER DASHBOARD UTAMA -->
-    <div class="bg-gradient-muda text-white pt-6 pb-12 px-6 curve-premium shadow-md relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
+    <!-- CONTAINER INTEGRATED (RESPONSIF UNTUK ANDROID & IOS) -->
+    <div class="relative w-full h-screen sm:w-[390px] sm:h-[844px] bg-white sm:rounded-[40px] sm:shadow-2xl overflow-hidden flex flex-col justify-between sm:border-8 sm:border-slate-800">
         
-        <div class="flex justify-between items-center relative z-10">
+        <!-- Ornamen Atas Biru Relaxa -->
+        <div class="top-right-curve"></div>
+
+        <!-- TEKS PENGANTAR (TENGAH) -->
+        <div class="relative z-10 mt-[45%] px-8 flex-1">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight leading-none mb-3">
+                Get<br>Started
+            </h1>
+            <p class="text-sm font-medium text-slate-400">
+                Start with sign up or sign in
+            </p>
+        </div>
+
+        <!-- AREA TOMBOL AKSI (BAWAH) -->
+        <div class="relative w-full h-[35%] flex flex-col justify-end pb-12 px-8">
+            <!-- Background Curve Biru Relaxa -->
+            <div class="bottom-curve"></div>
             
-            <!-- SEKSI LOGO MWW INTEGRATED -->
-            <div class="flex items-center gap-3">
-                <div class="w-14 h-14 bg-white rounded-2xl p-1.5 shadow-sm flex items-center justify-center overflow-hidden border border-emerald-100 flex-shrink-0">
-                    <!-- Sistem mendeteksi file lokal 'logo-mww.png' secara otomatis -->
-                    <img src="logo-mww.png" alt="Logo MWW" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="object-contain w-full h-full">
-                    
-                    <!-- Tampilan Cadangan Elegan jika file 'logo-mww.png' belum Anda upload ke GitHub -->
-                    <div class="hidden w-full h-full text-emerald-600">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                            <path d="M12 6v6m-3-3h6" stroke="#d4af37" stroke-width="2"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-[9px] uppercase tracking-widest text-emerald-100 font-bold opacity-90">Sistem Keuangan Internal</p>
-                    <h1 class="text-base font-extrabold tracking-tight leading-tight">Muslimah Wahdah Wilayah</h1>
-                    <p class="text-xs text-emerald-50/80">Sulawesi Tengah</p>
-                </div>
-            </div>
-            
-            <div class="text-right">
-                <span id="status-koneksi" class="bg-white/10 text-emerald-100 px-2.5 py-0.5 rounded-full text-[9px] font-bold border border-white/20 backdrop-blur-xs">
-                    Terintegrasi
-                </span>
-            </div>
-        </div>
-
-        <!-- REKAP SALDO KAS -->
-        <div class="mt-8 text-center relative z-10">
-            <p class="text-[10px] uppercase tracking-widest text-emerald-100 font-bold mb-1 opacity-90">Total Saldo Kas Saat Ini</p>
-            <p class="text-3xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</p>
-        </div>
-    </div>
-
-    <!-- KARTU MATRIKS RINGKASAN -->
-    <div class="grid grid-cols-2 gap-4 px-6 -mt-6 relative z-20">
-        <div class="bg-white p-4 rounded-xl shadow-xs border-l-4 border-emerald-400">
-            <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider block mb-0.5">Total Pemasukan</span>
-            <span class="text-sm font-extrabold text-emerald-600 block" id="total-masuk">Rp 0</span>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-xs border-l-4 border-rose-400">
-            <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider block mb-0.5">Total Pengeluaran</span>
-            <span class="text-sm font-extrabold text-rose-600 block" id="total-keluar">Rp 0</span>
-        </div>
-    </div>
-
-    <!-- MAIN BODY KONTEN -->
-    <div class="p-6 space-y-6">
-
-        <!-- VISUALISASI PROPORSI GRAFIK -->
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/40">
-            <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Proporsi Kas Bulan Ini
-            </h3>
-            <div class="w-full max-w-[140px] mx-auto">
-                <canvas id="cashFlowChart"></canvas>
+            <!-- Tombol Navigasi Interaktif -->
+            <div class="relative z-10 space-y-3.5 w-full">
+                <!-- Tombol SIGN UP -->
+                <a href="#signup" class="block w-full bg-white text-center text-cyan-900 font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-md active:bg-cyan-50 transition duration-150">
+                    Sign Up
+                </a>
+                
+                <!-- Tombol SIGN IN -->
+                <a href="#signin" class="block w-full text-center text-white border-2 border-white/80 font-bold text-xs uppercase tracking-wider py-3.5 rounded-full backdrop-blur-xs active:bg-white/10 transition duration-150">
+                    Sign In
+                </a>
             </div>
         </div>
 
-        <!-- FORM INPUT UTAMA SINKRONISASI -->
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/40">
-            <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Input Transaksi Baru
-            </h3>
-            <form id="form-transaksi" class="space-y-3" onsubmit="tambahTransaksi(event)">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                        <input type="datetime-local" id="input-tanggal" required class="w-full text-xs p-2 bg-emerald-50/30 border border-emerald-100 rounded-lg focus:outline-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus</label>
-                        <select id="input-jenis" class="w-full text-xs p-2 bg-emerald-50/30 border border-emerald-100 rounded-lg focus:outline-emerald-500">
-                            <option value="Masuk">Pemasukan (Kredit)</option>
-                            <option value="Keluar">Pengeluaran (Debit)</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Keterangan Transaksi</label>
-                    <input type="text" id="input-keterangan" placeholder="Contoh: Pemindahbukan Dana Qurban MMW" required class="w-full text-xs p-2 bg-emerald-50/30 border border-emerald-100 rounded-lg focus:outline-emerald-500">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Alokasi</label>
-                        <input type="text" id="input-divisi" placeholder="Contoh: Qurban" required class="w-full text-xs p-2 bg-emerald-50/30 border border-emerald-100 rounded-lg focus:outline-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rp)</label>
-                        <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-2 bg-emerald-50/30 border border-emerald-100 rounded-lg focus:outline-emerald-500">
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-2.5 rounded-lg shadow-xs transition duration-150 mt-2 cursor-pointer">
-                    Simpan Transaksi
-                </button>
-            </form>
-        </div>
-
-        <!-- RIWAYAT TRANSAKSI TERAKHIR -->
-        <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/40">
-            <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Riwayat Uraian Belanja
-            </h3>
-            <div class="divide-y divide-slate-100 max-h-64 overflow-y-auto space-y-2 pr-1" id="container-belanja"></div>
-        </div>
     </div>
 
-    <!-- CORE SCRIPTS ENGINE -->
-    <script>
-        // Data fallback bawaan portofolio
-        const defaultData = [
-            { tanggal: "28 Mei 2026 13.40", keterangan: "Pemindahbukan mika kadoanqan qurban mww", jenis: "Keluar", jumlah: 645000, divisi: "Qurban" },
-            { tanggal: "25 Mei 2026 09.25", keterangan: "Pemindahbukan Dana Qurban MMW", jenis: "Masuk", jumlah: 17500000, divisi: "Qurban" },
-            { tanggal: "23 Mei 2026 10.00", keterangan: "Pemindahbukan dan qurban 3 orang", jenis: "Masuk", jumlah: 7500000, divisi: "Qurban" }
-        ];
-
-        let dataTransaksi = [];
-        let chartInstance = null;
-
-        // URL Web App Google Apps Script Anda (Ganti teks di bawah ini dengan URL hasil Deploy Apps Script Anda)
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzXjs3YUQyuLDK4TeFL9YEjzFauDQ0RmlwN5sJKZBZk3RceujZsVPmKfRnMhOGq20wSwg/exec";
-
-        function initData() {
-            const lokal = localStorage.getItem('mww_sulteng_data');
-            dataTransaksi = lokal ? JSON.parse(lokal) : [...defaultData];
-            renderDashboard();
-        }
-
-        function formatRupiah(angka) {
-            return "Rp " + angka.toLocaleString('id-ID');
-        }
-
-        function renderDashboard() {
-            let totalMasuk = 0, totalKeluar = 0, saldoAwal = 16152981;
-            const container = document.getElementById('container-belanja');
-            container.innerHTML = '';
-
-            dataTransaksi.forEach(item => {
-                if (item.jenis === "Masuk") totalMasuk += item.jumlah;
-                if (item.jenis === "Keluar") totalKeluar += item.jumlah;
-
-                const isMasuk = item.jenis === "Masuk";
-                container.innerHTML += `
-                    <div class="flex justify-between items-center py-2 text-xs">
-                        <div>
-                            <p class="font-bold text-slate-700">${item.keterangan}</p>
-                            <p class="text-[9px] text-slate-400">${item.tanggal} • Div. ${item.divisi}</p>
-                        </div>
-                        <span class="font-extrabold ${isMasuk ? 'text-emerald-600' : 'text-rose-500'}">
-                            ${isMasuk ? '+' : '-'} ${formatRupiah(item.jumlah)}
-                        </span>
-                    </div>
-                `;
-            });
-
-            let saldoAkhir = saldoAwal + totalMasuk - totalKeluar;
-            document.getElementById('saldo-akhir').innerText = formatRupiah(saldoAkhir);
-            document.getElementById('total-masuk').innerText = formatRupiah(totalMasuk);
-            document.getElementById('total-keluar').innerText = formatRupiah(totalKeluar);
-
-            updateChart(totalMasuk, totalKeluar);
-        }
-
-        function updateChart(masuk, keluar) {
-            const ctx = document.getElementById('cashFlowChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Masuk', 'Keluar'],
-                    datasets: [{ data: [masuk, keluar], backgroundColor: ['#10b981', '#f43f5e'], borderWidth: 0 }]
-                },
-                options: { responsive: true, plugins: { legend: { display: false } }, cutout: '78%' }
-            });
-        }
-
-        // FUNGSI JEMBATAN SINKRONISASI KE GOOGLE SPREADSHEET
-        function kirimKeSpreadsheet(data) {
-            if (URL_SPREADSHEET_API === "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
-                console.log("Sinkronisasi cloud dilewati karena URL API belum dikonfigurasi.");
-                return;
-            }
-            
-            fetch(URL_SPREADSHEET_API, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(() => console.log("Data berhasil dikirim ke Google Spreadsheet!"))
-            .catch(err => console.error("Gagal mengirim ke Spreadsheet:", err));
-        }
-
-        function tambahTransaksi(e) {
-            e.preventDefault();
-            const dateObj = new Date(document.getElementById('input-tanggal').value);
-            const tanggalFormatted = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            const itemBaru = {
-                tanggal: tanggalFormatted,
-                jenis: document.getElementById('input-jenis').value,
-                keterangan: document.getElementById('input-keterangan').value,
-                divisi: document.getElementById('input-divisi').value,
-                jumlah: parseInt(document.getElementById('input-jumlah').value)
-            };
-
-            // Simpan secara lokal (Offline Safety)
-            dataTransaksi.unshift(itemBaru);
-            localStorage.setItem('mww_sulteng_data', JSON.stringify(dataTransaksi));
-            
-            // Eksekusi pengiriman data ke Google Sheets Cloud
-            kirimKeSpreadsheet(itemBaru);
-
-            document.getElementById('form-transaksi').reset();
-            renderDashboard();
-        }
-
-        window.onload = initData;
-    </script>
 </body>
 </html>
