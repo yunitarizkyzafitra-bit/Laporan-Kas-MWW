@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Keuangan MWW Sulteng</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS v3 (Stabil - Bebas Eror Merah) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts Plus Jakarta Sans -->
@@ -13,9 +13,8 @@
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f0fdf4; /* Latar belakang hijau emerald sangat muda sejuk */
+            background-color: #f0fdf4; 
         }
-        /* Gradasi Emerald Mewah Profesional */
         .bg-gradient-emerald {
             background: linear-gradient(135deg, #059669 0%, #047857 100%);
         }
@@ -70,7 +69,6 @@
             
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4 relative z-10">
                 <div class="flex items-center gap-4">
-                    <!-- Logo Box dengan Fallback Otomatis -->
                     <div class="w-14 h-14 bg-white rounded-2xl p-1.5 shadow-md flex items-center justify-center border border-emerald-100 flex-shrink-0">
                         <img src="logo-mww.png" alt="Logo MWW" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="object-contain w-full h-full">
                         <div class="hidden w-full h-full text-emerald-600">
@@ -86,20 +84,19 @@
                     </div>
                 </div>
                 <div class="flex items-center justify-between md:justify-end gap-3">
-                    <span id="indicator-status" class="bg-white/10 text-emerald-50 px-3 py-1 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-xs">
+                    <span id="indicator-status" class="bg-white/10 text-emerald-50 px-3 py-1 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
                         Akses Offline Aktif
                     </span>
                 </div>
             </div>
 
-            <!-- RINGKASAN REKAP SALDO KAS -->
             <div class="mt-8 text-center relative z-10 max-w-md mx-auto">
                 <p class="text-[10px] uppercase tracking-widest text-emerald-200 font-bold mb-1">Total Saldo Kas Berjalan (Kolom E)</p>
                 <p class="text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</p>
             </div>
         </div>
 
-        <!-- MATRIKS INTEGRASI KARTU INDIKATOR -->
+        <!-- MATRIKS INDIKATOR KARTU -->
         <div class="max-w-6xl mx-auto grid grid-cols-2 gap-4 px-6 -mt-6 relative z-20">
             <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-emerald-500">
                 <span class="text-[9px] md:text-[10px] text-slate-400 uppercase font-bold block mb-0.5">Total Kredit / Masuk (Kolom D)</span>
@@ -111,13 +108,12 @@
             </div>
         </div>
 
-        <!-- MAIN LAYOUT RESPONSIVE GRID -->
+        <!-- MAIN LAYOUT -->
         <div class="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <!-- KOLOM KIRI (FORM INPUT & GRAFIK PERSENTASE) -->
             <div class="lg:col-span-1 space-y-6">
                 <!-- CHART KAS -->
-                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30 flex items-center gap-6">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 flex items-center gap-6">
                     <div class="w-[100px] flex-shrink-0">
                         <canvas id="cashFlowChart"></canvas>
                     </div>
@@ -137,7 +133,7 @@
                 </div>
 
                 <!-- FORM INPUT -->
-                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100">
                     <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
                         <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Form Input Kas Jurnal
                     </h3>
@@ -176,14 +172,13 @@
                 </div>
             </div>
 
-            <!-- KOLOM KANAN (TABEL PROFESIONAL & ELEGAN - DETEKSI PC/HP UTK RESPONSIVITAS) -->
+            <!-- TABEL JURNAL -->
             <div class="lg:col-span-2">
-                <div class="bg-white p-5 rounded-2xl shadow-xs border border-emerald-100/30 h-full flex flex-col">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 h-full flex flex-col">
                     <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 flex items-center gap-1.5">
                         <span class="w-1.5 h-3 bg-emerald-500 rounded-full"></span> Jurnal Kas Sinkronisasi Sesuai Kolom Spreadsheet
                     </h3>
                     
-                    <!-- Tampilan Tabel Atraktif Khusus PC / Tablet Besar -->
                     <div class="hidden md:block flex-1 overflow-x-auto">
                         <table class="w-full text-left text-xs border-collapse">
                             <thead>
@@ -196,28 +191,20 @@
                                     <th class="p-3 text-center">Divisi (F)</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabel-body-pc" class="divide-y divide-slate-100 font-medium text-slate-600">
-                                <!-- Data diisi via JavaScript -->
-                            </tbody>
+                            <tbody id="tabel-body-pc" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
                         </table>
                     </div>
 
-                    <!-- Tampilan List Adaptif Khusus HP Android & iOS -->
-                    <div class="block md:hidden flex-1 space-y-3 max-h-[400px] overflow-y-auto pr-1" id="tabel-body-hp">
-                        <!-- Data diisi via JavaScript -->
-                    </div>
-
+                    <div class="block md:hidden flex-1 space-y-3 max-h-[400px] overflow-y-auto pr-1" id="tabel-body-hp"></div>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- UTILITY SYSTEMS SCRIPT -->
+    <!-- ENGINE SCRIPT -->
     <script>
-        // TEMPAT UTAMA MENEMPELKAN URL WEB APP GOOGLE APPS SCRIPT ANDA
         const URL_SPREADSHEET_API = "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI";
-
         let dataTransaksi = [];
         let chartInstance = null;
 
@@ -248,23 +235,21 @@
             const dataLokal = localStorage.getItem('mww_emerald_cashflow');
             dataTransaksi = dataLokal ? JSON.parse(dataLokal) : [];
             
-            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "https://script.google.com/macros/s/AKfycbxlZNzSmU-OZz9guQwCg9c9s-RoSRwB1dvIO5P4JmbFka03UGGJV1zAsaQ2MZJePnmmOg/exec") {
+            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
                 document.getElementById('indicator-status').innerText = "Terintegrasi Cloud";
-                document.getElementById('indicator-status').className = "bg-white/20 text-emerald-100 px-3 py-1 rounded-full text-[10px] font-bold border border-white/30 backdrop-blur-xs";
+                document.getElementById('indicator-status').className = "bg-white/20 text-emerald-100 px-3 py-1 rounded-full text-[10px] font-bold border border-white/30 backdrop-blur-sm";
             }
             renderDashboard();
         }
 
         function renderDashboard() {
-            let totalMasuk = 0, totalKeluar = 0, saldoAkumulasi = 0;
+            let totalMasuk = 0, totalKeluar = 0;
             const tbodyPC = document.getElementById('tabel-body-pc');
             const tbodyHP = document.getElementById('tabel-body-hp');
             
             tbodyPC.innerHTML = '';
             tbodyHP.innerHTML = '';
 
-            // Urutkan kronologis terbalik untuk visualisasi log (terbaru di atas)
-            // Namun perhitungan akumulasi saldo dihitung terbalik agar konsisten
             let runningSaldo = 0;
             const dataDihitung = [...dataTransaksi].reverse();
             
@@ -280,7 +265,6 @@
             }).reverse();
 
             dataRender.forEach(item => {
-                // Render Ke Model PC (Tabel Kolom Elegan)
                 tbodyPC.innerHTML += `
                     <tr class="hover:bg-emerald-50/40 transition">
                         <td class="p-3 text-slate-500 font-normal">${item.tanggal}</td>
@@ -292,7 +276,6 @@
                     </tr>
                 `;
 
-                // Render Ke Model Smartphone (Card Kompak)
                 tbodyHP.innerHTML += `
                     <div class="bg-emerald-50/30 p-3.5 rounded-xl border border-emerald-100/40 space-y-1">
                         <div class="flex justify-between items-center">
@@ -364,7 +347,7 @@
         }
 
         function kirimKeGoogleSheetsCloud(data) {
-            if (!URL_SPREADSHEET_API || URL_SPREADSHEET_API === "https://script.google.com/macros/s/AKfycbx4ZLa5vOuR00me78wr_9At8_uBTPtEf_cxBi4wfLSLErGBktd1gZy9hnwoayVuIFH8Kw/exec") return;
+            if (!URL_SPREADSHEET_API || URL_SPREADSHEET_API === "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINIhttps://script.google.com/macros/s/AKfycbwX6MLaszskYegNrGZzp19WYsogV5S7SwIiskx9UlDBK3ADWQs16_btCmMQ21slMFcsfA/exec") return;
             
             fetch(URL_SPREADSHEET_API, {
                 method: "POST",
@@ -372,8 +355,8 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
             })
-            .then(() => console.log("Data terkirim ke Kolom Spreadsheet."))
-            .catch(err => console.log("Gagal sinkronisasi, data tetap aman di memori offline."));
+            .then(() => console.log("Data sukses disinkronkan."))
+            .catch(err => console.log("Data tersimpan aman di memori lokal."));
         }
     </script>
 </body>
