@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Keuangan MWW Sulteng</title>
+    <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet font-sans">
+    <!-- Font Awesome untuk Ikon Mata & Gembok -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: #f4fbf7; 
         }
-        /* Tema Islami Premium: Hijau Emerald & Aksen Emas Murni */
         .bg-emerald-premium {
             background: linear-gradient(135deg, #046a38 0%, #024b26 100%);
         }
-        .text-gold {
-            color: #d4af37;
-        }
-        .border-gold {
-            border-color: #d4af37;
-        }
+        .text-gold { color: #d4af37; }
+        .border-gold { border-color: #d4af37; }
         .bg-gold-gradient {
             background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
         }
         .curve-header {
             border-bottom-left-radius: 2rem;
             border-bottom-right-radius: 2rem;
+        }
+        /* Kustomisasi Bentuk Gelombang Terinspirasi dari Gambar 75273.jpg */
+        .wave-top {
+            border-bottom-left-radius: 40% 60px;
+            border-bottom-right-radius: 40% 40px;
+        }
+        .wave-bottom {
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 30% 40px;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f4fbf7; }
@@ -35,213 +43,354 @@
 </head>
 <body class="min-h-screen text-slate-700 pb-12">
 
-    <div class="bg-emerald-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
-        <div class="absolute top-[-20%] right-[-10%] w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
-        
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
-            <div class="flex items-center gap-5">
-                <div class="w-16 h-16 bg-white rounded-2xl p-2 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
-                    <img src="WhatsApp Image 2026-07-03 at 06.57.58.jpeg" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-lg">
+    <!-- ================= SCREEN 1: PORTAL UTAMA (BERDASARKAN 75273.JPG) ================= -->
+    <div id="screen-portal" class="fixed inset-0 bg-slate-100 z-50 flex items-center justify-center p-4">
+        <!-- Frame Simulasi Mobile Device terinspirasi dari 75273.jpg -->
+        <div class="w-full max-w-sm h-[760px] bg-white rounded-[40px] shadow-2xl border-[8px] border-slate-800 relative overflow-hidden flex flex-col justify-between">
+            
+            <!-- Elemen Dekoratif Gelombang Atas (Hijau Islami Premium) -->
+            <div class="w-full h-44 bg-emerald-premium wave-top relative flex items-center justify-center pt-6 px-4">
+                <div class="absolute top-4 right-6 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
+                <div class="flex items-center gap-3 z-10">
+                    <div class="w-12 h-12 bg-white rounded-xl p-1.5 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
+                        <img src="WhatsApp Image 2026-07-03 at 06.57.58.jpeg" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-md">
+                    </div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
-                <div>
-                    <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
-                        MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
-                    </h1>
-                    <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1">
-                        Sistem Informasi & Akuntansi Kas Syariah
+            </div>
+
+            <!-- Area Konten Utama Portal -->
+            <div class="px-6 text-center space-y-6 flex-1 flex flex-col justify-center">
+                <div class="space-y-2">
+                    <h2 class="text-xl font-black text-emerald-900 tracking-tight leading-snug">
+                        Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah
+                    </h2>
+                    <p class="text-xs text-slate-400 font-medium">
+                        Silakan masuk untuk mengakses integrasi data sinkronisasi laporan keuangan terpusat
                     </p>
                 </div>
+
+                <!-- Form Kredensial Pengguna -->
+                <div id="form-auth-container" class="space-y-3 text-left">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Pengguna (Username)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" id="auth-username" placeholder="Masukkan username" class="w-full text-xs pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-medium">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kata Sandi (Password)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" id="auth-password" placeholder="Masukkan password" class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-medium">
+                            <!-- Toggle Mata -->
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-emerald-700 cursor-pointer">
+                                <i id="eye-icon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="text-right flex flex-col items-end flex-shrink-0">
-                <span class="text-[10px] uppercase tracking-widest text-emerald-200 font-bold mb-1">Total Saldo Kas Berjalan (E)</span>
-                <span class="text-3xl md:text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</span>
-                <span id="status-koneksi" class="mt-2 bg-white/10 text-emerald-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
-                    Koneksi Lokal (Offline)
-                </span>
+            <!-- Elemen Dekoratif Gelombang Bawah dengan Tombol Navigasi Masuk -->
+            <div class="w-full h-56 bg-emerald-premium wave-bottom relative flex flex-col justify-end p-6 gap-3">
+                <button onclick="prosesLogin()" class="w-full bg-white text-emerald-900 font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-emerald-50 transition duration-150 cursor-pointer text-center tracking-wider uppercase z-10">
+                    Masuk ke Sistem
+                </button>
+                <div class="text-center text-[10px] text-emerald-200/70 font-medium z-10 mb-2">
+                    Terbuka Otomatis untuk Mode Akses Offline & Online
+                </div>
             </div>
+
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto mt-4 px-6">
-        <div class="bg-white p-2 rounded-xl shadow-md border border-emerald-100/50 flex flex-wrap gap-2 justify-center md:justify-start">
-            <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-emerald-700 text-white shadow-sm">
-                📊 Ringkasan Jurnal
-            </button>
-            <button onclick="pindahMenu('input')" id="btn-input" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50">
-                📥 Input Transaksi
-            </button>
-            <button onclick="pindahMenu('buku-besar')" id="btn-buku-besar" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50">
-                📖 Buku Besar Divisi
-            </button>
-            <button onclick="pindahMenu('audit')" id="btn-audit" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50">
-                🛡️ Transparansi & Audit
-            </button>
-        </div>
-    </div>
 
-    <div class="max-w-6xl mx-auto p-6">
+    <!-- ================= SCREEN 2: UTAMA DASHBOARD CORE LAPORAN ================= -->
+    <div id="screen-dashboard" class="hidden">
         
-        <div id="menu-ringkasan" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-emerald-600 flex justify-between items-center">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Kredit / Masuk (D)</span>
-                        <span class="text-xl font-extrabold text-emerald-600" id="total-masuk">Rp 0</span>
+        <!-- HEADER EMERALD & GOLD -->
+        <div class="bg-emerald-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
+            <div class="absolute top-[-20%] right-[-10%] w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
+            
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
+                <div class="flex items-center gap-5">
+                    <div class="w-16 h-16 bg-white rounded-2xl p-2 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
+                        <img src="WhatsApp Image 2026-07-03 at 06.57.58.jpeg" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-lg">
                     </div>
-                    <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600 font-bold text-xs uppercase tracking-wide">Ziswaf & Kas</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex justify-between items-center">
                     <div>
-                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Debit / Keluar (C)</span>
-                        <span class="text-xl font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
+                        <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
+                            LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
+                        </h1>
+                        <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1">
+                            Sistem Manajemen Data Terintegrasi Lokal & Awan
+                        </p>
                     </div>
-                    <div class="p-3 bg-rose-50 rounded-xl text-rose-500 font-bold text-xs uppercase tracking-wide">Operasional</div>
                 </div>
-            </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100/50">
-                <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider mb-4">Aktivitas Jurnal Kas Terbaru</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
-                        <thead>
-                            <tr class="bg-emerald-50/70 text-emerald-800 font-bold border-b border-emerald-100">
-                                <th class="p-3">Tanggal (A)</th>
-                                <th class="p-3">Jenis Arus (B)</th>
-                                <th class="p-3 text-right">Debit / Keluar (C)</th>
-                                <th class="p-3 text-right">Kredit / Masuk (D)</th>
-                                <th class="p-3 text-right">Saldo Berjalan (E)</th>
-                                <th class="p-3 text-center">Divisi (F)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabel-ringkasan" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
-                    </table>
+                <div class="text-right flex flex-col items-end flex-shrink-0">
+                    <span class="text-[10px] uppercase tracking-widest text-emerald-200 font-bold mb-1">Total Saldo Terkini</span>
+                    <span class="text-3xl md:text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</span>
+                    <span id="status-koneksi" class="mt-2 bg-white/10 text-emerald-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
+                        Memeriksa Status Koneksi...
+                    </span>
                 </div>
             </div>
         </div>
 
-        <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-emerald-100">
-            <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider mb-4 border-b pb-2">Pencatatan Transaksi Baru</h3>
-            <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal (A)</label>
-                        <input type="datetime-local" id="input-tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-medium">
+        <!-- MENU NAVIGASI UTAMA -->
+        <div class="max-w-6xl mx-auto mt-4 px-6">
+            <div class="bg-white p-2 rounded-xl shadow-md border border-emerald-100/50 flex flex-wrap gap-2 justify-center md:justify-start">
+                <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-emerald-700 text-white shadow-sm">
+                    📊 Ringkasan Laporan
+                </button>
+                <button onclick="pindahMenu('input')" id="btn-input" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50">
+                    📥 Input Data Baru
+                </button>
+                <button onclick="pindahMenu('buku-besar')" id="btn-buku-besar" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50">
+                    📖 Arus Rekapitulasi Divisi
+                </button>
+            </div>
+        </div>
+
+        <!-- KONTEN UTAMA DASHBOARD -->
+        <div class="max-w-6xl mx-auto p-6">
+            
+            <!-- ================= MODUL 1: RINGKASAN & PERSENTASE ================= -->
+            <div id="menu-ringkasan" class="space-y-6">
+                <!-- Komponen Metrik Finansial & Persentase Penggunaan Dana -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Kartu Kredit / Masuk -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-emerald-600 flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Masuk</span>
+                                <span class="text-xl font-extrabold text-emerald-600" id="total-masuk">Rp 0</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-black text-emerald-700 block bg-emerald-50 px-2.5 py-1 rounded-lg" id="persen-masuk">0%</span>
+                            </div>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="bar-masuk" class="bg-emerald-600 h-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                        <span class="text-[9px] text-slate-400 font-medium">Proporsi kontribusi total terhadap perputaran kas keseluruhan.</span>
+                    </div>
+
+                    <!-- Kartu Debit / Keluar -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Keluar</span>
+                                <span class="text-xl font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-black text-rose-700 block bg-rose-50 px-2.5 py-1 rounded-lg" id="persen-keluar">0%</span>
+                            </div>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="bar-keluar" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                        <span class="text-[9px] text-slate-400 font-medium">Persentase penyerapan pengeluaran dari seluruh dana yang dikelola.</span>
+                    </div>
+                </div>
+
+                <!-- Tabel Data Log Utama -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100/50">
+                    <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider mb-4">Log Riwayat Transaksi Terbaru</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-emerald-50/70 text-emerald-800 font-bold border-b border-emerald-100">
+                                    <th class="p-3">Tanggal</th>
+                                    <th class="p-3">Jenis Arus</th>
+                                    <th class="p-3 text-right">Dana Keluar</th>
+                                    <th class="p-3 text-right">Dana Masuk</th>
+                                    <th class="p-3 text-right">Saldo Berjalan</th>
+                                    <th class="p-3 text-center">Divisi</th>
+                                </tr>
+                            </thead>
+                            <!-- Setiap baris tabel dapat di-klik untuk membuka filter rekap divisi terkait secara dinamis -->
+                            <tbody id="tabel-ringkasan" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MODUL 2: FORM INPUT TRANSAKSI ================= -->
+            <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-emerald-100">
+                <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas</h3>
+                <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
+                            <input type="datetime-local" id="input-tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus Kas</label>
+                            <select id="input-jenis" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-bold">
+                                <option value="Masuk">Dana Masuk</option>
+                                <option value="Keluar">Dana Keluar</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus (B)</label>
-                        <select id="input-jenis" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-bold">
-                            <option value="Masuk">Kredit (Masuk)</option>
-                            <option value="Keluar">Debit (Keluar)</option>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan Transaksi</label>
+                        <input type="text" id="input-keterangan" placeholder="Masukkan perihal detail penggunaan/penerimaan" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Penanggung Jawab</label>
+                            <input type="text" id="input-divisi" placeholder="Contoh: Dakwah, Humas, Sosial" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rp)</label>
+                            <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-bold text-emerald-700">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-700 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-emerald-800 transition duration-150 cursor-pointer">
+                        🔒 Kirim & Sinkronisasikan Data
+                    </button>
+                </form>
+            </div>
+
+            <!-- ================= MODUL 3: ARUS REKAPITULASI DIVISI ================= -->
+            <div id="menu-buku-besar" class="hidden space-y-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-emerald-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider">Rekapitulasi Khusus Divisi</h3>
+                        <p class="text-xs text-slate-400">Menyaring arus log masuk dan keluar terfokus sesuai pembagian divisi internal.</p>
+                    </div>
+                    <div>
+                        <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg font-bold text-emerald-800 focus:outline-none">
+                            <option value="SEMUA">-- Tampilkan Semua Divisi --</option>
                         </select>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan Transaksi</label>
-                    <input type="text" id="input-keterangan" placeholder="Contoh: Konsumsi Konsolidasi Pengurus Wilayah" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Kategori (F)</label>
-                        <input type="text" id="input-divisi" placeholder="Contoh: Dakwah / Humas" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                    <th class="p-3">Tanggal</th>
+                                    <th class="p-3">Divisi</th>
+                                    <th class="p-3">Uraian Detail Transaksi</th>
+                                    <th class="p-3 text-right">Dana Masuk</th>
+                                    <th class="p-3 text-right">Dana Keluar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-buku-besar" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
+                        </table>
                     </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rupiah)</label>
-                        <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600 font-bold text-emerald-700">
-                    </div>
                 </div>
-                <button type="submit" class="w-full bg-emerald-700 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-emerald-800 transition duration-150 cursor-pointer">
-                    🔒 Kirim & Sinkronisasikan Data Ke Cloud
-                </button>
-            </form>
+            </div>
+
         </div>
-
-        <div id="menu-buku-besar" class="hidden space-y-4">
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-emerald-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider">Buku Besar Pembantu Divisi</h3>
-                    <p class="text-xs text-slate-400">Pemilahan arus kas terfokus untuk mempermudah pemantauan dana program kerja.</p>
-                </div>
-                <div>
-                    <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg font-bold text-emerald-800 focus:outline-none">
-                        <option value="SEMUA">-- Tampilkan Semua Divisi --</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
-                                <th class="p-3">Tanggal</th>
-                                <th class="p-3">Divisi</th>
-                                <th class="p-3">Uraian Detail Transaksi</th>
-                                <th class="p-3 text-right">Masuk (Kredit)</th>
-                                <th class="p-3 text-right">Keluar (Debit)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabel-buku-besar" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="menu-audit" class="hidden space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 text-center space-y-1">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Rasio Efisiensi Dana</span>
-                    <span class="text-2xl font-black text-emerald-700" id="audit-rasio">0%</span>
-                    <p class="text-[10px] text-slate-400">Persentase saldo tersisa dari dana masuk.</p>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 text-center space-y-1">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Total Log Tercatat</span>
-                    <span class="text-2xl font-black text-slate-700" id="audit-entri">0 Transaksi</span>
-                    <p class="text-[10px] text-slate-400">Jumlah baris transaksi di dalam database.</p>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 text-center space-y-1">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Kepatuhan Sistem</span>
-                    <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-bold inline-block mt-1">Syariah Compliant</span>
-                    <p class="text-[10px] text-slate-400 mt-2">Kalkulasi berjalan terkunci otomatis.</p>
-                </div>
-            </div>
-
-            <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-xs text-amber-900 space-y-2">
-                <h4 class="font-bold flex items-center gap-1.5 text-amber-950">📌 Komitmen Akuntabilitas Syariah</h4>
-                <p>Setiap nominal transaksi yang dimasukkan melalui portal ini akan dikonversikan menjadi string parameter terenkripsi yang langsung didorong masuk ke ekosistem awan Google Spreadsheet. Perhitungan neraca saldo berjalan bersifat mutlak dan meminimalkan risiko selisih pencatatan antar divisi internal.</p>
-            </div>
-        </div>
-
     </div>
 
+    <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        // PENTING: Ganti teks di bawah ini dengan URL Web App (dari Apps Script doGet Anda)
+        // PENTING: Masukkan URL Web App Apps Script Anda di sini untuk mengintegrasikan data dengan Spreadsheet terinput sebelumnya.
         const URL_SPREADSHEET_API = "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI";
         
         let dataTransaksi = [];
 
-        window.onload = function() {
-            // Memuat database internal lokal browser
-            const dataLokal = localStorage.getItem('mww_emerald_v3_core');
+        // Fungsi Membuka Kuncian Tampilan Sandi (Toggle Eye)
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('auth-password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
+            } else {
+                passInput.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Validasi Sederhana Form Masuk Ke Aplikasi
+        function prosesLogin() {
+            const user = document.getElementById('auth-username').value.trim();
+            const pass = document.getElementById('auth-password').value.trim();
+
+            if(user === "" || pass === "") {
+                alert("Harap masukkan Nama Pengguna dan Kata Sandi Anda.");
+                return;
+            }
+
+            // Transisi menyembunyikan portal masuk dan meluncurkan dashboard utama
+            document.getElementById('screen-portal').classList.add('hidden');
+            document.getElementById('screen-dashboard').classList.remove('hidden');
+            
+            // Eksekusi inisialisasi awal database kas
+            inisialisasiDataLengkap();
+        }
+
+        // Engine Pengkondisian Deteksi Online & Offline Bersifat Real-time
+        function perbaruiIndikatorKoneksi() {
+            const badge = document.getElementById('status-koneksi');
+            if (navigator.onLine) {
+                if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
+                    badge.innerText = "☁️ Sinkronisasi Spreadsheet Online";
+                    badge.className = "mt-2 bg-amber-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-amber-400 animate-pulse";
+                } else {
+                    badge.innerText = "🌐 Online (Cloud API Belum Siap)";
+                    badge.className = "mt-2 bg-blue-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-blue-500";
+                }
+            } else {
+                badge.innerText = "📶 Mode Offline Teraktifkan";
+                badge.className = "mt-2 bg-rose-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-rose-500";
+            }
+        }
+
+        window.addEventListener('online', perbaruiIndikatorKoneksi);
+        window.addEventListener('offline', perbaruiIndikatorKoneksi);
+
+        function inisialisasiDataLengkap() {
+            // Membaca local storage untuk mempertahankan kestabilan offline akses
+            const dataLokal = localStorage.getItem('mww_core_data_store');
             dataTransaksi = dataLokal ? JSON.parse(dataLokal) : [];
             
-            // Validasi status integrasi cloud API
-            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "https://script.google.com/macros/s/AKfycbzUfD9hx7RPxoG0mgo1kK-HJLv5dqFGQmoJAI4B9tNxxqVllqnEWNBzdtShqz3xsLyGfA/exec") {
-                const badge = document.getElementById('status-koneksi');
-                badge.innerText = "☁️ Terintegrasi Cloud Spreadsheet";
-                badge.className = "mt-2 bg-amber-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-amber-400";
+            perbaruiIndikatorKoneksi();
+            
+            // Tarik data riwayat spreadsheet yang sudah diinput sebelumnya (Jika terkoneksi internet)
+            if (navigator.onLine && URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "https://script.google.com/macros/s/AKfycbzksYuimEEn6b7PnSczZ7wPUsqN8UJV-tm3JE_9AV16G1RLPjrJ2FtzQMqdye40S0zLHg/exec") {
+                fetch(`${URL_SPREADSHEET_API}?action=read`)
+                .then(res => res.json())
+                .then(dataCloud => {
+                    if(dataCloud && dataCloud.length > 0) {
+                        dataTransaksi = dataCloud;
+                        localStorage.setItem('mww_core_data_store', JSON.stringify(dataTransaksi));
+                        prosesDanRenderSemua();
+                    }
+                })
+                .catch(err => console.log("Gagal menyinkronkan cloud, menggunakan basis data lokal.", err));
             }
+
             prosesDanRenderSemua();
-        };
+        }
 
         function pindahMenu(targetMenu) {
-            const semuaMenu = ['ringkasan', 'input', 'buku-besar', 'audit'];
+            const semuaMenu = ['ringkasan', 'input', 'buku-besar'];
             semuaMenu.forEach(menu => {
                 document.getElementById(`menu-${menu}`).classList.add('hidden');
                 document.getElementById(`btn-${menu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-emerald-50";
             });
             document.getElementById(`menu-${targetMenu}`).classList.remove('hidden');
             document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-emerald-700 text-white shadow-sm";
+        }
+
+        // Navigasi Interaktif: Ketika Baris Tabel Log Di-Klik, Langsung Membuka Buku Besar Sesuai Divisi Terkait
+        function alihkanDanFilterDivisi(namaDivisi) {
+            document.getElementById('filter-divisi').value = namaDivisi;
+            pindahMenu('buku-besar');
+            renderBukuBesar();
         }
 
         function prosesDanRenderSemua() {
@@ -252,7 +401,7 @@
             tbodyRingkasan.innerHTML = '';
             let setDivisi = new Set();
 
-            // Hitung akumulasi saldo berjalan dari baris transaksi awal secara kronologis
+            // Pemrosesan kalkulasi secara kronologis terbalik
             const dataDihitung = [...dataTransaksi].reverse();
             const dataRender = dataDihitung.map(item => {
                 let debit = item.jenis === "Keluar" ? item.jumlah : 0;
@@ -266,12 +415,12 @@
                 return { ...item, debit, kredit, saldoSekarang: runningSaldo };
             }).reverse();
 
-            // Render baris data ke tabel utama Ringkasan Jurnal
+            // Render isi Tabel Ringkasan Utama
             dataRender.forEach(item => {
                 tbodyRingkasan.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition">
+                    <tr onclick="alihkanDanFilterDivisi('${item.divisi.trim()}')" class="hover:bg-emerald-50/50 transition cursor-pointer select-none">
                         <td class="p-3 text-slate-400">${item.tanggal}</td>
-                        <td class="p-3 font-bold ${item.jenis === 'Masuk' ? 'text-emerald-700' : 'text-rose-600'}">${item.jenis === 'Masuk' ? 'Kredit' : 'Debit'}</td>
+                        <td class="p-3 font-bold ${item.jenis === 'Masuk' ? 'text-emerald-700' : 'text-rose-600'}">${item.jenis === 'Masuk' ? 'Dana Masuk' : 'Dana Keluar'}</td>
                         <td class="p-3 text-right text-rose-600 font-semibold">${item.debit > 0 ? 'Rp ' + item.debit.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right text-emerald-700 font-semibold">${item.kredit > 0 ? 'Rp ' + item.kredit.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right font-bold text-slate-700">Rp ${item.saldoSekarang.toLocaleString('id-ID')}</td>
@@ -280,7 +429,7 @@
                 `;
             });
 
-            // Menyegarkan pilihan opsi filter divisi tanpa menghapus state pilihan aktif
+            // Menyegarkan Pilihan Dropdown Penanggung Jawab Divisi
             const simpanPilihan = filterDivisi.value;
             filterDivisi.innerHTML = '<option value="SEMUA">-- Tampilkan Semua Divisi --</option>';
             setDivisi.forEach(div => {
@@ -288,5 +437,84 @@
             });
             if(simpanPilihan) filterDivisi.value = simpanPilihan;
 
-            // Render halaman modul sekunder
-            renderBuku
+            renderBukuBesar();
+            
+            // Pengisian Kartu Saldo Informasi Dashboard
+            document.getElementById('saldo-akhir').innerText = "Rp " + runningSaldo.toLocaleString('id-ID');
+            document.getElementById('total-masuk').innerText = "Rp " + totalMasuk.toLocaleString('id-ID');
+            document.getElementById('total-keluar').innerText = "Rp " + totalKeluar.toLocaleString('id-ID');
+            
+            // Penghitungan Presentasi Alokasi Distribusi Dana Masuk Dan Keluar secara Akurat
+            const akumulasiOmset = totalMasuk + totalKeluar;
+            let persenMasuk = 0, persenKeluar = 0;
+            if (akumulasiOmset > 0) {
+                persenMasuk = Math.round((totalMasuk / akumulasiOmset) * 100);
+                persenKeluar = Math.round((totalKeluar / akumulasiOmset) * 100);
+            }
+
+            document.getElementById('persen-masuk').innerText = persenMasuk + "%";
+            document.getElementById('bar-masuk').style.width = persenMasuk + "%";
+            document.getElementById('persen-keluar').innerText = persenKeluar + "%";
+            document.getElementById('bar-keluar').style.width = persenKeluar + "%";
+        }
+
+        function renderBukuBesar() {
+            const tbodyBuku = document.getElementById('tabel-buku-besar');
+            const filterValue = document.getElementById('filter-divisi').value;
+            tbodyBuku.innerHTML = '';
+
+            dataTransaksi.forEach(item => {
+                if(filterValue !== "SEMUA" && item.divisi.trim() !== filterValue) return;
+                
+                let debit = item.jenis === "Keluar" ? item.jumlah : 0;
+                let kredit = item.jenis === "Masuk" ? item.jumlah : 0;
+
+                tbodyBuku.innerHTML += `
+                    <tr class="hover:bg-slate-50 text-xs">
+                        <td class="p-3 text-slate-400">${item.tanggal}</td>
+                        <td class="p-3 font-bold text-slate-600">${item.divisi}</td>
+                        <td class="p-3 font-medium text-slate-800">${item.keterangan}</td>
+                        <td class="p-3 text-right text-emerald-600 font-bold">${kredit > 0 ? 'Rp ' + kredit.toLocaleString('id-ID') : '-'}</td>
+                        <td class="p-3 text-right text-rose-500 font-bold">${debit > 0 ? 'Rp ' + debit.toLocaleString('id-ID') : '-'}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function simpanTransaksi(e) {
+            e.preventDefault();
+            const rawDate = new Date(document.getElementById('input-tanggal').value);
+            const formatTgl = rawDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const dataBaru = {
+                tanggal: formatTgl,
+                jenis: document.getElementById('input-jenis').value,
+                keterangan: document.getElementById('input-keterangan').value,
+                divisi: document.getElementById('input-divisi').value,
+                jumlah: parseInt(document.getElementById('input-jumlah').value)
+            };
+
+            // Tambahkan data ke tumpukan lokal (Bekerja instan baik offline / online)
+            dataTransaksi.unshift(dataBaru);
+            localStorage.setItem('mww_core_data_store', JSON.stringify(dataTransaksi));
+            
+            // Mendorong integrasi data langsung ke Cloud Spreadsheet Google jika online
+            kirimKeCloudSpreadsheet(dataBaru);
+            
+            document.getElementById('form-transaksi').reset();
+            prosesDanRenderSemua();
+            pindahMenu('ringkasan');
+        }
+
+        function kirimKeCloudSpreadsheet(data) {
+            if (!navigator.onLine || !URL_SPREADSHEET_API || URL_SPREADSHEET_API === "1J1pR8fdy6kzrmxJMNTOsB-v7tMD2HemZ9hUc5OXdTHw") return;
+            
+            const urlDenganParam = `${URL_SPREADSHEET_API}?tanggal=${encodeURIComponent(data.tanggal)}&jenis=${encodeURIComponent(data.jenis)}&keterangan=${encodeURIComponent(data.keterangan)}&divisi=${encodeURIComponent(data.divisi)}&jumlah=${data.jumlah}`;
+            
+            fetch(urlDenganParam, { method: "GET", mode: "no-cors" })
+            .then(() => console.log("Data sukses terintegrasi dengan Google Spreadsheet."))
+            .catch(err => console.log("Gagal menyambung cloud, data tetap tersimpan aman di memori lokal.", err));
+        }
+    </script>
+</body>
+</html>
