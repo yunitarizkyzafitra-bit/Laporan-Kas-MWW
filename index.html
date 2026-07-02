@@ -248,7 +248,7 @@
             const dataLokal = localStorage.getItem('mww_emerald_cashflow');
             dataTransaksi = dataLokal ? JSON.parse(dataLokal) : [];
             
-            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
+            if(URL_SPREADSHEET_API && URL_SPREADSHEET_API !== "https://script.google.com/macros/s/AKfycbxlZNzSmU-OZz9guQwCg9c9s-RoSRwB1dvIO5P4JmbFka03UGGJV1zAsaQ2MZJePnmmOg/exec") {
                 document.getElementById('indicator-status').innerText = "Terintegrasi Cloud";
                 document.getElementById('indicator-status').className = "bg-white/20 text-emerald-100 px-3 py-1 rounded-full text-[10px] font-bold border border-white/30 backdrop-blur-xs";
             }
