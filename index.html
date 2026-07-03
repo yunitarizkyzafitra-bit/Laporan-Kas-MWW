@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome untuk Ikon Mata & Gembok -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
@@ -39,16 +36,14 @@
 </head>
 <body class="min-h-screen text-slate-700 pb-12">
 
-    <!-- ================= SCREEN 1: PORTAL UTAMA (LAYAR DEPAN) ================= -->
     <div id="screen-portal" class="fixed inset-0 bg-slate-100 z-50 flex items-center justify-center p-4">
         <div class="w-full max-w-sm h-[760px] bg-white rounded-[40px] shadow-2xl border-[8px] border-slate-800 relative overflow-hidden flex flex-col justify-between">
             
             <div class="w-full h-44 bg-tosca-premium wave-top relative flex items-center justify-center pt-6 px-4">
                 <div class="absolute top-4 right-6 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
                 <div class="flex items-center gap-3 z-10">
-                    <!-- LOGO LAYAR DEPAN -->
-                    <div class="w-14 h-14 bg-white rounded-xl p-1.5 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
-                        <img src="logo-mww.png" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-md">
+                    <div class="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
+                        <img src="https://i0.wp.com/wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png?fit=353%2C309&ssl=1" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
                     </div>
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
@@ -60,7 +55,7 @@
                         Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah
                     </h2>
                     <p class="text-xs text-slate-400 font-medium">
-                        Gunakan akun resmi pengurus wilayah untuk sinkronisasi cloud
+                        Sistem Informasi Keuangan Pengurus Wilayah
                     </p>
                 </div>
 
@@ -80,7 +75,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input type="password" id="auth-password" value="wahdah" class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                            <input type="password" id="auth-password" value="sulteng" class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
                             <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-teal-700 cursor-pointer">
                                 <i id="eye-icon" class="fas fa-eye"></i>
                             </button>
@@ -101,7 +96,6 @@
         </div>
     </div>
 
-    <!-- ================= SCREEN 2: UTAMA DASHBOARD ================= -->
     <div id="screen-dashboard" class="hidden">
         
         <div class="bg-tosca-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
@@ -109,9 +103,8 @@
             
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
                 <div class="flex items-center gap-5">
-                    <!-- LOGO DASHBOARD -->
-                    <div class="w-16 h-16 bg-white rounded-2xl p-2 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
-                        <img src="logo-mww.png" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-lg">
+                    <div class="w-16 h-16 bg-white rounded-2xl p-1.5 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
+                        <img src="https://i0.wp.com/wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png?fit=353%2C309&ssl=1" alt="Logo MWW" class="object-contain w-full h-full rounded-lg">
                     </div>
                     <div>
                         <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
@@ -149,44 +142,44 @@
 
         <div class="max-w-6xl mx-auto p-6">
             
-            <!-- ================= MODUL 1: RINGKASAN & METRIK ================= -->
             <div id="menu-ringkasan" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Saldo Awal -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-amber-500">
                         <span class="text-[10px] text-slate-400 uppercase font-bold block">Saldo Awal Bulan Mei</span>
-                        <span class="text-xl font-extrabold text-amber-600">Rp 16.152.981</span>
+                        <span class="text-lg font-extrabold text-amber-600">Rp 16.152.981</span>
                         <p class="text-[9px] text-slate-400 mt-2 font-medium">Nilai buku pembukaan per tanggal 01 Mei 2026.</p>
                     </div>
-                    <!-- Kartu Masuk -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-teal-600 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Masuk</span>
-                                <span class="text-xl font-extrabold text-teal-600" id="total-masuk">Rp 0</span>
+                                <span class="text-lg font-extrabold text-teal-600" id="total-masuk">Rp 0</span>
                             </div>
-                            <span class="text-xs font-black text-teal-700 block bg-teal-50 px-2.5 py-1 rounded-lg" id="persen-masuk">0%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
                             <div id="bar-masuk" class="bg-teal-600 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
-                    <!-- Kartu Keluar -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Keluar</span>
-                                <span class="text-xl font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
+                                <span class="text-lg font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
                             </div>
-                            <span class="text-xs font-black text-rose-700 block bg-rose-50 px-2.5 py-1 rounded-lg" id="persen-keluar">0%</span>
                         </div>
                         <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
                             <div id="bar-keluar" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-purple-600 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Deviasi Penggunaan Kas</span>
+                            <span class="text-lg font-black text-purple-700" id="nilai-deviasi">0%</span>
+                            <p class="text-[9px] text-slate-400 mt-1 font-medium" id="keterangan-deviasi">Mengalkulasi kestabilan kas...</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Tabel Riwayat Utama -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100/50">
                     <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4">Log Riwayat Urutan Transaksi Bulan Mei 2026</h3>
                     <div class="overflow-x-auto">
@@ -207,7 +200,6 @@
                 </div>
             </div>
 
-            <!-- ================= MODUL 2: FORM INPUT TRANSAKSI ================= -->
             <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
                 <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas Baru</h3>
                 <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
@@ -244,7 +236,6 @@
                 </form>
             </div>
 
-            <!-- ================= MODUL 3: ARUS REKAPITULASI DIVISI ================= -->
             <div id="menu-buku-besar" class="hidden space-y-4">
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-teal-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
@@ -279,15 +270,12 @@
         </div>
     </div>
 
-    <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzYO4zktcuTGO1It3S6YtjL19ajl2aIP7lstZiW0Wkj3FwENltoVDQ8dpUbFKz1VAvPoQ/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzdaxrmPc6rqDYw2q2-n5ddoablh8v5HKUBDU1BJn4V8_XEBdbiFW1y112OZ2O7oE_gGA/exec";
         
-        // SALDO AWAL BULAN MEI YANG DIKUNCI SISTEM
         const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
 
-        // DATA BAWAAN BERDASARKAN LOG SPREADSHEET RIIL BULAN MEI 2026
         const DATA_MEI_DEFAULT = [
             { tanggal: "02 MAY 2026 01:53", keterangan: "Biaya Administrasi", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
             { tanggal: "02 MAY 2026 17:51", keterangan: "Pemindahbukan logistik mw", debit: 2871000, kredit: 0, divisi: "Logistik" },
@@ -333,12 +321,12 @@
             const user = document.getElementById('auth-username').value.trim();
             const pass = document.getElementById('auth-password').value.trim();
 
-            if(user === "muslimah" && pass === "wahdah") {
+            if(user === "muslimah" && pass === "sulteng") {
                 document.getElementById('screen-portal').classList.add('hidden');
                 document.getElementById('screen-dashboard').classList.remove('hidden');
                 inisialisasiDataLengkap();
             } else {
-                alert("Kredensial salah!");
+                alert("Kredensial Pengurus Salah!");
             }
         }
 
@@ -415,7 +403,8 @@
             setDivisi.forEach(div => {
                 filterDivisi.innerHTML += `<option value="${div}">${div}</option>`;
             });
-            if(simpanPilihan) filterDivisi.value = simailPilihan;
+            
+            if(simpanPilihan) filterDivisi.value = simpanPilihan;
 
             renderBukuBesar();
             
@@ -423,6 +412,25 @@
             document.getElementById('total-masuk').innerText = "Rp " + totalMasuk.toLocaleString('id-ID');
             document.getElementById('total-keluar').innerText = "Rp " + totalKeluar.toLocaleString('id-ID');
             
+            let deviasi = 0;
+            if(SALDO_AWAL_MEI > 0) {
+                deviasi = ((totalKeluar / SALDO_AWAL_MEI) * 100).toFixed(1);
+            }
+            
+            document.getElementById('nilai-deviasi').innerText = deviasi + "%";
+            
+            const ketDeviasi = document.getElementById('keterangan-deviasi');
+            if(deviasi < 50) {
+                ketDeviasi.innerText = "Penggunaan kas sehat & aman stabil.";
+                ketDeviasi.className = "text-[9px] text-teal-600 mt-1 font-semibold";
+            } else if(deviasi >= 50 && deviasi <= 100) {
+                ketDeviasi.innerText = "Penggunaan kas intensif mendekati limit.";
+                ketDeviasi.className = "text-[9px] text-amber-600 mt-1 font-semibold";
+            } else {
+                ketDeviasi.innerText = "Deviasi defisit melebihi dana awal!";
+                ketDeviasi.className = "text-[9px] text-rose-600 mt-1 font-semibold";
+            }
+
             const akumulasiOmset = totalMasuk + totalKeluar;
             let persenMasuk = 0, persenKeluar = 0;
             if (akumulasiOmset > 0) {
@@ -430,9 +438,7 @@
                 persenKeluar = Math.round((totalKeluar / akumulasiOmset) * 100);
             }
 
-            document.getElementById('persen-masuk').innerText = persenMasuk + "%";
             document.getElementById('bar-masuk').style.width = persenMasuk + "%";
-            document.getElementById('persen-keluar').innerText = persenKeluar + "%";
             document.getElementById('bar-keluar').style.width = persenKeluar + "%";
         }
 
