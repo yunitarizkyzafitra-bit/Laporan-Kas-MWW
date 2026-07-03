@@ -15,7 +15,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: #f2faf9; 
         }
-        /* Mengubah gradien dasar menjadi Biru Tosca Premium */
         .bg-tosca-premium {
             background: linear-gradient(135deg, #008080 0%, #005a5a 100%);
         }
@@ -40,23 +39,21 @@
 </head>
 <body class="min-h-screen text-slate-700 pb-12">
 
-    <!-- ================= SCREEN 1: PORTAL UTAMA (BERDASARKAN 75273.JPG) ================= -->
+    <!-- ================= SCREEN 1: PORTAL UTAMA (LAYAR DEPAN) ================= -->
     <div id="screen-portal" class="fixed inset-0 bg-slate-100 z-50 flex items-center justify-center p-4">
-        <!-- Frame Simulasi Mobile Device terinspirasi dari 75273.jpg -->
         <div class="w-full max-w-sm h-[760px] bg-white rounded-[40px] shadow-2xl border-[8px] border-slate-800 relative overflow-hidden flex flex-col justify-between">
             
-            <!-- Elemen Gelombang Atas -->
             <div class="w-full h-44 bg-tosca-premium wave-top relative flex items-center justify-center pt-6 px-4">
                 <div class="absolute top-4 right-6 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
                 <div class="flex items-center gap-3 z-10">
-                    <div class="w-12 h-12 bg-white rounded-xl p-1.5 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
-                        <img src="WhatsApp Image 2026-07-03 at 06.57.58.jpeg" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-md">
+                    <!-- LOGO LAYAR DEPAN -->
+                    <div class="w-14 h-14 bg-white rounded-xl p-1.5 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
+                        <img src="logo-mww.png" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-md">
                     </div>
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
             </div>
 
-            <!-- Area Konten Utama Portal -->
             <div class="px-6 text-center space-y-6 flex-1 flex flex-col justify-center">
                 <div class="space-y-2">
                     <h2 class="text-xl font-black text-cyan-900 tracking-tight leading-snug">
@@ -67,7 +64,6 @@
                     </p>
                 </div>
 
-                <!-- Form Kredensial Pengguna (DIKUNCI: muslimah & wahdah) -->
                 <div id="form-auth-container" class="space-y-3 text-left">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Pengguna (Username)</label>
@@ -75,7 +71,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
                                 <i class="fas fa-user"></i>
                             </span>
-                            <input type="text" id="auth-username" placeholder="Masukkan username" class="w-full text-xs pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                            <input type="text" id="auth-username" value="muslimah" class="w-full text-xs pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
                         </div>
                     </div>
                     <div>
@@ -84,7 +80,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <input type="password" id="auth-password" placeholder="Masukkan password" class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                            <input type="password" id="auth-password" value="wahdah" class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
                             <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-teal-700 cursor-pointer">
                                 <i id="eye-icon" class="fas fa-eye"></i>
                             </button>
@@ -93,7 +89,6 @@
                 </div>
             </div>
 
-            <!-- Elemen Gelombang Bawah -->
             <div class="w-full h-56 bg-tosca-premium wave-bottom relative flex flex-col justify-end p-6 gap-3">
                 <button onclick="prosesLogin()" class="w-full bg-white text-teal-900 font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-teal-50 transition duration-150 cursor-pointer text-center tracking-wider uppercase z-10">
                     Masuk ke Sistem
@@ -106,25 +101,24 @@
         </div>
     </div>
 
-
-    <!-- ================= SCREEN 2: UTAMA DASHBOARD CORE LAPORAN ================= -->
+    <!-- ================= SCREEN 2: UTAMA DASHBOARD ================= -->
     <div id="screen-dashboard" class="hidden">
         
-        <!-- HEADER TOSCA & GOLD -->
         <div class="bg-tosca-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
             <div class="absolute top-[-20%] right-[-10%] w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
             
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
                 <div class="flex items-center gap-5">
+                    <!-- LOGO DASHBOARD -->
                     <div class="w-16 h-16 bg-white rounded-2xl p-2 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
-                        <img src="WhatsApp Image 2026-07-03 at 06.57.58.jpeg" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-lg">
+                        <img src="logo-mww.png" alt="Logo MWW" onerror="this.src='https://placehold.co/100x100?text=MWW'" class="object-contain w-full h-full rounded-lg">
                     </div>
                     <div>
                         <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
                             LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
                         </h1>
                         <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1">
-                            Sistem Manajemen Data Terintegrasi Lokal & Awan
+                            Periode Laporan Resmi Buku: Mei 2026
                         </p>
                     </div>
                 </div>
@@ -133,13 +127,12 @@
                     <span class="text-[10px] uppercase tracking-widest text-teal-200 font-bold mb-1">Total Saldo Terkini</span>
                     <span class="text-3xl md:text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</span>
                     <span id="status-koneksi" class="mt-2 bg-white/10 text-teal-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
-                        Memeriksa Status Koneksi...
+                        Menghubungkan jaringan...
                     </span>
                 </div>
             </div>
         </div>
 
-        <!-- MENU NAVIGASI UTAMA -->
         <div class="max-w-6xl mx-auto mt-4 px-6">
             <div class="bg-white p-2 rounded-xl shadow-md border border-teal-100/50 flex flex-wrap gap-2 justify-center md:justify-start">
                 <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm">
@@ -154,51 +147,48 @@
             </div>
         </div>
 
-        <!-- KONTEN UTAMA DASHBOARD -->
         <div class="max-w-6xl mx-auto p-6">
             
-            <!-- ================= MODUL 1: RINGKASAN & PERSENTASE ================= -->
+            <!-- ================= MODUL 1: RINGKASAN & METRIK ================= -->
             <div id="menu-ringkasan" class="space-y-6">
-                <!-- Komponen Metrik Finansial & Persentase Penggunaan Dana -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Saldo Awal -->
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-amber-500">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Saldo Awal Bulan Mei</span>
+                        <span class="text-xl font-extrabold text-amber-600">Rp 16.152.981</span>
+                        <p class="text-[9px] text-slate-400 mt-2 font-medium">Nilai buku pembukaan per tanggal 01 Mei 2026.</p>
+                    </div>
                     <!-- Kartu Masuk -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-teal-600 flex flex-col justify-between gap-3">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-teal-600 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Masuk</span>
                                 <span class="text-xl font-extrabold text-teal-600" id="total-masuk">Rp 0</span>
                             </div>
-                            <div class="text-right">
-                                <span class="text-xs font-black text-teal-700 block bg-teal-50 px-2.5 py-1 rounded-lg" id="persen-masuk">0%</span>
-                            </div>
+                            <span class="text-xs font-black text-teal-700 block bg-teal-50 px-2.5 py-1 rounded-lg" id="persen-masuk">0%</span>
                         </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
                             <div id="bar-masuk" class="bg-teal-600 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
-                        <span class="text-[9px] text-slate-400 font-medium">Proporsi kontribusi total terhadap perputaran kas keseluruhan.</span>
                     </div>
-
                     <!-- Kartu Keluar -->
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between gap-3">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Keluar</span>
                                 <span class="text-xl font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
                             </div>
-                            <div class="text-right">
-                                <span class="text-xs font-black text-rose-700 block bg-rose-50 px-2.5 py-1 rounded-lg" id="persen-keluar">0%</span>
-                            </div>
+                            <span class="text-xs font-black text-rose-700 block bg-rose-50 px-2.5 py-1 rounded-lg" id="persen-keluar">0%</span>
                         </div>
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
                             <div id="bar-keluar" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
-                        <span class="text-[9px] text-slate-400 font-medium">Persentase penyerapan pengeluaran dari seluruh dana yang dikelola.</span>
                     </div>
                 </div>
 
-                <!-- Tabel Data Log Utama -->
+                <!-- Tabel Riwayat Utama -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100/50">
-                    <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4">Log Riwayat Transaksi Terbaru</h3>
+                    <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4">Log Riwayat Urutan Transaksi Bulan Mei 2026</h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead>
@@ -219,12 +209,12 @@
 
             <!-- ================= MODUL 2: FORM INPUT TRANSAKSI ================= -->
             <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
-                <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas</h3>
+                <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas Baru</h3>
                 <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                            <input type="text" id="input-tanggal" placeholder="03 Jul 2026 08:00" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                            <input type="text" id="input-tanggal" placeholder="31 May 2026 17:00" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus Kas</label>
@@ -236,12 +226,12 @@
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan Transaksi</label>
-                        <input type="text" id="input-keterangan" placeholder="Masukkan perihal detail penggunaan/penerimaan" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                        <input type="text" id="input-keterangan" placeholder="Masukkan detail transaksi" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Kategori</label>
-                            <input type="text" id="input-divisi" placeholder="Contoh: Dakwah / Pemateri, Umum/Admin" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                            <input type="text" id="input-divisi" placeholder="Contoh: Qurban, Logistik, Umum" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rp)</label>
@@ -259,7 +249,7 @@
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-teal-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider">Rekapitulasi Khusus Divisi</h3>
-                        <p class="text-xs text-slate-400">Menyaring arus log masuk dan keluar terfokus sesuai pembagian divisi internal.</p>
+                        <p class="text-xs text-slate-400">Penyaringan data otomatis terfokus divisi.</p>
                     </div>
                     <div>
                         <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-teal-50 border border-teal-200 rounded-lg font-bold text-teal-800 focus:outline-none">
@@ -291,12 +281,38 @@
 
     <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        // Pastikan Anda sudah memasukkan Web App URL dari Apps Script di sini
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbyDTSi-nmBv7vj_7JXV4PKrV5F4C5a_9VZUWGzjivbmGsbA7ni3pVxxtnQS8-jJfmOHMQ/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzYO4zktcuTGO1It3S6YtjL19ajl2aIP7lstZiW0Wkj3FwENltoVDQ8dpUbFKz1VAvPoQ/exec";
         
+        // SALDO AWAL BULAN MEI YANG DIKUNCI SISTEM
+        const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
 
-        // Set Default Waktu Sekarang pada Input Form
+        // DATA BAWAAN BERDASARKAN LOG SPREADSHEET RIIL BULAN MEI 2026
+        const DATA_MEI_DEFAULT = [
+            { tanggal: "02 MAY 2026 01:53", keterangan: "Biaya Administrasi", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
+            { tanggal: "02 MAY 2026 17:51", keterangan: "Pemindahbukan logistik mw", debit: 2871000, kredit: 0, divisi: "Logistik" },
+            { tanggal: "05 MAY 2026 08:29", keterangan: "Pemindahbukan ex musyawarah wilayah", debit: 246000, kredit: 0, divisi: "Musyawarah Wilayah" },
+            { tanggal: "05 MAY 2026 08:31", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
+            { tanggal: "05 MAY 2026 08:31", keterangan: "Pemindahbukan", debit: 400000, kredit: 0, divisi: "Umum" },
+            { tanggal: "05 MAY 2026 08:33", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
+            { tanggal: "05 MAY 2026 08:33", keterangan: "Pemindahbukan", debit: 3174700, kredit: 0, divisi: "Umum" },
+            { tanggal: "05 MAY 2026 12:38", keterangan: "Pemindahbukan lebihnya dana Amplop Ramadhan", debit: 0, kredit: 180000, divisi: "Ramadhan" },
+            { tanggal: "05 MAY 2026 15:34", keterangan: "Pemindahbukan GDR MW SULTENG", debit: 0, kredit: 22683000, divisi: "GDR MW Sulteng" },
+            { tanggal: "06 MAY 2026 08:33", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
+            { tanggal: "06 MAY 2026 08:33", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
+            { tanggal: "12 MAY 2026 07:35", keterangan: "Pemindahbukan fee pemateri balut", debit: 297000, kredit: 0, divisi: "Dakwah / Pemateri" },
+            { tanggal: "14 MAY 2026 17:30", keterangan: "Pemindahbukan fee pemateri kapus morowali", debit: 270000, kredit: 0, divisi: "Dakwah / Pemateri" },
+            { tanggal: "16 MAY 2026 12:24", keterangan: "Pemindahbukan khidmat untuk winarti", debit: 250000, kredit: 0, divisi: "Sosial / Khidmat" },
+            { tanggal: "23 MAY 2026 10:00", keterangan: "Pemindahbukan dan qurban 3 orang", debit: 0, kredit: 7500000, divisi: "Qurban" },
+            { tanggal: "23 MAY 2026 10:12", keterangan: "Pemindahbukan Dana qurban mww sulteng", debit: 19800000, kredit: 0, divisi: "Qurban" },
+            { tanggal: "25 MAY 2026 09:25", keterangan: "Pemindahbukan Dana Qurban MMW", debit: 0, kredit: 17500000, divisi: "Qurban" },
+            { tanggal: "25 MAY 2026 14:28", keterangan: "Pemindahbukan dan sosial qurban MMW", debit: 16500000, kredit: 0, divisi: "Qurban / Sosial" },
+            { tanggal: "26 MAY 2026 02:32", keterangan: "Biaya Administrasi", debit: 2000, kredit: 0, divisi: "Umum/Admin" },
+            { tanggal: "28 MAY 2026 12:21", keterangan: "Pemindahbukan dana operasional 2 soal mww", debit: 1000000, kredit: 0, divisi: "Operasional" },
+            { tanggal: "28 MAY 2026 13:40", keterangan: "Pemindahbukan mika kadoanqan qurban mww", debit: 645000, kredit: 0, divisi: "Qurban" },
+            { tanggal: "31 MAY 2026 23:59", keterangan: "Penyesuaian Pembulatan Pembukuan Akhir Mei", debit: 100, kredit: 0, divisi: "Umum/Admin" }
+        ];
+
         const skrg = new Date();
         const opsiTgl = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         document.getElementById('input-tanggal').value = skrg.toLocaleDateString('en-GB', opsiTgl).replace(/,/g, '');
@@ -322,7 +338,7 @@
                 document.getElementById('screen-dashboard').classList.remove('hidden');
                 inisialisasiDataLengkap();
             } else {
-                alert("Nama Pengguna (muslimah) atau Kata Sandi (wahdah) salah. Silakan periksa kembali!");
+                alert("Kredensial salah!");
             }
         }
 
@@ -330,40 +346,29 @@
             const badge = document.getElementById('status-koneksi');
             if (navigator.onLine) {
                 if(URL_SPREADSHEET_API && !URL_SPREADSHEET_API.includes("MASUKKAN_URL")) {
-                    badge.innerText = "☁️ Terhubung dengan Google Sheets";
+                    badge.innerText = "☁️ Sinkronisasi Cloud Aktif";
                     badge.className = "mt-2 bg-amber-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-amber-400";
                 } else {
-                    badge.innerText = "🌐 Online (Masukkan Web App URL Apps Script)";
+                    badge.innerText = "🌐 Sistem Standalone Aktif";
                     badge.className = "mt-2 bg-cyan-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-cyan-500";
                 }
             } else {
-                badge.innerText = "📶 Mode Offline Aktif";
+                badge.innerText = "📶 Mode Offline Terproteksi";
                 badge.className = "mt-2 bg-rose-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-rose-500";
             }
         }
 
-        window.addEventListener('online', perbaruiIndikatorKoneksi);
-        window.addEventListener('offline', perbaruiIndikatorKoneksi);
-
         function inisialisasiDataLengkap() {
-            const dataLokal = localStorage.getItem('mww_core_data_store');
-            dataTransaksi = dataLokal ? JSON.parse(dataLokal) : [];
+            const dataLokal = localStorage.getItem('mww_core_data_store_v2');
+            
+            if (dataLokal) {
+                dataTransaksi = JSON.parse(dataLokal);
+            } else {
+                dataTransaksi = [...DATA_MEI_DEFAULT];
+                localStorage.setItem('mww_core_data_store_v2', JSON.stringify(dataTransaksi));
+            }
             
             perbaruiIndikatorKoneksi();
-            
-            if (navigator.onLine && URL_SPREADSHEET_API && !URL_SPREADSHEET_API.includes("MASUKKAN_URL")) {
-                fetch(`${URL_SPREADSHEET_API}?action=read`)
-                .then(res => res.json())
-                .then(dataCloud => {
-                    if(dataCloud && dataCloud.length > 0) {
-                        dataTransaksi = dataCloud;
-                        localStorage.setItem('mww_core_data_store', JSON.stringify(dataTransaksi));
-                        prosesDanRenderSemua();
-                    }
-                })
-                .catch(err => console.log("Gagal memuat awan, beralih data lokal sementara.", err));
-            }
-
             prosesDanRenderSemua();
         }
 
@@ -377,14 +382,10 @@
             document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm";
         }
 
-        function alihkanDanFilterDivisi(namaDivisi) {
-            document.getElementById('filter-divisi').value = namaDivisi;
-            pindahMenu('buku-besar');
-            renderBukuBesar();
-        }
-
         function prosesDanRenderSemua() {
-            let totalMasuk = 0, totalKeluar = 0, runningSaldo = 0;
+            let totalMasuk = 0, totalKeluar = 0;
+            let runningSaldo = SALDO_AWAL_MEI;
+            
             const tbodyRingkasan = document.getElementById('tabel-ringkasan');
             const filterDivisi = document.getElementById('filter-divisi');
             
@@ -398,13 +399,13 @@
                 if(item.divisi) setDivisi.add(item.divisi.trim());
 
                 tbodyRingkasan.innerHTML += `
-                    <tr onclick="alihkanDanFilterDivisi('${item.divisi ? item.divisi.trim() : ''}')" class="hover:bg-teal-50/50 transition cursor-pointer select-none">
+                    <tr class="hover:bg-teal-50/50 transition font-medium">
                         <td class="p-3 text-slate-400">${item.tanggal}</td>
-                        <td class="p-3 font-semibold text-slate-700">${item.keterangan || '-'}</td>
+                        <td class="p-3 font-semibold text-slate-700">${item.keterangan}</td>
                         <td class="p-3 text-right text-rose-600 font-semibold">${item.debit > 0 ? 'Rp ' + item.debit.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right text-teal-700 font-semibold">${item.kredit > 0 ? 'Rp ' + item.kredit.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right font-bold text-slate-700">Rp ${runningSaldo.toLocaleString('id-ID')}</td>
-                        <td class="p-3 text-center"><span class="bg-teal-50 border border-teal-100 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-teal-800">${item.divisi || 'Umum'}</span></td>
+                        <td class="p-3 text-center"><span class="bg-teal-50 border border-teal-100 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-teal-800">${item.divisi}</span></td>
                     </tr>
                 `;
             });
@@ -414,7 +415,7 @@
             setDivisi.forEach(div => {
                 filterDivisi.innerHTML += `<option value="${div}">${div}</option>`;
             });
-            if(simpanPilihan) filterDivisi.value = simpanPilihan;
+            if(simpanPilihan) filterDivisi.value = simailPilihan;
 
             renderBukuBesar();
             
@@ -463,7 +464,6 @@
 
             const dataBaru = {
                 tanggal: document.getElementById('input-tanggal').value,
-                jenis: jenis,
                 keterangan: document.getElementById('input-keterangan').value,
                 divisi: document.getElementById('input-divisi').value,
                 debit: jenis === "Keluar" ? jumlah : 0,
@@ -471,9 +471,9 @@
             };
 
             dataTransaksi.push(dataBaru);
-            localStorage.setItem('mww_core_data_store', JSON.stringify(dataTransaksi));
+            localStorage.setItem('mww_core_data_store_v2', JSON.stringify(dataTransaksi));
             
-            kirimKeCloudSpreadsheet(dataBaru);
+            kirimKeCloudSpreadsheet(jenis, dataBaru);
             
             document.getElementById('form-transaksi').reset();
             const skrgBaru = new Date();
@@ -483,15 +483,15 @@
             pindahMenu('ringkasan');
         }
 
-        function kirimKeCloudSpreadsheet(data) {
+        function kirimKeCloudSpreadsheet(jenis, data) {
             if (!navigator.onLine || !URL_SPREADSHEET_API || URL_SPREADSHEET_API.includes("MASUKKAN_URL")) return;
             
-            const jml = data.jenis === "Masuk" ? data.kredit : data.debit;
-            const urlDenganParam = `${URL_SPREADSHEET_API}?tanggal=${encodeURIComponent(data.tanggal)}&jenis=${encodeURIComponent(data.jenis)}&keterangan=${encodeURIComponent(data.keterangan)}&divisi=${encodeURIComponent(data.divisi)}&jumlah=${jml}`;
+            const jml = jenis === "Masuk" ? data.kredit : data.debit;
+            const urlDenganParam = `${URL_SPREADSHEET_API}?tanggal=${encodeURIComponent(data.tanggal)}&jenis=${encodeURIComponent(jenis)}&keterangan=${encodeURIComponent(data.keterangan)}&divisi=${encodeURIComponent(data.divisi)}&jumlah=${jml}`;
             
             fetch(urlDenganParam, { method: "GET", mode: "no-cors" })
-            .then(() => console.log("Data sukses terintegrasi dengan Google Spreadsheet."))
-            .catch(err => console.log("Data disimpan secara lokal (antrean offline).", err));
+            .then(() => console.log("Data sukses terintegrasi cloud."))
+            .catch(err => console.log("Simpan lokal sementara.", err));
         }
     </script>
 </body>
