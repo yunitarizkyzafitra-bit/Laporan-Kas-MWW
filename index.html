@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon Mata & Gembok -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
@@ -36,14 +39,16 @@
 </head>
 <body class="min-h-screen text-slate-700 pb-12">
 
+    <!-- ================= SCREEN 1: PORTAL UTAMA (LAYAR DEPAN) ================= -->
     <div id="screen-portal" class="fixed inset-0 bg-slate-100 z-50 flex items-center justify-center p-4">
         <div class="w-full max-w-sm h-[760px] bg-white rounded-[40px] shadow-2xl border-[8px] border-slate-800 relative overflow-hidden flex flex-col justify-between">
             
             <div class="w-full h-44 bg-tosca-premium wave-top relative flex items-center justify-center pt-6 px-4">
                 <div class="absolute top-4 right-6 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
                 <div class="flex items-center gap-3 z-10">
+                    <!-- LOGO BARU BERSIH DI PORTAL MASUK -->
                     <div class="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
-                        <img src="https://i0.wp.com/wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png?fit=353%2C309&ssl=1" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
+                        <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
                     </div>
                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
@@ -96,6 +101,7 @@
         </div>
     </div>
 
+    <!-- ================= SCREEN 2: UTAMA DASHBOARD ================= -->
     <div id="screen-dashboard" class="hidden">
         
         <div class="bg-tosca-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
@@ -103,8 +109,9 @@
             
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
                 <div class="flex items-center gap-5">
+                    <!-- LOGO BARU BERSIH DI HEADER DASHBOARD -->
                     <div class="w-16 h-16 bg-white rounded-2xl p-1.5 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
-                        <img src="https://i0.wp.com/wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png?fit=353%2C309&ssl=1" alt="Logo MWW" class="object-contain w-full h-full rounded-lg">
+                        <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-lg">
                     </div>
                     <div>
                         <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
@@ -142,13 +149,16 @@
 
         <div class="max-w-6xl mx-auto p-6">
             
+            <!-- ================= MODUL 1: RINGKASAN & METRIK ================= -->
             <div id="menu-ringkasan" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Saldo Awal -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-amber-500">
                         <span class="text-[10px] text-slate-400 uppercase font-bold block">Saldo Awal Bulan Mei</span>
                         <span class="text-lg font-extrabold text-amber-600">Rp 16.152.981</span>
                         <p class="text-[9px] text-slate-400 mt-2 font-medium">Nilai buku pembukaan per tanggal 01 Mei 2026.</p>
                     </div>
+                    <!-- Kartu Masuk -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-teal-600 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
@@ -160,6 +170,7 @@
                             <div id="bar-masuk" class="bg-teal-600 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
+                    <!-- Kartu Keluar -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between">
                         <div class="flex justify-between items-center">
                             <div>
@@ -171,6 +182,7 @@
                             <div id="bar-keluar" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
+                    <!-- METRIK: DEVASI ANGGARAN KAS -->
                     <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-purple-600 flex flex-col justify-between">
                         <div>
                             <span class="text-[10px] text-slate-400 uppercase font-bold block">Deviasi Penggunaan Kas</span>
@@ -180,6 +192,7 @@
                     </div>
                 </div>
 
+                <!-- Tabel Riwayat Utama -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100/50">
                     <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4">Log Riwayat Urutan Transaksi Bulan Mei 2026</h3>
                     <div class="overflow-x-auto">
@@ -200,6 +213,7 @@
                 </div>
             </div>
 
+            <!-- ================= MODUL 2: FORM INPUT TRANSAKSI ================= -->
             <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
                 <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas Baru</h3>
                 <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
@@ -236,6 +250,7 @@
                 </form>
             </div>
 
+            <!-- ================= MODUL 3: ARUS REKAPITULASI DIVISI ================= -->
             <div id="menu-buku-besar" class="hidden space-y-4">
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-teal-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
@@ -270,8 +285,9 @@
         </div>
     </div>
 
+    <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzdaxrmPc6rqDYw2q2-n5ddoablh8v5HKUBDU1BJn4V8_XEBdbiFW1y112OZ2O7oE_gGA/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbzbtB2c_DMnO7isD5AymTWq4YMP_6V6wkJleOpurw03Yv3Zugc2Qd4KLDOgoTxgpG7d-g/exec";
         
         const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
@@ -292,7 +308,7 @@
             { tanggal: "14 MAY 2026 17:30", keterangan: "Pemindahbukan fee pemateri kapus morowali", debit: 270000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "16 MAY 2026 12:24", keterangan: "Pemindahbukan khidmat untuk winarti", debit: 250000, kredit: 0, divisi: "Sosial / Khidmat" },
             { tanggal: "23 MAY 2026 10:00", keterangan: "Pemindahbukan dan qurban 3 orang", debit: 0, kredit: 7500000, divisi: "Qurban" },
-            { tanggal: "23 MAY 2026 10:12", keterangan: "Pemindahbukan Dana qurban mww sulteng", debit: 19800000, kredit: 0, divisi: "Qurban" },
+            { tanggal: "23 MAY 2026 10:12", font: "bold", keterangan: "Pemindahbukan Dana qurban mww sulteng", debit: 19800000, kredit: 0, divisi: "Qurban" },
             { tanggal: "25 MAY 2026 09:25", keterangan: "Pemindahbukan Dana Qurban MMW", debit: 0, kredit: 17500000, divisi: "Qurban" },
             { tanggal: "25 MAY 2026 14:28", keterangan: "Pemindahbukan dan sosial qurban MMW", debit: 16500000, kredit: 0, divisi: "Qurban / Sosial" },
             { tanggal: "26 MAY 2026 02:32", keterangan: "Biaya Administrasi", debit: 2000, kredit: 0, divisi: "Umum/Admin" },
