@@ -278,7 +278,7 @@
                 </div>
             </div>
 
-            <!-- MODUL 4: PENGATURAN AKSES LOGIN (FITUR BARU) -->
+            <!-- MODUL 4: PENGATURAN AKSES LOGIN -->
             <div id="menu-pengaturan" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
                 <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Ubah Kredensial Login Pengurus</h3>
                 <form id="form-ubah-akses" class="space-y-4" onsubmit="simpanKredensialBaru(event)">
@@ -301,11 +301,12 @@
 
     <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbwtrDbqs09UD7NGj_-UftpNo5T1e35ce9HuyXJdtuVQu-Kl1yIxGRaYGGVo9GsuZtgMAw/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbwPLZAQwJj4aaIpE_ZV6B0xtjiMQQb0e5ONjgAR5fV1xdyB2_jcSg6sUAw822cyn-sF7w/exec";
         
         const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
 
+        // DATA BULAN MEI TERKINI DIKEMBALIKAN UTUH SEPENUHNYA
         const DATA_MEI_DEFAULT = [
             { tanggal: "02 MAY 2026 01:53", keterangan: "Biaya Administrasi", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
             { tanggal: "02 MAY 2026 17:51", keterangan: "Pemindahbukan logistik mw", debit: 2871000, kredit: 0, divisi: "Logistik" },
@@ -317,7 +318,7 @@
             { tanggal: "05 MAY 2026 12:38", keterangan: "Pemindahbukan lebihnya dana Amplop Ramadhan", debit: 0, kredit: 180000, divisi: "Ramadhan" },
             { tanggal: "05 MAY 2026 15:34", keterangan: "Pemindahbukan GDR MW SULTENG", debit: 0, kredit: 22683000, divisi: "GDR MW Sulteng" },
             { tanggal: "06 MAY 2026 08:33", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
-            { tanggal: "06 MAY 2026 08:33", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
+            { tanggal: "06 MAY 2026 08:33", font: "semibold", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
             { tanggal: "12 MAY 2026 07:35", keterangan: "Pemindahbukan fee pemateri balut", debit: 297000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "14 MAY 2026 17:30", keterangan: "Pemindahbukan fee pemateri kapus morowali", debit: 270000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "16 MAY 2026 12:24", keterangan: "Pemindahbukan khidmat untuk winarti", debit: 250000, kredit: 0, divisi: "Sosial / Khidmat" },
@@ -336,7 +337,7 @@
             document.getElementById('input-tanggal').value = skrg.toLocaleDateString('en-GB', opsiTgl).replace(/,/g, '');
         };
 
-        // Fungsi Toggle Mata (Lihat Password)
+        // Fungsi Toggle Mata (Buka/Tutup Password)
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-password');
             const eyeIcon = document.getElementById('eye-icon');
@@ -350,12 +351,11 @@
             }
         }
 
-        // Proses Login Dinamis (Membaca LocalStorage atau fallback ke Akun Bawaan)
+        // Proses Login Dinamis (Membaca Mandiri dari LocalStorage)
         function prosesLogin() {
             const userIn = document.getElementById('auth-username').value.trim().toLowerCase();
             const passIn = document.getElementById('auth-password').value.trim().toLowerCase();
 
-            // Mengambil kredensial terbaru dari browser (jika kosong, pakai "muslimah" & "bismillah")
             const userTerdaftar = localStorage.getItem('mww_user') || "muslimah";
             const passTerdaftar = localStorage.getItem('mww_pass') || "bismillah";
 
@@ -364,26 +364,25 @@
                 document.getElementById('screen-dashboard').classList.remove('hidden');
                 muatDataUtamaSistem();
             } else {
-                alert("Username atau Password Salah! Pastikan penulisan sudah benar.");
+                alert("Username atau Password Salah! Periksa kembali ketikan Anda.");
             }
         }
 
-        // Fitur Mengubah Username & Password Mandiri dari Dashboard
+        // Simpan Password Baru Mandiri Tanpa Perlu Kode Baru Lagi
         function simpanKredensialBaru(e) {
             e.preventDefault();
             const userBaru = document.getElementById('new-username').value.trim();
             const passBaru = document.getElementById('new-password').value.trim();
 
             if(userBaru.length < 4 || passBaru.length < 4) {
-                alert("Username dan password minimal harus diisi 4 karakter.");
+                alert("Username dan password minimal harus 4 karakter.");
                 return;
             }
 
-            // Simpan permanen ke dalam memori peramban (Local Storage)
             localStorage.setItem('mww_user', userBaru);
             localStorage.setItem('mww_pass', passBaru);
 
-            alert(`Sukses! Akun login berhasil diperbarui.\nUsername baru: ${userBaru}\nPassword baru: ${passBaru}`);
+            alert(`Sukses! Akun diperbarui.\nUsername: ${userBaru}\nPassword: ${passBaru}\nGunakan akun baru ini saat login kembali.`);
             document.getElementById('form-ubah-akses').reset();
             pindahMenu('ringkasan');
         }
@@ -570,7 +569,6 @@
             .catch(err => console.log("Penyimpanan fallback aktif.", err));
         }
 
-        // Perpindahan Antar Menu Dashboard Terintegrasi
         function pindahMenu(targetMenu) {
             ['ringkasan', 'input', 'buku-besar', 'pengaturan'].forEach(menu => {
                 document.getElementById(`menu-${menu}`).classList.add('hidden');
