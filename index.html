@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
+    <title>LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH</title>
+
+    <!-- ================= METADATA IKON UNTUK ANDROID, IPHONE, & PC ================= -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="KAS MWW">
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
+    
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22LAPORAN%20KAS%20MUSLIMAH%20WAHDAH%20WILAYAH%22,%22short_name%22:%22KAS%20MWW%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#008080%22,%22theme_color%22:%22#008080%22,%22icons%22:[{%22src%22:%22https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22}]}">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -49,17 +61,17 @@
                     <div class="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
                         <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH</span>
                 </div>
             </div>
 
             <div class="px-6 text-center space-y-6 flex-1 flex flex-col justify-center">
                 <div class="space-y-2">
-                    <h2 class="text-xl font-black text-cyan-900 tracking-tight leading-snug">
-                        Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah
+                    <h2 class="text-xl font-black text-cyan-900 tracking-tight leading-snug uppercase">
+                        LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
                     </h2>
-                    <p class="text-xs text-slate-400 font-medium">
-                        Sistem Informasi Keuangan Pengurus Wilayah
+                    <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
+                        SISTEM INFORMASI KEUANGAN PENGURUS WILAYAH
                     </p>
                 </div>
 
@@ -92,7 +104,7 @@
                 <button onclick="prosesLogin()" class="w-full bg-white text-teal-900 font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-teal-50 transition duration-150 cursor-pointer text-center tracking-wider uppercase z-10">
                     Masuk ke Sistem
                 </button>
-                <div class="text-center text-[10px] text-teal-100/70 font-medium z-10 mb-2">
+                <div class="text-center text-[10px] text-teal-100/70 font-medium z-10 mb-2 uppercase tracking-wide">
                     Mendukung Sinkronisasi Real-Time Dua Arah
                 </div>
             </div>
@@ -112,11 +124,11 @@
                         <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-lg">
                     </div>
                     <div>
-                        <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
+                        <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight uppercase">
                             LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
                         </h1>
                         <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1" id="label-periode-buku">
-                            Periode Laporan Buku: Mei 2026
+                            PERIODE LAPORAN BUKU: MEI 2026
                         </p>
                     </div>
                 </div>
@@ -124,7 +136,7 @@
                 <div class="text-right flex flex-col items-end flex-shrink-0">
                     <span class="text-[10px] uppercase tracking-widest text-teal-200 font-bold mb-1">Total Saldo Terkini</span>
                     <span class="text-3xl md:text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</span>
-                    <span id="status-koneksi" class="mt-2 bg-white/10 text-teal-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
+                    <span id="status-koneksi" class="mt-2 bg-white/10 text-teal-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm uppercase">
                         Memeriksa Cloud Jaringan...
                     </span>
                 </div>
@@ -134,16 +146,16 @@
         <!-- MENU TABS NAVIGASI -->
         <div class="max-w-6xl mx-auto mt-4 px-6">
             <div class="bg-white p-2 rounded-xl shadow-md border border-teal-100/50 flex flex-wrap gap-2 justify-center md:justify-start">
-                <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm">
+                <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm uppercase">
                     📊 Ringkasan Laporan
                 </button>
-                <button onclick="pindahMenu('input')" id="btn-input" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                <button onclick="pindahMenu('input')" id="btn-input" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50 uppercase">
                     📥 Input Data Baru
                 </button>
-                <button onclick="pindahMenu('buku-besar')" id="btn-buku-besar" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                <button onclick="pindahMenu('buku-besar')" id="btn-buku-besar" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50 uppercase">
                     📖 Arus Rekapitulasi Divisi
                 </button>
-                <button onclick="pindahMenu('pengaturan')" id="btn-pengaturan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                <button onclick="pindahMenu('pengaturan')" id="btn-pengaturan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50 uppercase">
                     ⚙️ Pengaturan Akses
                 </button>
             </div>
@@ -301,12 +313,11 @@
 
     <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbwPLZAQwJj4aaIpE_ZV6B0xtjiMQQb0e5ONjgAR5fV1xdyB2_jcSg6sUAw822cyn-sF7w/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycby4B6S6XlV75U8gnfbZ3rSZnPa2wo1Nle-i2faxi245Q9oL9uGBMDqWhhQCwLbn4oeZPA/exec";
         
         const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
 
-        // DATA BULAN MEI TERKINI DIKEMBALIKAN UTUH SEPENUHNYA
         const DATA_MEI_DEFAULT = [
             { tanggal: "02 MAY 2026 01:53", keterangan: "Biaya Administrasi", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
             { tanggal: "02 MAY 2026 17:51", keterangan: "Pemindahbukan logistik mw", debit: 2871000, kredit: 0, divisi: "Logistik" },
@@ -318,14 +329,14 @@
             { tanggal: "05 MAY 2026 12:38", keterangan: "Pemindahbukan lebihnya dana Amplop Ramadhan", debit: 0, kredit: 180000, divisi: "Ramadhan" },
             { tanggal: "05 MAY 2026 15:34", keterangan: "Pemindahbukan GDR MW SULTENG", debit: 0, kredit: 22683000, divisi: "GDR MW Sulteng" },
             { tanggal: "06 MAY 2026 08:33", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
-            { tanggal: "06 MAY 2026 08:33", font: "semibold", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
+            { tanggal: "06 MAY 2026 08:33", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
             { tanggal: "12 MAY 2026 07:35", keterangan: "Pemindahbukan fee pemateri balut", debit: 297000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "14 MAY 2026 17:30", keterangan: "Pemindahbukan fee pemateri kapus morowali", debit: 270000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "16 MAY 2026 12:24", keterangan: "Pemindahbukan khidmat untuk winarti", debit: 250000, kredit: 0, divisi: "Sosial / Khidmat" },
             { tanggal: "23 MAY 2026 10:00", keterangan: "Pemindahbukan dan qurban 3 orang", debit: 0, kredit: 7500000, divisi: "Qurban" },
             { tanggal: "23 MAY 2026 10:12", keterangan: "Pemindahbukan Dana qurban mww sulteng", debit: 19800000, kredit: 0, divisi: "Qurban" },
             { tanggal: "25 MAY 2026 09:25", keterangan: "Pemindahbukan Dana Qurban MMW", debit: 0, kredit: 17500000, divisi: "Qurban" },
-            { tanggal: "25 MAY 2026 14:28", keterangan: "Pemindahbukan dan sosial qurban MMW", debit: 16500000, kredit: 0, divisi: "Qurban / Sosial" },
+            { tanggal: "25 MAY 2026 14:28", Eigen kadoanqan: "Pemindahbukan dan sosial qurban MMW", debit: 16500000, kredit: 0, divisi: "Qurban / Sosial" },
             { tanggal: "26 MAY 2026 02:32", keterangan: "Biaya Administrasi", debit: 2000, kredit: 0, divisi: "Umum/Admin" },
             { tanggal: "28 MAY 2026 12:21", keterangan: "Pemindahbukan dana operasional 2 soal mww", debit: 1000000, kredit: 0, divisi: "Operasional" },
             { tanggal: "28 MAY 2026 13:40", keterangan: "Pemindahbukan mika kadoanqan qurban mww", debit: 645000, kredit: 0, divisi: "Qurban" }
@@ -337,7 +348,6 @@
             document.getElementById('input-tanggal').value = skrg.toLocaleDateString('en-GB', opsiTgl).replace(/,/g, '');
         };
 
-        // Fungsi Toggle Mata (Buka/Tutup Password)
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-password');
             const eyeIcon = document.getElementById('eye-icon');
@@ -351,7 +361,6 @@
             }
         }
 
-        // Proses Login Dinamis (Membaca Mandiri dari LocalStorage)
         function prosesLogin() {
             const userIn = document.getElementById('auth-username').value.trim().toLowerCase();
             const passIn = document.getElementById('auth-password').value.trim().toLowerCase();
@@ -368,7 +377,6 @@
             }
         }
 
-        // Simpan Password Baru Mandiri Tanpa Perlu Kode Baru Lagi
         function simpanKredensialBaru(e) {
             e.preventDefault();
             const userBaru = document.getElementById('new-username').value.trim();
@@ -382,14 +390,14 @@
             localStorage.setItem('mww_user', userBaru);
             localStorage.setItem('mww_pass', passBaru);
 
-            alert(`Sukses! Akun diperbarui.\nUsername: ${userBaru}\nPassword: ${passBaru}\nGunakan akun baru ini saat login kembali.`);
+            alert(`Sukses! Akun diperbarui.\nUsername: ${userBaru}\nPassword: ${passBaru}`);
             document.getElementById('form-ubah-akses').reset();
             pindahMenu('ringkasan');
         }
 
         function muatDataUtamaSistem() {
             if (URL_SPREADSHEET_API && !URL_SPREADSHEET_API.includes("MASUKKAN_URL") && navigator.onLine) {
-                document.getElementById('status-koneksi').innerText = "🔄 Mengunduh Data Cloud...";
+                document.getElementById('status-koneksi').innerText = "🔄 MENGUNDUH DATA CLOUD...";
                 fetch(`${URL_SPREADSHEET_API}?aksi=baca`)
                 .then(res => res.json())
                 .then(dataCloud => {
@@ -400,8 +408,8 @@
                     }
                     localStorage.setItem('mww_core_data_store_v2', JSON.stringify(dataTransaksi));
                     eksekusiKalkulasiDanRender();
-                    document.getElementById('status-koneksi').className = "mt-2 bg-amber-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-amber-400";
-                    document.getElementById('status-koneksi').innerText = "☁️ Sinkronisasi Terhubung Real-Time";
+                    document.getElementById('status-koneksi').className = "mt-2 bg-amber-500 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-amber-400 uppercase";
+                    document.getElementById('status-koneksi').innerText = "☁️ SINKRONISASI TERHUBUNG REAL-TIME";
                 })
                 .catch(err => {
                     console.log("Gagal sinkronisasi data cloud, beralih ke lokal.", err);
@@ -420,8 +428,8 @@
                 dataTransaksi = [...DATA_MEI_DEFAULT];
             }
             eksekusiKalkulasiDanRender();
-            document.getElementById('status-koneksi').className = "mt-2 bg-cyan-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-cyan-500";
-            document.getElementById('status-koneksi').innerText = "🌐 Mode Standalone Aktif";
+            document.getElementById('status-koneksi').className = "mt-2 bg-cyan-600 text-white px-3 py-0.5 rounded-full text-[10px] font-bold shadow-sm border border-cyan-500 uppercase";
+            document.getElementById('status-koneksi').innerText = "🌐 MODE STANDALONE AKTIF";
         }
 
         function eksekusiKalkulasiDanRender() {
@@ -433,7 +441,7 @@
             
             tbodyRingkasan.innerHTML = '';
             let setDivisi = new Set();
-            let bulanTerupdate = "Mei";
+            let bulanTerupdate = "MEI";
             let tahunTerupdate = "2026";
 
             dataTransaksi.forEach(item => {
@@ -450,10 +458,10 @@
                     if(parts.length >= 3) {
                         const namaBulanInggris = parts[1].toUpperCase();
                         tahunTerupdate = parts[2];
-                        if(namaBulanInggris.includes("JUN")) bulanTerupdate = "Juni";
-                        else if(namaBulanInggris.includes("JUL")) bulanTerupdate = "Juli";
-                        else if(namaBulanInggris.includes("AUG")) bulanTerupdate = "Agustus";
-                        else if(namaBulanInggris.includes("MAY")) bulanTerupdate = "Mei";
+                        if(namaBulanInggris.includes("JUN")) bulanTerupdate = "JUNI";
+                        else if(namaBulanInggris.includes("JUL")) bulanTerupdate = "JULI";
+                        else if(namaBulanInggris.includes("AUG")) bulanTerupdate = "AGUSTUS";
+                        else if(namaBulanInggris.includes("MAY")) bulanTerupdate = "MEI";
                     }
                 }
 
@@ -464,17 +472,17 @@
                         <td class="p-3 text-right text-rose-600 font-semibold">${deb > 0 ? 'Rp ' + deb.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right text-teal-700 font-semibold">${kre > 0 ? 'Rp ' + kre.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right font-bold text-slate-700">Rp ${runningSaldo.toLocaleString('id-ID')}</td>
-                        <td class="p-3 text-center"><span class="bg-teal-50 border border-teal-100 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-teal-800">${item.divisi}</span></td>
+                        <td class="p-3 text-center"><span class="bg-teal-50 border border-teal-100 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-teal-800 uppercase">${item.divisi}</span></td>
                     </tr>
                 `;
             });
 
-            document.getElementById('label-periode-buku').innerText = `Periode Laporan Buku: ${bulanTerupdate} ${tahunTerupdate}`;
+            document.getElementById('label-periode-buku').innerText = `PERIODE LAPORAN BUKU: ${bulanTerupdate} ${tahunTerupdate}`;
 
             const simpanPilihan = filterDivisi.value;
-            filterDivisi.innerHTML = '<option value="SEMUA">-- Tampilkan Semua Divisi --</option>';
+            filterDivisi.innerHTML = '<option value="SEMUA">-- TAMPILKAN SEMUA DIVISI --</option>';
             setDivisi.forEach(div => {
-                filterDivisi.innerHTML += `<option value="${div}">${div}</option>`;
+                filterDivisi.innerHTML += `<option value="${div}">${div.toUpperCase()}</option>`;
             });
             if(simpanPilihan) filterDivisi.value = simpanPilihan;
 
@@ -523,7 +531,7 @@
                 tbodyBuku.innerHTML += `
                     <tr class="hover:bg-slate-50 text-xs">
                         <td class="p-3 text-slate-400">${item.tanggal}</td>
-                        <td class="p-3 font-bold text-slate-600">${item.divisi}</td>
+                        <td class="p-3 font-bold text-slate-600 uppercase">${item.divisi}</td>
                         <td class="p-3 font-medium text-slate-800">${item.keterangan}</td>
                         <td class="p-3 text-right text-teal-600 font-bold">${kre > 0 ? 'Rp ' + kre.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right text-rose-500 font-bold">${deb > 0 ? 'Rp ' + deb.toLocaleString('id-ID') : '-'}</td>
@@ -572,10 +580,10 @@
         function pindahMenu(targetMenu) {
             ['ringkasan', 'input', 'buku-besar', 'pengaturan'].forEach(menu => {
                 document.getElementById(`menu-${menu}`).classList.add('hidden');
-                document.getElementById(`btn-${menu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50";
+                document.getElementById(`btn-${menu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50 uppercase";
             });
             document.getElementById(`menu-${targetMenu}`).classList.remove('hidden');
-            document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm";
+            document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm uppercase";
         }
     </script>
 </body>
