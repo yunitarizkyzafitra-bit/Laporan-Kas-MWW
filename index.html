@@ -315,7 +315,7 @@
     </div>
 
     <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
-  <script>
+<script>
 (function() {
     // 1. URL UTAMA WEB APP APPS SCRIPT
     const URL_API = "https://script.google.com/macros/s/AKfycbwibfQ3sCwvUb_ST_OYRdyicd7rCdZdUqZWI_Jh6A8MbimN2_so8TJpN7Y3CVgvLeI4/exec"; 
@@ -496,24 +496,23 @@
     }
 
     // =========================================================================
-    // 3. CAPTURE EVENT LISTENERS GLOBAL (ANTI-LOCK & LOGIN OVERRIDE)
+    // 3. CAPTURE EVENT LISTENERS GLOBAL (ANTI-LOCK SYSTEM)
     // =========================================================================
     document.addEventListener('click', function(event) {
+        // Cari elemen terdekat yang memiliki event klik
         let target = event.target;
 
         // A. KLIK TOGGLE MATA SANDI (LOGIN ATAU UBAH SANDI)
-        if (target.id === 'icon-mata-login' || target.id === 'icon-mata-ubah' || target.matches('.fa-eye') || target.matches('.fa-eye-slash') || target.closest('#icon-mata-login') || target.closest('#icon-mata-ubah')) {
+        if (target.id === 'icon-mata-login' || target.id === 'icon-mata-ubah' || target.matches('.fa-eye') || target.matches('.fa-eye-slash')) {
             event.preventDefault();
-            let realTarget = target.id ? target : (target.closest('#icon-mata-login') || target.closest('#icon-mata-ubah') || target);
             let inputPassword = document.getElementById('login-password') || document.getElementById('new-password') || document.querySelector('input[type="password"]');
-            
             if (inputPassword) {
                 if (inputPassword.type === "password") {
                     inputPassword.type = "text";
-                    realTarget.className = "fa-solid fa-eye-slash text-slate-400 cursor-pointer";
+                    target.className = "fa-solid fa-eye-slash text-slate-400 cursor-pointer";
                 } else {
                     inputPassword.type = "password";
-                    realTarget.className = "fa-solid fa-eye text-slate-400 cursor-pointer";
+                    target.className = "fa-solid fa-eye text-slate-400 cursor-pointer";
                 }
             }
             return;
@@ -523,11 +522,13 @@
         let linkNav = target.closest('.nav-link');
         if (linkNav) {
             event.preventDefault();
+            // Ekstrak parameter menuID dari string asli di HTML (contoh dari: pindahMenu('menu-ringkasan'))
             let onClickAttr = linkNav.getAttribute('onclick') || '';
             let match = onClickAttr.match(/pindahMenu\('([^']+)'\)/);
             let menuId = match ? match[1] : null;
 
             if (!menuId) {
+                // Deteksi otomatis berdasarkan urutan/teks jika onclick kosong
                 if (linkNav.textContent.includes('Ringkasan')) menuId = 'menu-ringkasan';
                 else if (linkNav.textContent.includes('Tambah')) menuId = 'menu-tambah';
                 else if (linkNav.textContent.includes('Akses')) menuId = 'menu-akses';
@@ -547,41 +548,32 @@
         }
     });
 
-    // C. MENANGANI SUBMIT FORM SECARA OTOMATIS TANPA INTERVENSI HTML
+    // C. MENANGANI SUBMIT FORM SECARA OTOMATIS TANPA ONCLICK
     document.addEventListener('submit', function(event) {
         let formId = event.target.id;
         
-        // Form Login (Kredensial Khusus: muslimah / bismillah)
+        // Form Login
         if (formId === 'form-login' || event.target.contains(document.getElementById('btn-login'))) {
             event.preventDefault();
-            const u = document.getElementById('login-username').value.trim();
-            const p = document.getElementById('login-password').value.trim();
+            const u = document.getElementById('login-username').value;
+            const p = document.getElementById('login-password').value;
             const btn = document.getElementById('btn-login');
             const err = document.getElementById('error-login');
 
             if (btn) btn.disabled = true;
             if (err) err.classList.add('hidden');
 
-            // Cek Autentikasi Kredensial Khusus secara langsung
-            if (u === "muslimah" && p === "bismillah") {
-                if (document.getElementById('screen-login')) document.getElementById('screen-login').classList.add('hidden');
-                if (document.getElementById('screen-dashboard')) document.getElementById('screen-dashboard').classList.remove('hidden');
-                if (btn) btn.disabled = false;
-                tarikDataKasServer();
-            } else {
-                // Fallback pencocokan ke database server jika input bukan kredensial utama di atas
-                fetch(`${URL_API}?action=login&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`)
-                    .then(r => r.json())
-                    .then(res => {
-                        if (res && res.login === true) {
-                            if (document.getElementById('screen-login')) document.getElementById('screen-login').classList.add('hidden');
-                            if (document.getElementById('screen-dashboard')) document.getElementById('screen-dashboard').classList.remove('hidden');
-                            tarikDataKasServer();
-                        } else { if (err) err.classList.remove('hidden'); }
-                    })
-                    .catch(() => { if (err) err.classList.remove('hidden'); })
-                    .finally(() => { if (btn) btn.disabled = false; });
-            }
+            fetch(`${URL_API}?action=login&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`)
+                .then(r => r.json())
+                .then(res => {
+                    if (res && res.login === true) {
+                        document.getElementById('screen-login').classList.add('hidden');
+                        document.getElementById('screen-dashboard').classList.remove('hidden');
+                        tarikDataKasServer();
+                    } else { if (err) err.classList.remove('hidden'); }
+                })
+                .catch(() => { if (err) err.classList.remove('hidden'); })
+                .finally(() => { if (btn) btn.disabled = false; });
             return;
         }
 
@@ -615,6 +607,7 @@
                 alert("Transaksi Berhasil Disimpan Ke Spreadsheet!");
                 event.target.reset();
                 tarikDataKasServer();
+                // Pindah balik ke ringkasan otomatis
                 document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
                 if(document.getElementById('menu-ringkasan')) document.getElementById('menu-ringkasan').classList.remove('hidden');
             }).finally(() => { if (btn) btn.disabled = false; });
@@ -623,14 +616,16 @@
     });
 
     // =========================================================================
-    // 4. INITIALIZATION RUNNER
+    // 4. INIDIALIZATION RUNNER
     // =========================================================================
     function jalankanSistemAwal() {
+        // Deteksi jika langsung bypass ke dashboard (seperti di lampiran gambar)
         const dashboardScreen = document.getElementById('screen-dashboard');
         if (dashboardScreen && !dashboardScreen.classList.contains('hidden')) {
             tarikDataKasServer();
         }
 
+        // Binding event change filter bulan secara aman
         const filterPeriode = document.getElementById('filter-periode-bulan');
         if (filterPeriode) {
             filterPeriode.addEventListener('change', kalkulasiDanRenderTabelLayar);
