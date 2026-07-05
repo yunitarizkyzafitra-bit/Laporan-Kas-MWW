@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- TAMBAHAN: CDN Chart.js untuk memproses grafik kas real-time -->
+    <!-- TAMBAHAN: Pustaka Chart.js untuk merender grafik penggunaan kas secara dinamis -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
@@ -79,7 +79,7 @@
 
         <main class="flex-1 p-4 md:p-8 space-y-6 overflow-y-auto max-w-7xl mx-auto w-full">
             
-            <!-- MENU 1: LAPORAN BULANAN -->
+            <!-- MENU 1: LAPORAN BULANAN (SINKRONISASI BERJENJANG) -->
             <section id="menu-ringkasan" class="menu-content space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
 
-                <!-- TAMBAHAN FITUR: Grafik Penggunaan Kas Terstruktur Tepat di Bawah Elemen Saldo Awal -->
+                <!-- STRUKTUR GRAFIK: Di bawah saldo awal dan terstruktur dinamis -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <span class="text-[11px] font-bold text-slate-500 uppercase block mb-3">Grafik Arus Kas Bulanan (Real-time)</span>
                     <div class="h-64 relative w-full">
@@ -133,7 +133,7 @@
                 </div>
             </section>
 
-            <!-- MENU 2: JURNAL ARUS KAS -->
+            <!-- MENU 2: JURNAL -->
             <section id="menu-jurnal" class="menu-content hidden space-y-4">
                 <h2 class="text-base font-extrabold text-slate-900 uppercase">Buku Jurnal Umum Kas</h2>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
@@ -209,12 +209,12 @@
     </div>
 
     <script>
-        // Endpoint Web App Apps Script yang tersambung ke berkas Spreadsheet Anda (ID: 1jWLe47csoh8RKBxAY48UPKr8WJ8UG0VJWAkBiigdjpY)
-        const URL_API = "https://script.google.com/macros/s/AKfycbyChw_rhQCnoohbsyqar_2SQAFNSWxfLlKo6MYu3mg8u0QXNVc84d2hDpj1xWVuLzHr/exec"; 
+        // Endpoint Google Apps Script terintegrasi
+        const URL_API = "https://script.google.com/macros/s/AKfycbzqlsAtUuGKGLCZvhdKsQ-Ll6vB0oxzbP0D9nsQoxENXt9OR9xKMJYdgXeTIusD5BhU/exec"; 
 
-        let serverMasterSaldoAwal = 16152981; 
+        let serverMasterSaldoAwal = 16152981; // Acuan saldo awal Mei 2026 sesuai data mutasi riil
         let listTransaksiGlobal = [];
-        let rujukanGrafikObjek = null; 
+        let rujukanGrafikObjek = null;
 
         function toggleMataSandi(inputId, iconId) {
             const input = document.getElementById(inputId);
@@ -238,7 +238,6 @@
             }
         }
 
-        // Fungsi Autentikasi Bypass Lokal Terhadap Akun Muslimah
         function prosesAksesLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-username').value;
@@ -258,7 +257,6 @@
             fetch(`${URL_API}?action=read`)
                 .then(r => r.json())
                 .then(res => {
-                    serverMasterSaldoAwal = res.masterSaldoAwal || 16152981;
                     listTransaksiGlobal = res.transaksi || [];
                     kalkulasiDanRenderTabelLayar();
                 }).catch(() => {
@@ -306,6 +304,7 @@
                 return idA - idB;
             });
 
+            // Penyusunan struktur struktur estafet bulanan
             let dataPerBulan = [];
             for (let i = 0; i < 12; i++) {
                 dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
@@ -321,14 +320,21 @@
                 }
             });
 
-            let saldoEstafet = serverMasterSaldoAwal;
+            // Mengalirkan saldo akhir bulan menjadi saldo awal bulan berikutnya secara berjenjang
+            let saldoEstafet = 16152981; // Nilai patokan awal untuk bulan Mei
 
             for (let i = 0; i < 12; i++) {
-                if (i === 4) { // Proteksi Mei
-                    dataPerBulan[i].saldoAwal = 16152981; 
-                    dataPerBulan[i].saldoAkhir = (16152981 + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit; 
+                if (i < 4) {
+                    // Bulan sebelum Mei dikosongkan/disesuaikan mundur jika tidak ada data riil
+                    dataPerBulan[i].saldoAwal = saldoEstafet;
+                    dataPerBulan[i].saldoAkhir = saldoEstafet;
+                } else if (i === 4) {
+                    // Tepat Bulan Mei 2026
+                    dataPerBulan[i].saldoAwal = serverMasterSaldoAwal; 
+                    dataPerBulan[i].saldoAkhir = (serverMasterSaldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit; 
                     saldoEstafet = dataPerBulan[i].saldoAkhir; 
                 } else {
+                    // Bulan setelah Mei menerima estafet dari penutupan buku bulan sebelumnya
                     dataPerBulan[i].saldoAwal = saldoEstafet;
                     dataPerBulan[i].saldoAkhir = (dataPerBulan[i].saldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit;
                     saldoEstafet = dataPerBulan[i].saldoAkhir;
@@ -363,11 +369,9 @@
             document.getElementById('card-pengeluaran').innerText = "Rp " + bulanAktif.totalDebit.toLocaleString('id-ID');
             document.getElementById('card-saldo-akhir').innerText = "Rp " + bulanAktif.saldoAkhir.toLocaleString('id-ID');
 
-            // Jalankan fungsi pembuatan komponen grafik real-time
             renderGrafikKasRealtime(dataPerBulan, bulanDipilih);
         }
 
-        // TAMBAHAN FITUR: Fungsi Render Komponen Grafik Batang Terstruktur Menggunakan Chart.js
         function renderGrafikKasRealtime(dataPerBulan, bulanAktifIndex) {
             const ctx = document.getElementById('grafikKasUtama');
             if (!ctx) return;
