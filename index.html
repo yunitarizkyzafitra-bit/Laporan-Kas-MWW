@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <p id="error-login" class="text-xs text-rose-400 hidden text-center font-medium bg-rose-950/30 py-2 rounded-lg border border-rose-900">Kredensial salah!</p>
-                <button type="submit" id="btn-login" class="w-full py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition">Masuk Sistem</button>
+                <button type="submit" id="btn-login" class="w-full py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition hover:bg-teal-700">Masuk Sistem</button>
             </form>
         </div>
     </div>
@@ -58,21 +58,21 @@
                 </div>
             </div>
             <nav class="flex-1 p-4 space-y-1">
-                <button onclick="pindahMenu('menu-ringkasan')" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">
+                <button onclick="pindahMenu('menu-ringkasan', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">
                     <i class="fa-solid fa-chart-pie w-4"></i> Laporan Bulanan
                 </button>
-                <button onclick="pindahMenu('menu-jurnal')" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
+                <button onclick="pindahMenu('menu-jurnal', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
                     <i class="fa-solid fa-book w-4"></i> Jurnal Arus Kas
                 </button>
-                <button onclick="pindahMenu('menu-entri')" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
+                <button onclick="pindahMenu('menu-entri', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
                     <i class="fa-solid fa-file-invoice-dollar w-4"></i> Entri Buku Kas
                 </button>
-                <button onclick="pindahMenu('menu-pengaturan')" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
+                <button onclick="pindahMenu('menu-pengaturan', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
                     <i class="fa-solid fa-gear w-4"></i> Pengaturan Akses
                 </button>
             </nav>
             <div class="p-4 border-t border-slate-800">
-                <button onclick="location.reload()" class="w-full py-2.5 bg-rose-950/40 text-rose-400 border border-rose-800/60 font-bold text-xs rounded-xl">Keluar</button>
+                <button onclick="location.reload()" class="w-full py-2.5 bg-rose-950/40 text-rose-400 border border-rose-800/60 font-bold text-xs rounded-xl hover:bg-rose-900/40 transition">Keluar</button>
             </div>
         </aside>
 
@@ -176,7 +176,7 @@
                             <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Uraian Kategori / Keterangan</label>
                             <input type="text" id="ins-uraian" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl">
                         </div>
-                        <button type="submit" id="btn-simpan" class="px-6 py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider">Simpan ke Spreadsheet</button>
+                        <button type="submit" id="btn-simpan" class="px-6 py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider hover:bg-teal-700 transition">Simpan ke Spreadsheet</button>
                     </form>
                 </div>
             </section>
@@ -199,7 +199,7 @@
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" id="btn-update-auth" class="px-6 py-3.5 bg-slate-900 text-white font-bold text-xs rounded-xl uppercase tracking-wider">Perbarui Kredensial</button>
+                        <button type="submit" id="btn-update-auth" class="px-6 py-3.5 bg-slate-900 text-white font-bold text-xs rounded-xl uppercase tracking-wider hover:bg-slate-800 transition">Perbarui Kredensial</button>
                     </form>
                 </div>
             </section>
@@ -207,13 +207,14 @@
     </div>
 
     <script>
-        // Masukkan Web App URL hasil Deploy Apps Script Anda di sini
+        // Web App URL hasil Deploy Apps Script Anda
         const URL_API = "https://script.google.com/macros/s/AKfycbx-vHiAaTB1j7rp0NSJ9U50Wx4HzHdpdsuOhm5VFQRcf1LWZEYNfS858t_4LmZS13Cn/exec"; 
 
         let serverMasterSaldoAwal = 16152981; 
         let listTransaksiGlobal = [];
         let rujukanGrafikObjek = null;
 
+        // FUNGSI TOGGLE MATA PASSWORD (NORMAL & AKTIF)
         function toggleMataSandi(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
@@ -226,22 +227,29 @@
             }
         }
 
-        function pindahMenu(menuId) {
+        // FUNGSI NAVIGASI MENU (AMAN TANPA ERROR)
+        function pindahMenu(menuId, element) {
             document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(menuId).classList.remove('hidden');
-            document.querySelectorAll('.nav-link').forEach(btn => btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white");
-            if(event && event.currentTarget) {
-                event.currentTarget.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
+            
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white";
+            });
+            
+            if (element) {
+                element.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
             }
         }
 
+        // FUNGSI PROSES AKSES LOGIN (USER DAN PASSWORD AWAL BERFUNGSI)
         function prosesAksesLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('login-username').value;
-            const p = document.getElementById('login-password').value;
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value.trim();
             const err = document.getElementById('error-login');
 
             if (u === "muslimah" && p === "bismillah") {
+                err.classList.add('hidden');
                 document.getElementById('screen-login').classList.add('hidden');
                 document.getElementById('screen-dashboard').classList.remove('hidden');
                 tarikDataKasServer();
@@ -250,23 +258,24 @@
             }
         }
 
+        // AMBIL DATA DARI SPREADSHEET
         function tarikDataKasServer() {
             fetch(`${URL_API}?action=read`)
                 .then(r => r.json())
                 .then(res => {
                     listTransaksiGlobal = res.transaksi || [];
                     kalkulasiDanRenderTabelLayar();
-                }).catch(() => {
+                }).catch((error) => {
+                    console.error("Gagal sinkronisasi data:", error);
                     kalkulasiDanRenderTabelLayar();
                 });
         }
 
-        // PENYEMPURNAAN LOGIKA PARSING: Mengenali format tanggal lokal Indonesia maupun format Excel
+        // INTERPRETASI FORMAT TANGGAL YANG AMAN DARI ERROR SPREADSHEET
         function interpretasiTanggalLengkap(teks) {
             if (!teks) return new Date(NaN);
             let s = teks.toString().toUpperCase().trim();
             
-            // Jika format bawaan lembar kerja Google Sheets JSON Date (misal: "2026-05-12T07:00:00.000Z")
             let dMurni = new Date(s);
             if (!isNaN(dMurni.getTime())) return dMurni;
 
@@ -276,21 +285,18 @@
                 'SEP':8, 'SEPTEMBER':8, 'OCT':9, 'OKTOBER':9, 'NOV':10, 'NOVEMBER':10, 'DEC':11, 'DESEMBER':11
             };
 
-            // Pecah string teks berdasarkan spasi, strip, titik, atau garis miring
             let parts = s.split(/[\s,./:-]+/);
             if (parts.length >= 3) {
                 let komponenSatu = parseInt(parts[0], 10);
                 let komponenDua = parts[1];
                 let komponenTiga = parseInt(parts[2], 10);
 
-                // Kasus format angka: DD/MM/YYYY atau DD.MM.YYYY
                 if (!isNaN(komponenSatu) && !isNaN(parseInt(komponenDua, 10)) && !isNaN(komponenTiga)) {
-                    let bIndex = parseInt(komponenDua, 10) - 1; // Bulan berindeks 0-11
-                    let tahun Lengkap = komponenTiga < 100 ? 2000 + komponenTiga : komponenTiga;
+                    let bIndex = parseInt(komponenDua, 10) - 1;
+                    let tahunLengkap = komponenTiga < 100 ? 2000 + komponenTiga : komponenTiga;
                     return new Date(tahunLengkap, bIndex, komponenSatu);
                 }
 
-                // Kasus format teks: DD MEI YYYY
                 let bulan = mapBulan[komponenDua];
                 if (!isNaN(komponenSatu) && bulan !== undefined && !isNaN(komponenTiga)) {
                     return new Date(komponenTiga, bulan, komponenSatu);
@@ -299,13 +305,13 @@
             return new Date(NaN);
         }
 
+        // KALKULASI ARUS KAS & BERGANTI BULAN SECARA REAL-TIME
         function kalkulasiDanRenderTabelLayar() {
             const bulanDipilih = parseInt(document.getElementById('filter-periode-bulan').value);
             const tbody = document.getElementById('tabel-kas-body');
             tbody.innerHTML = '';
 
             let semuaData = [...listTransaksiGlobal];
-            
             let dataPerBulan = [];
             for (let i = 0; i < 12; i++) {
                 dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
@@ -321,7 +327,6 @@
                 }
             });
 
-            // Estafet Saldo Berjenjang Antar Bulan
             let saldoEstafet = 16152981; 
 
             for (let i = 0; i < 12; i++) {
@@ -373,6 +378,7 @@
             renderGrafikKasRealtime(dataPerBulan);
         }
 
+        // RENDER GRAFIK UTAMA
         function renderGrafikKasRealtime(dataPerBulan) {
             const ctx = document.getElementById('grafikKasUtama');
             if (!ctx) return;
@@ -404,16 +410,18 @@
             });
         }
 
+        // SIMPAN DATA KE GOOGLE SPREADSHEET (SINKRONISASI AMAN)
         function simpanTransaksiKas(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-simpan');
             btn.disabled = true;
+            btn.innerText = "MENYIMPAN...";
 
             let tglForm = new Date(document.getElementById('ins-tanggal').value);
             let d = ("0" + tglForm.getDate()).slice(-2);
             let m = ("0" + (tglForm.getMonth() + 1)).slice(-2);
             let y = tglForm.getFullYear();
-            let formatTeksKas = `${d}/${m}/${y}`; // Menggunakan format universal standar Excel
+            let formatTeksKas = `${d}/${m}/${y}`;
 
             let dataObjek = {
                 id: "TX-" + Date.now(),
@@ -432,8 +440,17 @@
                 alert("Transaksi Berhasil Disimpan Ke Spreadsheet!");
                 document.getElementById('form-transaksi').reset();
                 tarikDataKasServer();
-                pindahMenu('menu-ringkasan');
-            }).finally(() => { btn.disabled = false; });
+                
+                // Kembali ke halaman ringkasan secara aman setelah input selesai
+                const btnRingkasan = document.querySelector("button[onclick*='menu-ringkasan']");
+                pindahMenu('menu-ringkasan', btnRingkasan);
+            }).catch((err) => {
+                console.error("Gagal menyimpan transaksi:", err);
+                alert("Gagal menyimpan data ke Spreadsheet. Silakan coba kembali.");
+            }).finally(() => { 
+                btn.disabled = false; 
+                btn.innerText = "SIMPAN KE SPREADSHEET";
+            });
         }
 
         function ubahKredensialSistem(e) {
