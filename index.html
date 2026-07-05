@@ -201,7 +201,7 @@
 
     <script>
         // MASUKKAN URL WEB APP IMPLEMENTASI SCRIPT ANDA DI SINI
-        const URL_API = "https://script.google.com/macros/s/AKfycbyChw_rhQCnoohbsyqar_2SQAFNSWxfLlKo6MYu3mg8u0QXNVc84d2hDpj1xWVuLzHr/exec"; 
+        const URL_API = "https://script.google.com/macros/s/AKfycbxYqslsTNHEHwaK1xp-IA9VYGqSkRwyDN6piE3HwnmYWmhZbWMT4sgp7TKG5yAUj0rr/exec"; 
 
         let serverMasterSaldoAwal = 16152981; 
         let listTransaksiGlobal = [];
@@ -225,26 +225,26 @@
             event.currentTarget.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
         }
 
-        function prosesAksesLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('login-username').value;
-            const p = document.getElementById('login-password').value;
-            const btn = document.getElementById('btn-login');
-            const err = document.getElementById('error-login');
+       // GANTI DENGAN KODE INI:
+function prosesAksesLogin(e) {
+    e.preventDefault();
+    const u = document.getElementById('login-username').value;
+    const p = document.getElementById('login-password').value;
+    const err = document.getElementById('error-login');
 
-            btn.disabled = true;
-            fetch(`${URL_API}?action=login&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`)
-                .then(r => r.json())
-                .then(res => {
-                    if (res.login) {
-                        document.getElementById('screen-login').classList.add('hidden');
-                        document.getElementById('screen-dashboard').classList.remove('hidden');
-                        tarikDataKasServer();
-                    } else { err.classList.remove('hidden'); }
-                })
-                .catch(() => { err.classList.remove('hidden'); })
-                .finally(() => { btn.disabled = false; });
-        }
+    // Memeriksa kredensial secara lokal di browser
+    if (u === "muslimah" && p === "bismillah") {
+        // Jika benar, sembunyikan layar login dan tampilkan dashboard
+        document.getElementById('screen-login').classList.add('hidden');
+        document.getElementById('screen-dashboard').classList.remove('hidden');
+        
+        // Tetap menjalankan fitur bawaan untuk menarik data dari Google Sheets
+        tarikDataKasServer(); 
+    } else { 
+        // Jika salah, tampilkan pesan error bawaan
+        err.classList.remove('hidden'); 
+    }
+}
 
         function tarikDataKasServer() {
             fetch(`${URL_API}?action=read`)
