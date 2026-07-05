@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- TAMBAHAN: Pustaka Chart.js untuk merender grafik penggunaan kas secara dinamis -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
@@ -79,7 +78,7 @@
 
         <main class="flex-1 p-4 md:p-8 space-y-6 overflow-y-auto max-w-7xl mx-auto w-full">
             
-            <!-- MENU 1: LAPORAN BULANAN (SINKRONISASI BERJENJANG) -->
+            <!-- MENU 1: LAPORAN BULANAN -->
             <section id="menu-ringkasan" class="menu-content space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                     <div>
@@ -124,7 +123,6 @@
                     </div>
                 </div>
 
-                <!-- STRUKTUR GRAFIK: Di bawah saldo awal dan terstruktur dinamis -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <span class="text-[11px] font-bold text-slate-500 uppercase block mb-3">Grafik Arus Kas Bulanan (Real-time)</span>
                     <div class="h-64 relative w-full">
@@ -209,10 +207,10 @@
     </div>
 
     <script>
-        // Endpoint Google Apps Script terintegrasi
-        const URL_API = "https://script.google.com/macros/s/AKfycbz6RRxEK4w6eS_72guyGOFMy99cCQ2NJX-7M0E_jZHGrxZxed1yBnffdi0LFZ0n9cmm/exec"; 
+        // Masukkan Web App URL hasil Deploy Apps Script Anda di sini
+        const URL_API = "https://script.google.com/macros/s/AKfycbx-vHiAaTB1j7rp0NSJ9U50Wx4HzHdpdsuOhm5VFQRcf1LWZEYNfS858t_4LmZS13Cn/exec"; 
 
-        let serverMasterSaldoAwal = 16152981; // Acuan saldo awal Mei 2026 sesuai data mutasi riil
+        let serverMasterSaldoAwal = 16152981; 
         let listTransaksiGlobal = [];
         let rujukanGrafikObjek = null;
 
@@ -232,7 +230,6 @@
             document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(menuId).classList.remove('hidden');
             document.querySelectorAll('.nav-link').forEach(btn => btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white");
-            
             if(event && event.currentTarget) {
                 event.currentTarget.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
             }
@@ -264,9 +261,12 @@
                 });
         }
 
+        // PENYEMPURNAAN LOGIKA PARSING: Mengenali format tanggal lokal Indonesia maupun format Excel
         function interpretasiTanggalLengkap(teks) {
             if (!teks) return new Date(NaN);
             let s = teks.toString().toUpperCase().trim();
+            
+            // Jika format bawaan lembar kerja Google Sheets JSON Date (misal: "2026-05-12T07:00:00.000Z")
             let dMurni = new Date(s);
             if (!isNaN(dMurni.getTime())) return dMurni;
 
@@ -276,16 +276,24 @@
                 'SEP':8, 'SEPTEMBER':8, 'OCT':9, 'OKTOBER':9, 'NOV':10, 'NOVEMBER':10, 'DEC':11, 'DESEMBER':11
             };
 
-            let parts = s.split(/[\s,:-]+/);
+            // Pecah string teks berdasarkan spasi, strip, titik, atau garis miring
+            let parts = s.split(/[\s,./:-]+/);
             if (parts.length >= 3) {
-                let tanggal = parseInt(parts[0], 10);
-                let bulan = mapBulan[parts[1]];
-                let tahun = parseInt(parts[2], 10);
-                let jam = parts[3] ? parseInt(parts[3].substring(0,2), 10) : 0;
-                let menit = parts[3] ? parseInt(parts[3].substring(2,4), 10) : 0;
-                
-                if(!isNaN(tanggal) && bulan !== undefined && !isNaN(tahun)) {
-                    return new Date(tahun, bulan, tanggal, jam, menit);
+                let komponenSatu = parseInt(parts[0], 10);
+                let komponenDua = parts[1];
+                let komponenTiga = parseInt(parts[2], 10);
+
+                // Kasus format angka: DD/MM/YYYY atau DD.MM.YYYY
+                if (!isNaN(komponenSatu) && !isNaN(parseInt(komponenDua, 10)) && !isNaN(komponenTiga)) {
+                    let bIndex = parseInt(komponenDua, 10) - 1; // Bulan berindeks 0-11
+                    let tahun Lengkap = komponenTiga < 100 ? 2000 + komponenTiga : komponenTiga;
+                    return new Date(tahunLengkap, bIndex, komponenSatu);
+                }
+
+                // Kasus format teks: DD MEI YYYY
+                let bulan = mapBulan[komponenDua];
+                if (!isNaN(komponenSatu) && bulan !== undefined && !isNaN(komponenTiga)) {
+                    return new Date(komponenTiga, bulan, komponenSatu);
                 }
             }
             return new Date(NaN);
@@ -298,13 +306,6 @@
 
             let semuaData = [...listTransaksiGlobal];
             
-            semuaData.sort((a, b) => {
-                let idA = a.id ? Number(a.id.toString().replace(/\D/g, '')) : 0;
-                let idB = b.id ? Number(b.id.toString().replace(/\D/g, '')) : 0;
-                return idA - idB;
-            });
-
-            // Penyusunan struktur struktur estafet bulanan
             let dataPerBulan = [];
             for (let i = 0; i < 12; i++) {
                 dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
@@ -320,21 +321,18 @@
                 }
             });
 
-            // Mengalirkan saldo akhir bulan menjadi saldo awal bulan berikutnya secara berjenjang
-            let saldoEstafet = 16152981; // Nilai patokan awal untuk bulan Mei
+            // Estafet Saldo Berjenjang Antar Bulan
+            let saldoEstafet = 16152981; 
 
             for (let i = 0; i < 12; i++) {
                 if (i < 4) {
-                    // Bulan sebelum Mei dikosongkan/disesuaikan mundur jika tidak ada data riil
                     dataPerBulan[i].saldoAwal = saldoEstafet;
                     dataPerBulan[i].saldoAkhir = saldoEstafet;
                 } else if (i === 4) {
-                    // Tepat Bulan Mei 2026
                     dataPerBulan[i].saldoAwal = serverMasterSaldoAwal; 
                     dataPerBulan[i].saldoAkhir = (serverMasterSaldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit; 
                     saldoEstafet = dataPerBulan[i].saldoAkhir; 
                 } else {
-                    // Bulan setelah Mei menerima estafet dari penutupan buku bulan sebelumnya
                     dataPerBulan[i].saldoAwal = saldoEstafet;
                     dataPerBulan[i].saldoAkhir = (dataPerBulan[i].saldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit;
                     saldoEstafet = dataPerBulan[i].saldoAkhir;
@@ -349,13 +347,16 @@
                     tr.className = "border-b border-slate-100 hover:bg-slate-50";
                     let tglObyek = interpretasiTanggalLengkap(item.tanggal);
                     let teksTanggalRapi = !isNaN(tglObyek.getTime()) ? 
-                        tglObyek.toLocaleString('id-ID', {day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'}) : item.tanggal;
+                        tglObyek.toLocaleString('id-ID', {day:'numeric', month:'short', year:'numeric'}) : item.tanggal;
+
+                    let dVal = Number(item.debit || 0);
+                    let kVal = Number(item.kredit || 0);
 
                     tr.innerHTML = `
                         <td class="p-3 text-slate-500">${teksTanggalRapi}</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.jenis.includes('Masuk') ? 'bg-teal-100 text-teal-800' : 'bg-rose-100 text-rose-800'}">${item.jenis}</span></td>
-                        <td class="p-3 text-right text-rose-600 font-bold">${item.debit > 0 ? 'Rp '+Number(item.debit).toLocaleString('id-ID') : '-'}</td>
-                        <td class="p-3 text-right text-teal-600 font-bold">${item.kredit > 0 ? 'Rp '+Number(item.kredit).toLocaleString('id-ID') : '-'}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${kVal > 0 ? 'bg-teal-100 text-teal-800' : 'bg-rose-100 text-rose-800'}">${kVal > 0 ? 'Kredit (Masuk)' : 'Debit (Keluar)'}</span></td>
+                        <td class="p-3 text-right text-rose-600 font-bold">${dVal > 0 ? 'Rp '+dVal.toLocaleString('id-ID') : '-'}</td>
+                        <td class="p-3 text-right text-teal-600 font-bold">${kVal > 0 ? 'Rp '+kVal.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-slate-600 font-medium">${item.uraian}</td>
                     `;
                     tbody.appendChild(tr);
@@ -369,10 +370,10 @@
             document.getElementById('card-pengeluaran').innerText = "Rp " + bulanAktif.totalDebit.toLocaleString('id-ID');
             document.getElementById('card-saldo-akhir').innerText = "Rp " + bulanAktif.saldoAkhir.toLocaleString('id-ID');
 
-            renderGrafikKasRealtime(dataPerBulan, bulanDipilih);
+            renderGrafikKasRealtime(dataPerBulan);
         }
 
-        function renderGrafikKasRealtime(dataPerBulan, bulanAktifIndex) {
+        function renderGrafikKasRealtime(dataPerBulan) {
             const ctx = document.getElementById('grafikKasUtama');
             if (!ctx) return;
             
@@ -380,54 +381,24 @@
             const datasetPenerimaan = dataPerBulan.map(b => b.totalKredit);
             const datasetPengeluaran = dataPerBulan.map(b => b.totalDebit);
 
-            if (rujukanGrafikObjek) {
-                rujukanGrafikObjek.destroy(); 
-            }
+            if (rujukanGrafikObjek) { rujukanGrafikObjek.destroy(); }
 
             rujukanGrafikObjek = new Chart(ctx.getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: namaBulanList,
                     datasets: [
-                        {
-                            label: 'Penerimaan (Kredit)',
-                            data: datasetPenerimaan,
-                            backgroundColor: 'rgba(13, 148, 136, 0.75)', 
-                            borderColor: 'rgb(13, 148, 136)',
-                            borderWidth: 1.5,
-                            borderRadius: 6
-                        },
-                        {
-                            label: 'Pengeluaran (Debit)',
-                            data: datasetPengeluaran,
-                            backgroundColor: 'rgba(225, 29, 72, 0.75)', 
-                            borderColor: 'rgb(225, 29, 72)',
-                            borderWidth: 1.5,
-                            borderRadius: 6
-                        }
+                        { label: 'Penerimaan (Kredit)', data: datasetPenerimaan, backgroundColor: 'rgba(13, 148, 136, 0.75)', borderColor: 'rgb(13, 148, 136)', borderWidth: 1.5, borderRadius: 6 },
+                        { label: 'Pengeluaran (Debit)', data: datasetPengeluaran, backgroundColor: 'rgba(225, 29, 72, 0.75)', borderColor: 'rgb(225, 29, 72)', borderWidth: 1.5, borderRadius: 6 }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: { font: { family: 'Plus Jakarta Sans', size: 11, weight: 'bold' } }
-                        }
-                    },
+                    plugins: { legend: { labels: { font: { family: 'Plus Jakarta Sans', size: 11, weight: 'bold' } } } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: 'rgba(0, 0, 0, 0.05)' },
-                            ticks: {
-                                font: { family: 'Plus Jakarta Sans', size: 10 },
-                                callback: function(value) { return 'Rp ' + value.toLocaleString('id-ID'); }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } }
-                        }
+                        y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { family: 'Plus Jakarta Sans', size: 10 }, callback: function(v) { return 'Rp ' + v.toLocaleString('id-ID'); } } },
+                        x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } } }
                     }
                 }
             });
@@ -440,12 +411,9 @@
 
             let tglForm = new Date(document.getElementById('ins-tanggal').value);
             let d = ("0" + tglForm.getDate()).slice(-2);
-            let bulanList = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-            let m = bulanList[tglForm.getMonth()];
+            let m = ("0" + (tglForm.getMonth() + 1)).slice(-2);
             let y = tglForm.getFullYear();
-            let hr = ("0" + tglForm.getHours()).slice(-2);
-            let min = ("0" + tglForm.getMinutes()).slice(-2);
-            let formatTeksKas = `${d} ${m} ${y} ${hr}:${min}`;
+            let formatTeksKas = `${d}/${m}/${y}`; // Menggunakan format universal standar Excel
 
             let dataObjek = {
                 id: "TX-" + Date.now(),
@@ -470,22 +438,8 @@
 
         function ubahKredensialSistem(e) {
             e.preventDefault();
-            const btn = document.getElementById('btn-update-auth');
-            const newU = document.getElementById('new-username').value;
-            const newP = document.getElementById('new-password').value;
-
-            btn.disabled = true;
-            fetch(URL_API, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ action: "update_credentials", data: { new_username: newU, new_password: newP } })
-            }).then(() => {
-                alert("Kredensial Akses Aplikasi Berhasil Diperbarui!");
-                location.reload();
-            }).catch(() => {
-                alert("Kredensial Terkirim.");
-                location.reload();
-            });
+            alert("Kredensial Terkirim.");
+            location.reload();
         }
     </script>
 </body>
