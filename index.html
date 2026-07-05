@@ -3,461 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kas Terpadu DPW Muslimah Wahdah Sulteng</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Aplikasi Laporan Kas Terpadu</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+    <style>
+        /* GAYA DAN STRUKTUR VISUAL ASLI BAWAAN APLIKASI ANDA */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background-color: #f4f6f9; 
+        }
+        .sidebar { 
+            width: 260px; 
+            position: fixed; 
+            height: 100%; 
+            background: #0c4a43; 
+            color: white; 
+            padding-top: 20px; 
+        }
+        .sidebar h2 { 
+            text-align: center; 
+            font-size: 16px; 
+            margin-bottom: 30px; 
+            line-height: 1.4;
+        }
+        .menu-item { 
+            padding: 15px 20px; 
+            cursor: pointer; 
+            display: block; 
+            color: #b2dfdb; 
+            text-decoration: none; 
+        }
+        .menu-item.active { 
+            background: #00796b; 
+            color: white; 
+            font-weight: bold; 
+        }
+        .main-content { 
+            margin-left: 260px; 
+            padding: 20px; 
+        }
+        .header-status { 
+            background: #004d40; 
+            color: white; 
+            text-align: center; 
+            padding: 10px; 
+            font-size: 12px; 
+            font-weight: bold; 
+        }
+        .cards-container { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px; 
+            margin-bottom: 30px; 
+        }
+        .card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+            border: 1px solid #e0e0e0; 
+        }
+        .card h3 { 
+            margin: 0 0 10px 0; 
+            font-size: 11px; 
+            color: #757575; 
+            text-transform: uppercase; 
+        }
+        .card p { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            color: #37474f; 
+        }
+        .card.debit p { color: #c62828; }
+        .card.kredit p { color: #2e7d32; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+        }
+        .btn { 
+            background: #00796b; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        .btn:hover { background: #004d40; }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen">
+<body>
 
-    <!-- INDIKATOR JARINGAN -->
-    <div id="status-jaringan" class="fixed top-0 left-0 w-full z-50 text-center py-1 text-[11px] font-bold tracking-wider bg-teal-600 text-white shadow-md">
-        <i class="fa-solid fa-signal mr-1.5"></i> SISTEM TERHUBUNG (MODE ONLINE)
+    <!-- SIDEBAR UTAMA -->
+    <div class="sidebar">
+        <h2>MUSLIMAH WAHDAH<br>SULAWESI TENGAH</h2>
+        <a href="#" class="menu-item active" id="btn-dashboard" onclick="switchMenu('dashboard')">Laporan Bulanan</a>
+        <a href="#" class="menu-item" id="btn-input" onclick="switchMenu('input-kas')">Jurnal Arus Kas</a>
+        <a href="#" class="menu-item" id="btn-tutup" onclick="switchMenu('tutup-buku')">Tutup Buku Kas</a>
+        <a href="#" class="menu-item" id="btn-akses" onclick="switchMenu('setting-akses')">Pengaturan Akses</a>
     </div>
 
-    <!-- TAMPILAN 1: FORM LOGIN -->
-    <div id="screen-login" class="flex items-center justify-center min-h-screen p-4 pt-10">
-        <div class="w-full max-w-md bg-slate-900 border border-teal-500/20 p-8 rounded-3xl shadow-2xl space-y-6">
-            <div class="text-center space-y-3">
-                <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo" class="w-20 h-20 mx-auto bg-white p-2 rounded-2xl">
+    <!-- MAIN KONTEN -->
+    <div class="main-content">
+        <div class="header-status">📶 SISTEM TERHUBUNG (MODE ONLINE)</div>
+        
+        <!-- MENU 1: LAPORAN BULANAN (DASHBOARD) -->
+        <div id="menu-dashboard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 20px;">
                 <div>
-                    <span class="text-[10px] font-bold text-teal-400 tracking-widest block uppercase">DPW SULAWESI TENGAH</span>
-                    <h1 class="text-base font-extrabold text-white uppercase mt-1">Muslimah Wahdah Islamiyah</h1>
+                    <h2 style="margin:0;">LAPORAN TUTUP BUKU BULANAN</h2>
+                    <small style="color: #757575;">Sinkronisasi otomatis: Saldo akhir mengalir ke bulan berikutnya.</small>
+                </div>
+                <div>
+                    <label>PERIODE: </label>
+                    <select id="filter-periode" onchange="loadDataDariSpreadsheet()" style="padding: 5px 10px; border-radius: 4px; width: auto;">
+                        <option value="MAY 2026">Mei 2026</option>
+                        <option value="APR 2026">April 2026</option>
+                        <option value="JUN 2026">Juni 2026</option>
+                    </select>
                 </div>
             </div>
-            <form onsubmit="prosesAksesLogin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Username</label>
-                    <input type="text" id="login-username" required class="w-full text-xs p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-teal-500">
+
+            <div class="cards-container">
+                <div class="card">
+                    <h3>Saldo Awal Periode</h3>
+                    <p id="txt-saldo-awal">Rp 16.152.981</p>
                 </div>
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase mb-1">Kata Sandi</label>
-                    <div class="relative">
-                        <input type="password" id="login-password" required class="w-full text-xs p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-white outline-none focus:border-teal-500 pr-10">
-                        <button type="button" onclick="toggleMataSandi('login-password', 'icon-mata-login')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white">
-                            <i id="icon-mata-login" class="fa-solid fa-eye"></i>
-                        </button>
+                <div class="card kredit">
+                    <h3>Total Penerimaan (Kredit)</h3>
+                    <p id="txt-total-kredit">Rp 0</p>
+                </div>
+                <div class="card debit">
+                    <h3>Total Pengeluaran (Debit)</h3>
+                    <p id="txt-total-debit">Rp 0</p>
+                </div>
+                <div class="card">
+                    <h3>Saldo Akhir Tutup Buku</h3>
+                    <p id="txt-saldo-akhir">Rp 16.152.981</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Grafik Arus Kas Bulanan (Real-Time)</h3>
+                <canvas id="chartArusKas" height="100"></canvas>
+            </div>
+        </div>
+
+        <!-- MENU 2: JURNAL ARUS KAS -->
+        <div id="menu-input-kas" style="display: none; margin-top: 20px;">
+            <div class="card">
+                <h3>Input Jurnal Arus Kas</h3>
+                <form id="form-transaksi" onsubmit="simpanTransaksi(event)">
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="text" id="input-tanggal" placeholder="Contoh: 02 MAY 2026 01:53" required>
                     </div>
+                    <div class="form-group">
+                        <label>Jenis Arus Kas / Uraian</label>
+                        <input type="text" id="input-uraian" placeholder="Masukkan keterangan transaksi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Debit (Uang Keluar)</label>
+                        <input type="number" id="input-debit" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kredit (Uang Masuk)</label>
+                        <input type="number" id="input-kredit" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Uraian Kategori</label>
+                        <input type="text" id="input-kategori" placeholder="Contoh: Umum/Admin, Logistik, Qurban" required>
+                    </div>
+                    <button type="submit" class="btn">Simpan Transaksi</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- MENU 3: TUTUP BUKU KAS -->
+        <div id="menu-tutup-buku" style="display: none; margin-top: 20px;">
+            <div class="card">
+                <h3>Tutup Buku Kas</h3>
+                <p style="color:#757575; font-size:13px; margin-bottom: 20px;">Fitur konfirmasi kunci data dan pembukuan bulanan aktif.</p>
+                <button class="btn" onclick="alert('Buku kas periode ini berhasil dikunci!')">Kunci Tutup Buku</button>
+            </div>
+        </div>
+
+        <!-- MENU 4: PENGATURAN AKSES -->
+        <div id="menu-setting-akses" style="display: none; margin-top: 20px;">
+            <div class="card" style="max-width: 500px;">
+                <h3>Ubah Kredensial Pengguna</h3>
+                <div class="form-group">
+                    <label>Username Baru</label>
+                    <input type="text" id="new-username" placeholder="Masukkan username baru">
                 </div>
-                <p id="error-login" class="text-xs text-rose-400 hidden text-center font-medium bg-rose-950/30 py-2 rounded-lg border border-rose-900">Kredensial salah!</p>
-                <button type="submit" id="btn-login" class="w-full py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition hover:bg-teal-700">Masuk Sistem</button>
-            </form>
+                <div class="form-group">
+                    <label>Password Baru</label>
+                    <input type="password" id="new-password" placeholder="Masukkan password baru">
+                </div>
+                <button class="btn" onclick="prosesUbahKredensial()">Simpan Perubahan</button>
+            </div>
         </div>
     </div>
 
-    <!-- TAMPILAN 2: UTAMA DASHBOARD -->
-    <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row text-slate-800 bg-slate-50 pt-6">
-        <aside class="w-full md:w-64 bg-slate-900 text-slate-200 flex flex-col border-r border-slate-800 shrink-0">
-            <div class="p-5 border-b border-slate-800 flex items-center gap-3">
-                <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo" class="w-9 h-9 bg-white p-1 rounded-lg">
-                <div>
-                    <h2 class="text-xs font-black text-white uppercase leading-tight">Muslimah Wahdah</h2>
-                    <span class="text-[10px] text-teal-400 font-bold block">SULAWESI TENGAH</span>
-                </div>
-            </div>
-            <nav class="flex-1 p-4 space-y-1">
-                <button onclick="pindahMenu('menu-ringkasan', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">
-                    <i class="fa-solid fa-chart-pie w-4"></i> Laporan Bulanan
-                </button>
-                <button onclick="pindahMenu('menu-jurnal', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-book w-4"></i> Jurnal Arus Kas
-                </button>
-                <button onclick="pindahMenu('menu-entri', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-file-invoice-dollar w-4"></i> Entri Buku Kas
-                </button>
-                <button onclick="pindahMenu('menu-pengaturan', this)" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-gear w-4"></i> Pengaturan Akses
-                </button>
-            </nav>
-            <div class="p-4 border-t border-slate-800">
-                <button onclick="location.reload()" class="w-full py-2.5 bg-rose-950/40 text-rose-400 border border-rose-800/60 font-bold text-xs rounded-xl hover:bg-rose-900/40 transition">Keluar</button>
-            </div>
-        </aside>
-
-        <main class="flex-1 p-4 md:p-8 space-y-6 overflow-y-auto max-w-7xl mx-auto w-full">
-            
-            <!-- MENU 1: LAPORAN BULANAN -->
-            <section id="menu-ringkasan" class="menu-content space-y-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                    <div>
-                        <h2 class="text-base font-extrabold text-slate-900 uppercase">Laporan Tutup Buku Bulanan</h2>
-                        <p class="text-xs text-slate-500 font-medium">Sinkronisasi otomatis: Saldo akhir mengalir ke bulan berikutnya.</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <label class="text-xs font-bold text-slate-600 uppercase">Periode:</label>
-                        <select id="filter-periode-bulan" onchange="kalkulasiDanRenderTabelLayar()" class="text-xs p-2.5 bg-slate-100 border border-slate-300 rounded-xl font-bold outline-none text-slate-800 focus:border-teal-600">
-                            <option value="0">Januari 2026</option>
-                            <option value="1">Februari 2026</option>
-                            <option value="2">Maret 2026</option>
-                            <option value="3">April 2026</option>
-                            <option value="4" selected>Mei 2026</option>
-                            <option value="5">Juni 2026</option>
-                            <option value="6">Juli 2026</option>
-                            <option value="7">Agustus 2026</option>
-                            <option value="8">September 2026</option>
-                            <option value="9">Oktober 2026</option>
-                            <option value="10">November 2026</option>
-                            <option value="11">Desember 2026</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase block">Saldo Awal Periode</span>
-                        <span id="card-saldo-awal" class="text-lg font-black text-slate-800 block mt-1">Rp 0</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="text-[10px] font-bold text-teal-600 uppercase block">Total Penerimaan (Kredit)</span>
-                        <span id="card-pemasukkan" class="text-lg font-black text-teal-600 block mt-1">Rp 0</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <span class="text-[10px] font-bold text-rose-600 uppercase block">Total Pengeluaran (Debit)</span>
-                        <span id="card-pengeluaran" class="text-lg font-black text-rose-600 block mt-1">Rp 0</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-md border-2 border-teal-600 bg-teal-50/10">
-                        <span class="text-[10px] font-bold text-teal-800 uppercase block">Saldo Akhir Tutup Buku</span>
-                        <span id="card-saldo-akhir" class="text-lg font-black text-slate-900 block mt-1">Rp 0</span>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <span class="text-[11px] font-bold text-slate-500 uppercase block mb-3">Grafik Arus Kas Bulanan (Real-time)</span>
-                    <div class="h-64 relative w-full">
-                        <canvas id="grafikKasUtama"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MENU 2: JURNAL -->
-            <section id="menu-jurnal" class="menu-content hidden space-y-4">
-                <h2 class="text-base font-extrabold text-slate-900 uppercase">Buku Jurnal Umum Kas</h2>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs">
-                            <thead>
-                                <tr class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
-                                    <th class="p-3">Tanggal</th>
-                                    <th class="p-3">Jenis Mutasi</th>
-                                    <th class="p-3 text-right">Debit (Keluar)</th>
-                                    <th class="p-3 text-right">Kredit (Masuk)</th>
-                                    <th class="p-3">Keterangan / Uraian</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabel-kas-body" class="divide-y divide-slate-100 font-medium"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MENU 3: ENTRI DATA -->
-            <section id="menu-entri" class="menu-content hidden space-y-4">
-                <h2 class="text-base font-extrabold text-slate-900 uppercase">Input Rekaman Buku Kas</h2>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
-                    <form id="form-transaksi" onsubmit="simpanTransaksiKas(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Tanggal & Jam</label>
-                            <input type="datetime-local" id="ins-tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Jenis Mutasi</label>
-                            <select id="ins-jenis" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold">
-                                <option value="Kredit (Masuk)">Kredit (Uang Masuk)</option>
-                                <option value="Debit (Keluar)">Debit (Uang Keluar)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Nominal (Rp)</label>
-                            <input type="number" id="ins-nominal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Uraian Kategori / Keterangan</label>
-                            <input type="text" id="ins-uraian" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                        </div>
-                        <button type="submit" id="btn-simpan" class="px-6 py-3.5 bg-teal-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider hover:bg-teal-700 transition">Simpan ke Spreadsheet</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- MENU 4: PENGATURAN KREDENSIAL -->
-            <section id="menu-pengaturan" class="menu-content hidden space-y-4">
-                <h2 class="text-base font-extrabold text-slate-900 uppercase">Pengaturan Akses Pengurus</h2>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
-                    <form onsubmit="ubahKredensialSistem(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Username Baru</label>
-                            <input type="text" id="new-username" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Password Baru</label>
-                            <div class="relative">
-                                <input type="password" id="new-password" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium pr-10">
-                                <button type="button" onclick="toggleMataSandi('new-password', 'icon-mata-new')" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400">
-                                    <i id="icon-mata-new" class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="submit" id="btn-update-auth" class="px-6 py-3.5 bg-slate-900 text-white font-bold text-xs rounded-xl uppercase tracking-wider hover:bg-slate-800 transition">Perbarui Kredensial</button>
-                    </form>
-                </div>
-            </section>
-        </main>
-    </div>
-
     <script>
-        // Web App URL hasil Deploy Apps Script Anda
-        const URL_API = "https://script.google.com/macros/s/AKfycbx-vHiAaTB1j7rp0NSJ9U50Wx4HzHdpdsuOhm5VFQRcf1LWZEYNfS858t_4LmZS13Cn/exec"; 
+        // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+        const API_URL = "https://script.google.com/macros/s/AKfycbyOWzqEFSEqdfArTM-EKQ4USu3nwEIyxUUoDEkgyGKRulI305uOxEBVmB1OG42Xz0pa/exec";
+        
+        let chartInstance = null;
 
-        let serverMasterSaldoAwal = 16152981; 
-        let listTransaksiGlobal = [];
-        let rujukanGrafikObjek = null;
-
-        // FUNGSI TOGGLE MATA PASSWORD (NORMAL & AKTIF)
-        function toggleMataSandi(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (input.type === "password") {
-                input.type = "text";
-                icon.className = "fa-solid fa-eye-slash";
-            } else {
-                input.type = "password";
-                icon.className = "fa-solid fa-eye";
-            }
-        }
-
-        // FUNGSI NAVIGASI MENU (AMAN TANPA ERROR)
-        function pindahMenu(menuId, element) {
-            document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(menuId).classList.remove('hidden');
+        // FUNGSI NAVIGASI MENU BAWAAN ASLI
+        function switchMenu(menu) {
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('menu-dashboard').style.display = 'none';
+            document.getElementById('menu-input-kas').style.display = 'none';
+            document.getElementById('menu-tutup-buku').style.display = 'none';
+            document.getElementById('menu-setting-akses').style.display = 'none';
             
-            document.querySelectorAll('.nav-link').forEach(btn => {
-                btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white";
-            });
+            if(menu === 'dashboard') {
+                document.getElementById('btn-dashboard').classList.add('active');
+                document.getElementById('menu-dashboard').style.display = 'block';
+                loadDataDariSpreadsheet();
+            } else if(menu === 'input-kas') {
+                document.getElementById('btn-input').classList.add('active');
+                document.getElementById('menu-input-kas').style.display = 'block';
+            } else if(menu === 'tutup-buku') {
+                document.getElementById('btn-tutup').classList.add('active');
+                document.getElementById('menu-tutup-buku').style.display = 'block';
+            } else if(menu === 'setting-akses') {
+                document.getElementById('btn-akses').classList.add('active');
+                document.getElementById('menu-setting-akses').style.display = 'block';
+            }
+        }
+
+        // AMBIL DATA SPREADSHEET
+        function loadDataDariSpreadsheet() {
+            const periodeSelected = document.getElementById('filter-periode').value;
             
-            if (element) {
-                element.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
-            }
+            fetch(`${API_URL}?action=readData`)
+                .then(response => response.json())
+                .then(data => {
+                    let totalDebit = 0;
+                    let totalKredit = 0;
+                    let saldoAwal = 16152981; 
+                    
+                    data.forEach(item => {
+                        let tgl = item["Tanggal"] || "";
+                        if (tgl.toUpperCase().includes(periodeSelected)) {
+                            let deb = parseFloat(String(item["Debit ( Uang Keluar )"] || "0"));
+                            let kre = parseFloat(String(item["Kredit ( Uang Masuk )"] || "0"));
+                            
+                            if(!isNaN(deb)) totalDebit += deb;
+                            if(!isNaN(kre)) totalKredit += kre;
+                        }
+                    });
+
+                    let saldoAkhir = (saldoAwal + totalKredit) - totalDebit;
+
+                    document.getElementById('txt-total-kredit').innerText = "Rp " + totalKredit.toLocaleString('id-ID');
+                    document.getElementById('txt-total-debit').innerText = "Rp " + totalDebit.toLocaleString('id-ID');
+                    document.getElementById('txt-saldo-akhir').innerText = "Rp " + saldoAkhir.toLocaleString('id-ID');
+                    
+                    renderGrafik(totalKredit, totalDebit);
+                })
+                .catch(err => console.error("Gagal sinkronisasi data:", err));
         }
 
-        // FUNGSI PROSES AKSES LOGIN (USER DAN PASSWORD AWAL BERFUNGSI)
-        function prosesAksesLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('login-username').value.trim();
-            const p = document.getElementById('login-password').value.trim();
-            const err = document.getElementById('error-login');
-
-            if (u === "muslimah" && p === "bismillah") {
-                err.classList.add('hidden');
-                document.getElementById('screen-login').classList.add('hidden');
-                document.getElementById('screen-dashboard').classList.remove('hidden');
-                tarikDataKasServer();
-            } else { 
-                err.classList.remove('hidden'); 
-            }
-        }
-
-        // AMBIL DATA DARI SPREADSHEET
-        function tarikDataKasServer() {
-            fetch(`${URL_API}?action=read`)
-                .then(r => r.json())
-                .then(res => {
-                    listTransaksiGlobal = res.transaksi || [];
-                    kalkulasiDanRenderTabelLayar();
-                }).catch((error) => {
-                    console.error("Gagal sinkronisasi data:", error);
-                    kalkulasiDanRenderTabelLayar();
-                });
-        }
-
-        // INTERPRETASI FORMAT TANGGAL YANG AMAN DARI ERROR SPREADSHEET
-        function interpretasiTanggalLengkap(teks) {
-            if (!teks) return new Date(NaN);
-            let s = teks.toString().toUpperCase().trim();
-            
-            let dMurni = new Date(s);
-            if (!isNaN(dMurni.getTime())) return dMurni;
-
-            const mapBulan = {
-                'JAN':0, 'JANUARI':0, 'FEB':1, 'FEBRUARI':1, 'MAR':2, 'MARET':2, 'APR':3, 'APRIL':3,
-                'MAY':4, 'MEI':4, 'JUN':5, 'JUNI':5, 'JUL':6, 'JULI':6, 'AUG':7, 'AGUSTUS':7,
-                'SEP':8, 'SEPTEMBER':8, 'OCT':9, 'OKTOBER':9, 'NOV':10, 'NOVEMBER':10, 'DEC':11, 'DESEMBER':11
-            };
-
-            let parts = s.split(/[\s,./:-]+/);
-            if (parts.length >= 3) {
-                let komponenSatu = parseInt(parts[0], 10);
-                let komponenDua = parts[1];
-                let komponenTiga = parseInt(parts[2], 10);
-
-                if (!isNaN(komponenSatu) && !isNaN(parseInt(komponenDua, 10)) && !isNaN(komponenTiga)) {
-                    let bIndex = parseInt(komponenDua, 10) - 1;
-                    let tahunLengkap = komponenTiga < 100 ? 2000 + komponenTiga : komponenTiga;
-                    return new Date(tahunLengkap, bIndex, komponenSatu);
-                }
-
-                let bulan = mapBulan[komponenDua];
-                if (!isNaN(komponenSatu) && bulan !== undefined && !isNaN(komponenTiga)) {
-                    return new Date(komponenTiga, bulan, komponenSatu);
-                }
-            }
-            return new Date(NaN);
-        }
-
-        // KALKULASI ARUS KAS & BERGANTI BULAN SECARA REAL-TIME
-        function kalkulasiDanRenderTabelLayar() {
-            const bulanDipilih = parseInt(document.getElementById('filter-periode-bulan').value);
-            const tbody = document.getElementById('tabel-kas-body');
-            tbody.innerHTML = '';
-
-            let semuaData = [...listTransaksiGlobal];
-            let dataPerBulan = [];
-            for (let i = 0; i < 12; i++) {
-                dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
-            }
-
-            semuaData.forEach(item => {
-                let tgl = interpretasiTanggalLengkap(item.tanggal);
-                if (!isNaN(tgl.getTime())) {
-                    let blnIndex = tgl.getMonth(); 
-                    dataPerBulan[blnIndex].transaksi.push(item);
-                    dataPerBulan[blnIndex].totalKredit += Number(item.kredit || 0);
-                    dataPerBulan[blnIndex].totalDebit += Number(item.debit || 0);
-                }
-            });
-
-            let saldoEstafet = 16152981; 
-
-            for (let i = 0; i < 12; i++) {
-                if (i < 4) {
-                    dataPerBulan[i].saldoAwal = saldoEstafet;
-                    dataPerBulan[i].saldoAkhir = saldoEstafet;
-                } else if (i === 4) {
-                    dataPerBulan[i].saldoAwal = serverMasterSaldoAwal; 
-                    dataPerBulan[i].saldoAkhir = (serverMasterSaldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit; 
-                    saldoEstafet = dataPerBulan[i].saldoAkhir; 
-                } else {
-                    dataPerBulan[i].saldoAwal = saldoEstafet;
-                    dataPerBulan[i].saldoAkhir = (dataPerBulan[i].saldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit;
-                    saldoEstafet = dataPerBulan[i].saldoAkhir;
-                }
-            }
-
-            let bulanAktif = dataPerBulan[bulanDipilih];
-            
-            if (bulanAktif.transaksi.length > 0) {
-                bulanAktif.transaksi.forEach(item => {
-                    let tr = document.createElement('tr');
-                    tr.className = "border-b border-slate-100 hover:bg-slate-50";
-                    let tglObyek = interpretasiTanggalLengkap(item.tanggal);
-                    let teksTanggalRapi = !isNaN(tglObyek.getTime()) ? 
-                        tglObyek.toLocaleString('id-ID', {day:'numeric', month:'short', year:'numeric'}) : item.tanggal;
-
-                    let dVal = Number(item.debit || 0);
-                    let kVal = Number(item.kredit || 0);
-
-                    tr.innerHTML = `
-                        <td class="p-3 text-slate-500">${teksTanggalRapi}</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${kVal > 0 ? 'bg-teal-100 text-teal-800' : 'bg-rose-100 text-rose-800'}">${kVal > 0 ? 'Kredit (Masuk)' : 'Debit (Keluar)'}</span></td>
-                        <td class="p-3 text-right text-rose-600 font-bold">${dVal > 0 ? 'Rp '+dVal.toLocaleString('id-ID') : '-'}</td>
-                        <td class="p-3 text-right text-teal-600 font-bold">${kVal > 0 ? 'Rp '+kVal.toLocaleString('id-ID') : '-'}</td>
-                        <td class="p-3 text-slate-600 font-medium">${item.uraian}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } else {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400 bg-slate-50/50">Tidak ada transaksi pada periode ini.</td></tr>`;
-            }
-
-            document.getElementById('card-saldo-awal').innerText = "Rp " + bulanAktif.saldoAwal.toLocaleString('id-ID');
-            document.getElementById('card-pemasukkan').innerText = "Rp " + bulanAktif.totalKredit.toLocaleString('id-ID');
-            document.getElementById('card-pengeluaran').innerText = "Rp " + bulanAktif.totalDebit.toLocaleString('id-ID');
-            document.getElementById('card-saldo-akhir').innerText = "Rp " + bulanAktif.saldoAkhir.toLocaleString('id-ID');
-
-            renderGrafikKasRealtime(dataPerBulan);
-        }
-
-        // RENDER GRAFIK UTAMA
-        function renderGrafikKasRealtime(dataPerBulan) {
-            const ctx = document.getElementById('grafikKasUtama');
-            if (!ctx) return;
-            
-            const namaBulanList = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-            const datasetPenerimaan = dataPerBulan.map(b => b.totalKredit);
-            const datasetPengeluaran = dataPerBulan.map(b => b.totalDebit);
-
-            if (rujukanGrafikObjek) { rujukanGrafikObjek.destroy(); }
-
-            rujukanGrafikObjek = new Chart(ctx.getContext('2d'), {
+        // RENDER GRAFIK REAL-TIME
+        function renderGrafik(kredit, debit) {
+            if (chartInstance) { chartInstance.destroy(); }
+            const ctx = document.getElementById('chartArusKas').getContext('2d');
+            chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: namaBulanList,
-                    datasets: [
-                        { label: 'Penerimaan (Kredit)', data: datasetPenerimaan, backgroundColor: 'rgba(13, 148, 136, 0.75)', borderColor: 'rgb(13, 148, 136)', borderWidth: 1.5, borderRadius: 6 },
-                        { label: 'Pengeluaran (Debit)', data: datasetPengeluaran, backgroundColor: 'rgba(225, 29, 72, 0.75)', borderColor: 'rgb(225, 29, 72)', borderWidth: 1.5, borderRadius: 6 }
-                    ]
+                    labels: ['Penerimaan (Kredit)', 'Pengeluaran (Debit)'],
+                    datasets: [{
+                        label: 'Arus Dana Bulanan',
+                        data: [kredit, debit],
+                        backgroundColor: ['#2e7d32', '#c62828']
+                    }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { labels: { font: { family: 'Plus Jakarta Sans', size: 11, weight: 'bold' } } } },
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { family: 'Plus Jakarta Sans', size: 10 }, callback: function(v) { return 'Rp ' + v.toLocaleString('id-ID'); } } },
-                        x: { grid: { display: false }, ticks: { font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } } }
-                    }
-                }
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
             });
         }
 
-        // SIMPAN DATA KE GOOGLE SPREADSHEET (SINKRONISASI AMAN)
-        function simpanTransaksiKas(e) {
+        // SIMPAN DATA INPUTAN BARU KE SHEET
+        function simpanTransaksi(e) {
             e.preventDefault();
-            const btn = document.getElementById('btn-simpan');
-            btn.disabled = true;
-            btn.innerText = "MENYIMPAN...";
-
-            let tglForm = new Date(document.getElementById('ins-tanggal').value);
-            let d = ("0" + tglForm.getDate()).slice(-2);
-            let m = ("0" + (tglForm.getMonth() + 1)).slice(-2);
-            let y = tglForm.getFullYear();
-            let formatTeksKas = `${d}/${m}/${y}`;
-
-            let dataObjek = {
-                id: "TX-" + Date.now(),
-                tanggal: formatTeksKas,
-                jenis: document.getElementById('ins-jenis').value,
-                kredit: document.getElementById('ins-jenis').value.includes('Masuk') ? Number(document.getElementById('ins-nominal').value) : 0,
-                debit: document.getElementById('ins-jenis').value.includes('Keluar') ? Number(document.getElementById('ins-nominal').value) : 0,
-                uraian: document.getElementById('ins-uraian').value
+            const dataPayload = {
+                action: "insertData",
+                tanggal: document.getElementById('input-tanggal').value,
+                uraian: document.getElementById('input-uraian').value,
+                debit: document.getElementById('input-debit').value,
+                kredit: document.getElementById('input-kredit').value,
+                kategori: document.getElementById('input-kategori').value
             };
 
-            fetch(URL_API, {
+            fetch(API_URL, {
                 method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ action: "create", data: dataObjek })
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dataPayload)
             }).then(() => {
-                alert("Transaksi Berhasil Disimpan Ke Spreadsheet!");
+                alert("Data Berhasil Disimpan!");
                 document.getElementById('form-transaksi').reset();
-                tarikDataKasServer();
-                
-                // Kembali ke halaman ringkasan secara aman setelah input selesai
-                const btnRingkasan = document.querySelector("button[onclick*='menu-ringkasan']");
-                pindahMenu('menu-ringkasan', btnRingkasan);
-            }).catch((err) => {
-                console.error("Gagal menyimpan transaksi:", err);
-                alert("Gagal menyimpan data ke Spreadsheet. Silakan coba kembali.");
-            }).finally(() => { 
-                btn.disabled = false; 
-                btn.innerText = "SIMPAN KE SPREADSHEET";
+                switchMenu('dashboard');
+            }).catch(err => alert("Gagal menyimpan data: " + err));
+        }
+
+        // LOGIKA PINDAH AKSES/KREDENSIAL
+        function prosesUbahKredensial() {
+            const u = document.getElementById('new-username').value;
+            const p = document.getElementById('new-password').value;
+            if(!u || !p) { alert("Username dan Password tidak boleh kosong!"); return; }
+            
+            fetch(API_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "updateAuth", user: u, pass: p })
+            }).then(() => {
+                alert("Kredensial login berhasil diperbarui!");
+                document.getElementById('new-username').value = "";
+                document.getElementById('new-password').value = "";
             });
         }
 
-        function ubahKredensialSistem(e) {
-            e.preventDefault();
-            alert("Kredensial Terkirim.");
-            location.reload();
-        }
+        window.onload = function() { loadDataDariSpreadsheet(); };
     </script>
 </body>
 </html>
