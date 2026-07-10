@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Kas - DPW Muslimah Wahdah Sulawesi Tengah</title>
+    <title>Sistem Kas - DPW Wahdah Islamiyah Sulawesi Tengah</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-luxury { font-family: 'Cinzel', serif; }
+        .glass-card {
+            background: rgba(15, 32, 39, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="bg-gradient-to-br from-emerald-950 via-slate-950 to-teal-950 text-slate-100 min-h-screen">
 
-    <!-- ================= SCREEN 1: PORTAL AUTENTIKASI / LAYAR DEPAN ================= -->
-    <div id="screen-login" class="flex flex-col items-center justify-center min-h-screen p-6 max-w-md mx-auto">
-        <!-- Tulisan Samping Logo -->
-        <div class="flex items-center gap-3 z-10 mb-8 w-full bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-            <div class="w-12 h-12 bg-white rounded-xl p-1 shadow-md flex items-center justify-center flex-shrink-0">
-                <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full">
+    <!-- ================= SCREEN 1: PORTAL AUTENTIKASI MEWAH & PROFESIONAL ================= -->
+    <div id="screen-login" class="flex flex-col items-center justify-center min-h-screen p-4 md:p-6 max-w-lg mx-auto relative overflow-hidden">
+        
+        <!-- Ornamen Latar Belakang Estetik -->
+        <div class="absolute w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl -top-12 -left-12"></div>
+        <div class="absolute w-72 h-72 bg-amber-500/5 rounded-full blur-3xl -bottom-12 -right-12"></div>
+
+        <!-- Wadah Utama Portal (Glassmorphism Premium) -->
+        <div class="w-full glass-card p-8 md:p-10 rounded-[32px] shadow-2xl space-y-8 relative z-10 border border-amber-500/20">
+            
+            <!-- Logo & Identitas Atas -->
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div class="w-20 h-20 bg-gradient-to-b from-white to-slate-50 rounded-2xl p-2 shadow-xl border-2 border-amber-400/40 flex items-center justify-center transform hover:scale-105 transition duration-300">
+                    <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo Wahdah" class="object-contain w-full h-full">
+                </div>
+                
+                <div class="space-y-1">
+                    <span class="text-[11px] font-bold tracking-[0.25em] text-amber-400 uppercase block">DEWAN PENGURUS WILAYAH</span>
+                    <h1 class="text-base font-black tracking-wide text-white leading-snug uppercase">
+                        WAHDAH ISLAMIYAH SULAWESI TENGAH
+                    </h1>
+                </div>
             </div>
-            <span class="text-xs font-black uppercase tracking-wider text-white leading-tight">
-                DPW MUSLIMAH WAHDAH ISLAMIYAH SULAWESI TENGAH
-            </span>
-        </div>
 
-        <!-- Form Login -->
-        <div class="w-full bg-white text-slate-800 p-6 rounded-3xl shadow-2xl space-y-6">
-            <div class="space-y-2">
-                <h2 class="text-xl font-black text-teal-900 tracking-tight leading-snug uppercase">
-                    LAPORAN KAS DPW MUSLIMAH WAHDAH SULAWESI TENGAH
+            <!-- Garis Pembatas Mewah Berkilau -->
+            <div class="relative flex py-2 items-center">
+                <div class="flex-grow border-t border-gradient border-amber-500/20"></div>
+                <span class="flex-shrink mx-4 text-amber-400 text-xs"><i class="fa-solid fa-star-of-life opacity-60"></i></span>
+                <div class="flex-grow border-t border-gradient border-amber-500/20"></div>
+            </div>
+
+            <!-- Judul Sistem Informasi Keuangan -->
+            <div class="text-center space-y-3">
+                <h2 class="text-2xl font-luxury font-bold bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 bg-clip-text text-transparent uppercase tracking-wide">
+                    Sistem Informasi Kas
                 </h2>
-                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">
-                    SISTEM INFORMASI KEUANGAN DEWAN PENGURUS WILAYAH
+                <p class="text-[11px] text-emerald-300/80 font-semibold uppercase tracking-widest max-w-xs mx-auto leading-relaxed">
+                    Transparansi Amanah & Akuntabilitas Keuangan Organisasi
                 </p>
             </div>
-            <button onclick="masukDashboard()" class="w-full py-4 bg-teal-600 text-white font-bold rounded-xl shadow-lg hover:bg-teal-700 transition">
-                Masuk ke Dashboard
-            </button>
+            
+            <!-- Tombol Akses Utama -->
+            <div class="pt-2">
+                <button onclick="masukDashboard()" class="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold text-sm rounded-xl shadow-[0_4px_20px_rgba(245,158,11,0.25)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.4)] tracking-wider uppercase transition duration-300 transform active:scale-[0.99] flex items-center justify-center gap-2">
+                    <span>Masuk Ke Dashboard</span>
+                    <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
+                </button>
+            </div>
         </div>
+
+        <!-- Footer Hak Cipta -->
+        <p class="text-[10px] text-slate-500 mt-8 tracking-wider uppercase">
+            &copy; 2026 DPW Wahdah Islamiyah Sulteng
+        </p>
     </div>
 
     <!-- ================= SCREEN 2: MAIN DASHBOARD ================= -->
@@ -48,8 +83,8 @@
         <!-- Header Utama -->
         <div class="bg-white p-6 rounded-3xl shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-                <h1 class="text-2xl font-black text-teal-900 uppercase">Dashboard Utama</h1>
-                <p class="text-xs text-slate-400 font-medium">DPW Muslimah Wahdah Sulawesi Tengah</p>
+                <h1 class="text-2xl font-black text-emerald-900 uppercase">Dashboard Utama</h1>
+                <p class="text-xs text-slate-400 font-medium">DPW Wahdah Islamiyah Sulawesi Tengah</p>
             </div>
             <button onclick="keluarDashboard()" class="px-4 py-2 bg-rose-50 text-rose-600 font-bold text-xs rounded-xl hover:bg-rose-100 transition">
                 <i class="fa-solid fa-sign-out-alt mr-1"></i> Keluar
@@ -58,22 +93,22 @@
 
         <!-- Form Tambah Data -->
         <div class="bg-white p-6 rounded-3xl shadow-sm space-y-4">
-            <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider">Input Transaksi Baru</h3>
+            <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider">Input Transaksi Baru</h3>
             <form id="form-transaksi" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
-                    <input type="date" id="input-tanggal" name="tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                    <input type="date" id="input-tanggal" name="tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Keterangan</label>
-                    <input type="text" id="input-keterangan" name="keterangan" placeholder="Contoh: Pembelian Sembako" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                    <input type="text" id="input-keterangan" name="keterangan" placeholder="Contoh: Pembelian Sembako" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Transaksi / Kategori</label>
-                    <input type="text" id="input-divisi" name="divisi" placeholder="Contoh: Pundi, Bazar, CFD, Infaq" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                    <input type="text" id="input-divisi" name="divisi" placeholder="Contoh: Pundi, Bazar, CFD, Infaq" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-emerald-600">
                 </div>
                 <div class="flex items-end">
-                    <button type="submit" id="btn-simpan" class="w-full py-3 bg-teal-600 text-white font-bold text-xs rounded-xl shadow-md hover:bg-teal-700 transition">
+                    <button type="submit" id="btn-simpan" class="w-full py-3 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-md hover:bg-emerald-700 transition">
                         Simpan Data
                     </button>
                 </div>
@@ -84,11 +119,11 @@
         <div class="bg-white p-6 rounded-3xl shadow-sm space-y-4">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                 <div>
-                    <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider">Rekapitulasi Khusus Transaksi</h3>
+                    <h3 class="text-sm font-bold text-emerald-900 uppercase tracking-wider">Rekapitulasi Khusus Transaksi</h3>
                     <p class="text-xs text-slate-400">Penyaringan data otomatis terfokus kategori transaksi.</p>
                 </div>
                 <div>
-                    <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-teal-50 border border-teal-200 rounded-lg font-bold text-teal-800 focus:outline-none">
+                    <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg font-bold text-emerald-800 focus:outline-none">
                         <option value="SEMUA">-- Tampilkan Semua Transaksi --</option>
                     </select>
                 </div>
@@ -117,8 +152,8 @@
 
     <!-- ================= SISTEM INTERAKSI JAVASCRIPT FETCH ================= -->
     <script>
-        // Tautan Web App Google Apps Script Anda sudah disematkan di sini
-        const URL_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbykgquA0UtXK9WMQurjAQGyV59WOfnun30S6JbWuCITYgGKttJ08jpnVm68Yf9nAtsQdw/exec";
+        // Tautan Web App Google Apps Script terhubung permanen
+        const URL_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbx0BBK73oj1AqqUfoeZwOwQZxHpkhZmHmbh_I9aAk5ItGRJzSVEZ6m9H-GdE0eoIOPrAw/exec";
 
         let databaseKas = [];
 
@@ -132,10 +167,9 @@
         function keluarDashboard() {
             document.getElementById('screen-dashboard').classList.add('hidden');
             document.getElementById('screen-login').classList.remove('hidden');
-            document.body.className = "bg-slate-900 min-h-screen text-slate-100";
+            document.body.className = "bg-gradient-to-br from-emerald-950 via-slate-950 to-teal-950 text-slate-100 min-h-screen";
         }
 
-        // Mengambil data via Fetch API
         function muatDataDariSpreadsheet() {
             const tbody = document.getElementById('tabel-buku-besar');
             tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400 italic animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengambil data terbaru dari Google Sheets...</td></tr>`;
@@ -200,7 +234,6 @@
             });
         }
 
-        // Mengirim data via Fetch API (POST)
         document.getElementById('form-transaksi').addEventListener('submit', function(e) {
             e.preventDefault();
             const btnSimpan = document.getElementById('btn-simpan');
