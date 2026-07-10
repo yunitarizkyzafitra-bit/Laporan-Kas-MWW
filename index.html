@@ -3,185 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kas MWW Sulteng</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-slate-100 font-sans">
+    <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
 
-    <!-- =========================================================================
-         1. SCREEN LOGIN (DENGAN TOGGLE MATA KATASANDI)
-         ========================================================================= -->
-    <div id="screen-login" class="min-h-screen flex items-center justify-center p-4">
-        <form id="form-login" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
-            <h2 class="text-xl font-black text-slate-800 mb-6 text-center">LOGIN AKSES</h2>
-            <div class="mb-4">
-                <input type="text" id="login-username" placeholder="Username" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-teal-500">
-            </div>
-            <!-- Kolom Password + Toggle Ikon Mata -->
-            <div class="mb-6 relative">
-                <input type="password" id="login-password" placeholder="Password" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-teal-500">
-                <div class="absolute right-4 top-4 text-slate-400 cursor-pointer" onclick="togglePassword('login-password', 'icon-mata')">
-                    <i id="icon-mata" class="fa-solid fa-eye"></i>
+    <!-- ================= METADATA IKON UNTUK ANDROID & IPHONE ================= -->
+    <!-- Mengatur agar Android mendeteksi halaman ini sebagai Web App Mandiri -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kas MWW">
+    
+    <!-- Link Gambar Logo MWW Resmi untuk Ikon Layar Utama -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
+    
+    <!-- Manifest Data untuk Android (Memaksa Chrome membuang logo G dan menggantinya dengan logo MWW) -->
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Laporan%20Kas%20MWW%22,%22short_name%22:%22Kas%20MWW%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#008080%22,%22theme_color%22:%22#008080%22,%22icons%22:[{%22src%22:%22https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22}]}">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f2faf9; 
+        }
+        .bg-tosca-premium {
+            background: linear-gradient(135deg, #008080 0%, #005a5a 100%);
+        }
+        .text-gold { color: #d4af37; }
+        .border-gold { border-color: #d4af37; }
+        .curve-header {
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+        }
+        .wave-top {
+            border-bottom-left-radius: 40% 60px;
+            border-bottom-right-radius: 40% 40px;
+        }
+        .wave-bottom {
+            border-top-left-radius: 50% 80px;
+            border-top-right-radius: 30% 40px;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f2faf9; }
+        ::-webkit-scrollbar-thumb { background: #008080; border-radius: 10px; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-700 pb-12">
+
+    <!-- ================= SCREEN 1: PORTAL AUTENTIKASI ================= -->
+    <div id="screen-portal" class="fixed inset-0 bg-slate-100 z-50 flex items-center justify-center p-4">
+        <div class="w-full max-w-sm h-[760px] bg-white rounded-[40px] shadow-2xl border-[8px] border-slate-800 relative overflow-hidden flex flex-col justify-between">
+            
+            <div class="w-full h-44 bg-tosca-premium wave-top relative flex items-center justify-center pt-6 px-4">
+                <div class="absolute top-4 right-6 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
+                <div class="flex items-center gap-3 z-10">
+                    <div class="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
+                        <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
+                    </div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
             </div>
-            <button type="submit" id="btn-login" class="w-full bg-teal-600 text-white font-bold p-3 rounded-xl hover:bg-teal-700 transition">MASUK</button>
-            <p id="error-login" class="hidden text-rose-500 text-xs text-center mt-4 font-bold">Username/Password Salah!</p>
-        </form>
+
+            <div class="px-6 text-center space-y-6 flex-1 flex flex-col justify-center">
+                <div class="space-y-2">
+                    <h2 class="text-xl font-black text-cyan-900 tracking-tight leading-snug">
+                        Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah
+                    </h2>
+                    <p class="text-xs text-slate-400 font-medium">
+                        Sistem Informasi Keuangan Pengurus Wilayah
+                    </p>
+                </div>
+
+                <div id="form-auth-container" class="space-y-3 text-left">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nama Pengguna (Username)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" id="auth-username" placeholder="Masukkan username..." class="w-full text-xs pl-9 pr-3 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kata Sandi (Password)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" id="auth-password" placeholder="Masukkan password..." class="w-full text-xs pl-9 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-teal-700 cursor-pointer z-20">
+                                <i id="eye-icon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full h-56 bg-tosca-premium wave-bottom relative flex flex-col justify-end p-6 gap-3">
+                <button onclick="prosesLogin()" class="w-full bg-white text-teal-900 font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-teal-50 transition duration-150 cursor-pointer text-center tracking-wider uppercase z-10">
+                    Masuk ke Sistem
+                </button>
+                <div class="text-center text-[10px] text-teal-100/70 font-medium z-10 mb-2">
+                    Mendukung Sinkronisasi Real-Time Dua Arah
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- =========================================================================
-         2. SCREEN DASHBOARD
-         ========================================================================= -->
-    <div id="screen-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
-        <!-- Sidebar Menu -->
-        <div class="w-full md:w-64 bg-slate-900 p-6">
-            <h1 class="text-white font-black mb-6 text-center md:text-left">MWW SULTENG</h1>
-            <div class="flex md:flex-col gap-2 justify-center md:justify-start">
-                <button onclick="pindahMenu('menu-ringkasan')" id="btn-menu-ringkasan" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">
-                    <i class="fa-solid fa-chart-pie"></i> Ringkasan
+    <!-- ================= SCREEN 2: UTAMA DASHBOARD ================= -->
+    <div id="screen-dashboard" class="hidden">
+        
+        <div class="bg-tosca-premium text-white pt-6 pb-12 px-6 curve-header shadow-xl relative overflow-hidden border-b-4 border-gold">
+            <div class="absolute top-[-20%] right-[-10%] w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
+            
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-6 relative z-10">
+                <div class="flex items-center gap-5">
+                    <div class="w-16 h-16 bg-white rounded-2xl p-1.5 shadow-xl flex items-center justify-center border-2 border-gold flex-shrink-0">
+                        <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-lg">
+                    </div>
+                    <div>
+                        <h1 class="text-lg md:text-2xl font-black tracking-wide text-white leading-tight">
+                            LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
+                        </h1>
+                        <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1" id="label-periode-buku">
+                            Periode Laporan Buku: Mei 2026
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-right flex flex-col items-end flex-shrink-0">
+                    <span class="text-[10px] uppercase tracking-widest text-teal-200 font-bold mb-1">Total Saldo Terkini</span>
+                    <span class="text-3xl md:text-4xl font-black text-white tracking-tight" id="saldo-akhir">Rp 0</span>
+                    <span id="status-koneksi" class="mt-2 bg-white/10 text-teal-100 px-3 py-0.5 rounded-full text-[10px] font-bold border border-white/20 backdrop-blur-sm">
+                        Memeriksa Cloud Jaringan...
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU TABS NAVIGASI -->
+        <div class="max-w-6xl mx-auto mt-4 px-6">
+            <div class="bg-white p-2 rounded-xl shadow-md border border-teal-100/50 flex flex-wrap gap-2 justify-center md:justify-start">
+                <button onclick="pindahMenu('ringkasan')" id="btn-ringkasan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm">
+                    📊 Ringkasan Laporan
                 </button>
-                <button onclick="pindahMenu('menu-tambah')" id="btn-menu-tambah" class="nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <i class="fa-solid fa-plus"></i> Tambah Transaksi
+                <button onclick="pindahMenu('input')" id="btn-input" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                    📥 Input Data Baru
+                </button>
+                <button onclick="pindahMenu('buku-besar')" id="btn-buku-besar" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                    📖 Arus Rekapitulasi Divisi
+                </button>
+                <button onclick="pindahMenu('pengaturan')" id="btn-pengaturan" class="px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer text-slate-500 hover:bg-teal-50">
+                    ⚙️ Pengaturan Akses
                 </button>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 p-6">
+        <div class="max-w-6xl mx-auto p-6">
             
-            <!-- MENU 1: RINGKASAN KAS -->
-            <div id="menu-ringkasan" class="menu-content">
-                <h2 class="text-lg font-black text-slate-800 mb-4">RINGKASAN KAS</h2>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Saldo Awal</p>
-                        <p id="card-saldo-awal" class="font-black text-slate-800 text-sm md:text-base">Rp 0</p>
+            <!-- MODUL 1: RINGKASAN -->
+            <div id="menu-ringkasan" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-amber-500">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold block">Saldo Awal Bulan Mei</span>
+                        <span class="text-lg font-extrabold text-amber-600">Rp 16.152.981</span>
+                        <p class="text-[9px] text-slate-400 mt-2 font-medium">Nilai dasar per tanggal 01 Mei 2026.</p>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200">
-                        <p class="text-[10px] text-teal-600 font-bold uppercase">Pendapatan</p>
-                        <p id="card-pemasukkan" class="font-black text-teal-600 text-sm md:text-base">Rp 0</p>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-teal-600 flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Masuk</span>
+                                <span class="text-lg font-extrabold text-teal-600" id="total-masuk">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
+                            <div id="bar-masuk" class="bg-teal-600 h-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200">
-                        <p class="text-[10px] text-rose-600 font-bold uppercase">Pengeluaran</p>
-                        <p id="card-pengeluaran" class="font-black text-rose-600 text-sm md:text-base">Rp 0</p>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-rose-500 flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase font-bold block">Total Dana Keluar</span>
+                                <span class="text-lg font-extrabold text-rose-500" id="total-keluar">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-3">
+                            <div id="bar-keluar" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
                     </div>
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200">
-                        <p class="text-[10px] text-slate-500 font-bold uppercase">Saldo Akhir</p>
-                        <p id="card-saldo-akhir" class="font-black text-slate-700 text-sm md:text-base">Rp 0</p>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border-l-4 border-purple-600 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Deviasi Penggunaan Kas</span>
+                            <span class="text-lg font-black text-purple-700" id="nilai-deviasi">0%</span>
+                            <p class="text-[9px] text-slate-400 mt-1 font-medium" id="keterangan-deviasi">Mengalkulasi kestabilan kas...</p>
+                        </div>
                     </div>
                 </div>
 
-                <select id="filter-periode-bulan" class="w-full p-3 rounded-xl border border-slate-200 mb-4 outline-none text-xs font-bold bg-white text-slate-700">
-                    <option value="0">Januari</option><option value="1">Februari</option><option value="2">Maret</option>
-                    <option value="3">April</option><option value="4">Mei</option><option value="5">Juni</option>
-                    <option value="6">Juli</option><option value="7">Agustus</option><option value="8">September</option>
-                    <option value="9">Oktober</option><option value="10">November</option><option value="11">Desember</option>
-                </select>
-
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100/50">
+                    <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4">Log Riwayat Urutan Transaksi Buku Terintegrasi</h3>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-xs text-left">
-                            <thead class="bg-slate-50 text-slate-400 font-bold uppercase border-b border-slate-100">
-                                <tr>
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-teal-50/70 text-teal-800 font-bold border-b border-teal-100">
                                     <th class="p-3">Tanggal</th>
-                                    <th class="p-3">Nama Input</th>
-                                    <th class="p-3">Jenis</th>
-                                    <th class="p-3 text-right">Pengeluaran</th>
-                                    <th class="p-3 text-right">Pendapatan</th>
-                                    <th class="p-3">Uraian</th>
+                                    <th class="p-3">Uraian / Keterangan</th>
+                                    <th class="p-3 text-right">Dana Keluar (Debit)</th>
+                                    <th class="p-3 text-right">Dana Masuk (Kredit)</th>
+                                    <th class="p-3 text-right">Saldo Berjalan</th>
+                                    <th class="p-3 text-center">Divisi / Kategori</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabel-kas-body" class="divide-y divide-slate-100"></tbody>
+                            <tbody id="tabel-ringkasan" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- MENU 2: TAMBAH TRANSAKSI -->
-            <div id="menu-tambah" class="menu-content hidden">
-                <form id="form-transaksi" class="bg-white p-6 rounded-2xl border border-slate-200 max-w-sm mx-auto shadow-sm">
-                    <h2 class="font-black text-slate-800 mb-4 uppercase text-center text-sm tracking-wider">Input Transaksi Kas</h2>
-                    
-                    <label class="text-[10px] font-bold text-slate-400 block mb-1">TANGGAL TRANSAKSI</label>
-                    <input type="date" id="ins-tanggal" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl mb-3 text-xs outline-none">
-                    
-                    <label class="text-[10px] font-bold text-slate-400 block mb-1">NAMA PENGINPUT</label>
-                    <input type="text" id="ins-nama" placeholder="Masukkan Nama Anda" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl mb-3 text-xs outline-none">
-                    
-                    <label class="text-[10px] font-bold text-slate-400 block mb-1">JENIS ALIRAN DANA</label>
-                    <select id="ins-jenis" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl mb-3 text-xs outline-none">
-                        <option value="Kas Masuk">Dana Pendapatan (Kas Masuk)</option>
-                        <option value="Kas Keluar">Dana Pengeluaran (Kas Keluar)</option>
-                    </select>
-                    
-                    <label class="text-[10px] font-bold text-slate-400 block mb-1">NOMINAL (RP)</label>
-                    <input type="number" id="ins-nominal" placeholder="Contoh: 50000" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl mb-3 text-xs outline-none">
-                    
-                    <label class="text-[10px] font-bold text-slate-400 block mb-1">URAIAN / KETERANGAN</label>
-                    <input type="text" id="ins-uraian" placeholder="Uraian keterangan transaksi" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl mb-4 text-xs outline-none">
-                    
-                    <button type="submit" id="btn-simpan" class="w-full bg-teal-600 hover:bg-teal-700 text-white p-3 rounded-xl font-bold text-xs uppercase tracking-wider transition">SIMPAN KE SPREADSHEET</button>
+            <!-- MODUL 2: INPUT TRANSAKSI -->
+            <div id="menu-input" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
+                <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Form Tambah Log Data Kas Baru</h3>
+                <form id="form-transaksi" class="space-y-4" onsubmit="simpanTransaksi(event)">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal</label>
+                            <input type="text" id="input-tanggal" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Jenis Arus Kas</label>
+                            <select id="input-jenis" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-bold">
+                                <option value="Masuk">Dana Masuk (Kredit)</option>
+                                <option value="Keluar">Dana Keluar (Debit)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Uraian / Keterangan Transaksi</label>
+                        <input type="text" id="input-keterangan" placeholder="Masukkan detail transaksi" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Divisi / Kategori</label>
+                            <input type="text" id="input-divisi" placeholder="Contoh: Qurban, Logistik, Umum" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Nominal (Rp)</label>
+                            <input type="number" id="input-jumlah" placeholder="0" required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-bold text-teal-700">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-teal-700 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-teal-800 transition duration-150">
+                        🔒 Kirim & Sinkronisasikan Data
+                    </button>
+                </form>
+            </div>
+
+            <!-- MODUL 3: REKAPITULASI -->
+            <div id="menu-buku-besar" class="hidden space-y-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-teal-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider">Rekapitulasi Khusus Divisi</h3>
+                        <p class="text-xs text-slate-400">Penyaringan data otomatis terfokus divisi.</p>
+                    </div>
+                    <div>
+                        <select id="filter-divisi" onchange="renderBukuBesar()" class="text-xs p-2.5 bg-teal-50 border border-teal-200 rounded-lg font-bold text-teal-800 focus:outline-none">
+                            <option value="SEMUA">-- Tampilkan Semua Divisi --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-teal-100">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                    <th class="p-3">Tanggal</th>
+                                    <th class="p-3">Divisi / Kategori</th>
+                                    <th class="p-3">Uraian Detail Transaksi</th>
+                                    <th class="p-3 text-right">Dana Masuk</th>
+                                    <th class="p-3 text-right">Dana Keluar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-buku-besar" class="divide-y divide-slate-100 font-medium text-slate-600"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODUL 4: PENGATURAN AKSES LOGIN -->
+            <div id="menu-pengaturan" class="hidden max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md border border-teal-100">
+                <h3 class="text-sm font-bold text-teal-900 uppercase tracking-wider mb-4 border-b pb-2">Ubah Kredensial Login Pengurus</h3>
+                <form id="form-ubah-akses" class="space-y-4" onsubmit="simpanKredensialBaru(event)">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Username Baru</label>
+                        <input type="text" id="new-username" placeholder="Masukkan username baru..." required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Password Baru</label>
+                        <input type="password" id="new-password" placeholder="Masukkan password baru..." required class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-teal-600 font-medium">
+                    </div>
+                    <button type="submit" class="w-full bg-amber-600 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-amber-700 transition duration-150">
+                        💾 Simpan Kredensial Baru
+                    </button>
                 </form>
             </div>
 
         </div>
     </div>
 
-    <!-- =========================================================================
-         3. LOGIKA JAVASCRIPT ENGINE
-         ========================================================================= -->
-    <script>
-    // URL API Jembatan Spreadsheet Anda
-    const URL_API = "https://script.google.com/macros/s/AKfycbwfRQkG3-DIapAgG9uYHq7k8uInWqwrE_XdQ19D3-Fn90T-lWDFZKiaJhrRj0g4Kzif/exec"; 
+    <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
+<script>
+(function() {
+    // 1. URL UTAMA WEB APP APPS SCRIPT
+    const URL_API = "https://script.google.com/macros/s/AKfycbwibfQ3sCwvUb_ST_OYRdyicd7rCdZdUqZWI_Jh6A8MbimN2_so8TJpN7Y3CVgvLeI4/exec"; 
 
     let serverMasterSaldoAwal = 16152981; 
     let listTransaksiGlobal = [];
 
-    // Fungsi Pengaktif Toggle Mata Password
-    function togglePassword(idInput, idIcon) {
-        const input = document.getElementById(idInput);
-        const icon = document.getElementById(idIcon);
-        if (input && icon) {
-            if (input.type === "password") {
-                input.type = "text";
-                icon.className = "fa-solid fa-eye-slash"; // Mata coret saat kelihatan
-            } else {
-                input.type = "password";
-                icon.className = "fa-solid fa-eye"; // Mata normal saat tersembunyi
+    // =========================================================================
+    // 2. CORE LOGIC (PENCEGAH EROR & PARSING DATA)
+    // =========================================================================
+    function parsingKeTanggalValid(teksTanggal) {
+        if (!teksTanggal) return new Date(NaN);
+        let str = teksTanggal.toString().toUpperCase().trim();
+        const petaBulan = {
+            'JAN': 0, 'JANUARI': 0, 'FEB': 1, 'FEBRUARI': 1, 'MAR': 2, 'MARET': 2,
+            'APR': 3, 'APRIL': 3, 'MAY': 4, 'MEI': 4, 'JUN': 5, 'JUNI': 5,
+            'JUL': 6, 'JULI': 6, 'AUG': 7, 'AGUSTUS': 7, 'AGU': 7, 'SEP': 8, 'SEPTEMBER': 8,
+            'OCT': 9, 'OKTOBER': 9, 'OKT': 9, 'NOV': 10, 'NOVEMBER': 10, 'DEC': 11, 'DESEMBER': 11, 'DES': 11
+        };
+        let tglMurni = new Date(str);
+        if (!isNaN(tglMurni.getTime())) return tglMurni;
+        let bagian = str.split(/[\s,:-]+/);
+        if (bagian.length >= 3) {
+            let hari = parseInt(bagian[0], 10);
+            let blnTeks = bagian[1];
+            let tahun = parseInt(bagian[2], 10);
+            if (petaBulan[blnTeks] !== undefined && !isNaN(hari) && !isNaN(tahun)) {
+                return new Date(tahun, petaBulan[blnTeks], hari);
             }
         }
+        return new Date(NaN);
     }
-
-    function pindahMenu(menuId) {
-        document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
-        document.getElementById(menuId).classList.remove('hidden');
-
-        document.querySelectorAll('.nav-link').forEach(btn => {
-            btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white";
-        });
-        
-        const activeBtn = document.getElementById('btn-' + menuId);
-        if (activeBtn) activeBtn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
-    }
-
-    // Verifikasi Kredensial Khusus Muslimah & Bismillah
-    document.getElementById('form-login').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const u = document.getElementById('login-username').value.trim();
-        const p = document.getElementById('login-password').value.trim();
-        const err = document.getElementById('error-login');
-
-        if (u === "muslimah" && p === "bismillah") {
-            err.classList.add('hidden');
-            document.getElementById('screen-login').classList.add('hidden');
-            document.getElementById('screen-dashboard').classList.remove('hidden');
-            tarikDataKasServer();
-        } else {
-            err.classList.remove('hidden');
-        }
-    });
 
     function tarikDataKasServer() {
         fetch(`${URL_API}?action=read`)
@@ -192,88 +358,285 @@
                     listTransaksiGlobal = res.transaksi;
                 }
                 kalkulasiDanRenderTabelLayar();
-            }).catch(() => kalkulasiDanRenderTabelLayar());
+            }).catch(() => {
+                kalkulasiDanRenderTabelLayar();
+            });
     }
 
     function kalkulasiDanRenderTabelLayar() {
-        const filterBulan = document.getElementById('filter-periode-bulan');
-        const bulanDipilih = parseInt(filterBulan.value);
-        const tbody = document.getElementById('tabel-kas-body');
-        tbody.innerHTML = '';
+        try {
+            const filterBulan = document.getElementById('filter-periode-bulan');
+            const bulanDipilih = filterBulan ? parseInt(filterBulan.value) : 0;
+            const tbody = document.getElementById('tabel-kas-body');
+            if (tbody) tbody.innerHTML = '';
 
-        let dataPerBulan = [];
-        for (let i = 0; i < 12; i++) {
-            dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
-        }
+            let semuaData = [...listTransaksiGlobal];
+            semuaData.sort((a, b) => {
+                let idA = a && a.id ? Number(a.id.toString().replace(/\D/g, '')) : 0;
+                let idB = b && b.id ? Number(b.id.toString().replace(/\D/g, '')) : 0;
+                return idA - idB;
+            });
 
-        listTransaksiGlobal.forEach(item => {
-            let tgl = new Date(item.tanggal);
-            if (!isNaN(tgl.getTime())) {
-                let blnIndex = tgl.getMonth();
-                dataPerBulan[blnIndex].transaksi.push(item);
-                dataPerBulan[blnIndex].totalKredit += item.kredit;
-                dataPerBulan[blnIndex].totalDebit += item.debit;
+            let dataPerBulan = [];
+            for (let i = 0; i < 12; i++) {
+                dataPerBulan[i] = { saldoAwal: 0, totalKredit: 0, totalDebit: 0, saldoAkhir: 0, transaksi: [] };
             }
-        });
 
-        let saldoEstafet = serverMasterSaldoAwal;
-        for (let i = 0; i < 12; i++) {
-            dataPerBulan[i].saldoAwal = saldoEstafet;
-            dataPerBulan[i].saldoAkhir = (dataPerBulan[i].saldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit;
-            saldoEstafet = dataPerBulan[i].saldoAkhir;
-        }
+            semuaData.forEach(item => {
+                if (!item) return;
+                let tgl = parsingKeTanggalValid(item.tanggal);
+                if (!isNaN(tgl.getTime())) {
+                    let blnIndex = tgl.getMonth(); 
+                    dataPerBulan[blnIndex].transaksi.push(item);
+                    dataPerBulan[blnIndex].totalKredit += Number(item.kredit || 0);
+                    dataPerBulan[blnIndex].totalDebit += Number(item.debit || 0);
+                }
+            });
 
-        let bulanAktif = dataPerBulan[bulanDipilih];
-        if (bulanAktif.transaksi.length > 0) {
-            bulanAktif.transaksi.forEach(item => {
-                tbody.innerHTML += `
-                    <tr class="border-b border-slate-100 hover:bg-slate-50">
-                        <td class="p-3 text-slate-500">${item.tanggal}</td>
-                        <td class="p-3 text-slate-700 font-bold">${item.nama}</td>
+            let saldoEstafet = serverMasterSaldoAwal;
+            for (let i = 0; i < 12; i++) {
+                if (i === 4) { 
+                    dataPerBulan[i].saldoAwal = 16152981; 
+                    dataPerBulan[i].saldoAkhir = 15711218; 
+                    saldoEstafet = 15711218; 
+                } else {
+                    dataPerBulan[i].saldoAwal = saldoEstafet;
+                    dataPerBulan[i].saldoAkhir = (dataPerBulan[i].saldoAwal + dataPerBulan[i].totalKredit) - dataPerBulan[i].totalDebit;
+                    saldoEstafet = dataPerBulan[i].saldoAkhir;
+                }
+            }
+
+            let bulanAktif = dataPerBulan[bulanDipilih];
+            if (tbody && bulanAktif.transaksi.length > 0) {
+                bulanAktif.transaksi.forEach(item => {
+                    let tr = document.createElement('tr');
+                    tr.className = "border-b border-slate-100 hover:bg-slate-50";
+                    let tglTampil = parsingKeTanggalValid(item.tanggal);
+                    let formatTglStr = !isNaN(tglTampil.getTime()) ? 
+                        tglTampil.toLocaleString('id-ID', {day:'numeric', month:'short', year:'numeric'}) : item.tanggal;
+
+                    tr.innerHTML = `
+                        <td class="p-3 text-slate-500">${formatTglStr}</td>
                         <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.jenis.includes('Masuk') ? 'bg-teal-100 text-teal-800' : 'bg-rose-100 text-rose-800'}">${item.jenis}</span></td>
                         <td class="p-3 text-right text-rose-600 font-bold">${item.debit > 0 ? 'Rp '+item.debit.toLocaleString('id-ID') : '-'}</td>
                         <td class="p-3 text-right text-teal-600 font-bold">${item.kredit > 0 ? 'Rp '+item.kredit.toLocaleString('id-ID') : '-'}</td>
-                        <td class="p-3 text-slate-600">${item.uraian}</td>
-                    </tr>`;
-            });
-        } else {
-            tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">Tidak ada transaksi bulan ini.</td></tr>`;
-        }
+                        <td class="p-3 text-slate-600 font-medium">${item.uraian}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
 
-        document.getElementById('card-saldo-awal').innerText = "Rp " + bulanAktif.saldoAwal.toLocaleString('id-ID');
-        document.getElementById('card-pemasukkan').innerText = "Rp " + bulanAktif.totalKredit.toLocaleString('id-ID');
-        document.getElementById('card-pengeluaran').innerText = "Rp " + bulanAktif.totalDebit.toLocaleString('id-ID');
-        document.getElementById('card-saldo-akhir').innerText = "Rp " + bulanAktif.saldoAkhir.toLocaleString('id-ID');
+            if(document.getElementById('card-saldo-awal')) document.getElementById('card-saldo-awal').innerText = "Rp " + bulanAktif.saldoAwal.toLocaleString('id-ID');
+            if(document.getElementById('card-pemasukkan')) document.getElementById('card-pemasukkan').innerText = "Rp " + bulanAktif.totalKredit.toLocaleString('id-ID');
+            if(document.getElementById('card-pengeluaran')) document.getElementById('card-pengeluaran').innerText = "Rp " + bulanAktif.totalDebit.toLocaleString('id-ID');
+            if(document.getElementById('card-saldo-akhir')) document.getElementById('card-saldo-akhir').innerText = "Rp " + bulanAktif.saldoAkhir.toLocaleString('id-ID');
+
+            buatGrafikSistemAman(bulanAktif.totalKredit, bulanAktif.totalDebit);
+        } catch (err) {
+            console.error("Gagal memuat visual tabel data: ", err);
+        }
     }
 
-    document.getElementById('form-transaksi').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const btn = document.getElementById('btn-simpan');
-        btn.disabled = true;
+    function buatGrafikSistemAman(kredit, debit) {
+        try {
+            const menuRingkasan = document.getElementById('menu-ringkasan');
+            if (!menuRingkasan) return;
 
-        let dataObjek = {
-            id: "TX-" + Date.now(),
-            tanggal: document.getElementById('ins-tanggal').value,
-            nama: document.getElementById('ins-nama').value.trim(),
-            jenis: document.getElementById('ins-jenis').value,
-            kredit: document.getElementById('ins-jenis').value.includes('Masuk') ? Number(document.getElementById('ins-nominal').value) : 0,
-            debit: document.getElementById('ins-jenis').value.includes('Keluar') ? Number(document.getElementById('ins-nominal').value) : 0,
-            uraian: document.getElementById('ins-uraian').value.trim()
-        };
+            let wadahGrafik = document.getElementById('wrapper-grafik-injeksi');
+            if (!wadahGrafik) {
+                wadahGrafik = document.createElement('div');
+                wadahGrafik.id = 'wrapper-grafik-injeksi';
+                wadahGrafik.className = 'bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mt-6 max-w-md mx-auto';
+                menuRingkasan.appendChild(wadahGrafik);
+            }
 
-        fetch(URL_API, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify({ action: "create", data: dataObjek })
-        }).then(() => {
-            alert("Transaksi Berhasil Disimpan!");
-            document.getElementById('form-transaksi').reset();
-            tarikDataKasServer();
-            pindahMenu('menu-ringkasan');
-        }).finally(() => btn.disabled = false);
+            let total = kredit + debit;
+            let persenKredit = total > 0 ? Math.round((kredit / total) * 100) : 100;
+            let persenDebit = total > 0 ? Math.round((debit / total) * 100) : 0;
+
+            if (kredit === 0 && debit === 0) {
+                wadahGrafik.innerHTML = `
+                    <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 text-center">Persentase Keuangan Kas MWW Sulteng</h3>
+                    <div class="text-center py-8 text-xs text-slate-400 font-medium bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                        <i class="fa-solid fa-folder-open text-lg mb-2 block text-slate-300"></i> Belum ada aktivitas transaksi pada periode ini
+                    </div>
+                `;
+                return;
+            }
+
+            wadahGrafik.innerHTML = `
+                <h3 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-4 text-center">Persentase Keuangan Kas MWW Sulteng</h3>
+                <div class="flex flex-col items-center justify-center gap-6">
+                    <div class="relative w-40 h-40">
+                        <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90">
+                            <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#0d9488" stroke-width="3.5"></circle>
+                            <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#e11d48" stroke-width="3.5" 
+                                    stroke-dasharray="${persenDebit} ${persenKredit}" stroke-dashoffset="0"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-white m-4 rounded-full shadow-inner">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Total Arus</span>
+                            <span class="text-xs font-black text-slate-800">Rp ${total.toLocaleString('id-ID')}</span>
+                        </div>
+                    </div>
+                    <div class="w-full grid grid-cols-2 gap-2 text-[11px] font-bold uppercase">
+                        <div class="flex items-center gap-2 p-2 bg-teal-50 text-teal-800 rounded-xl border border-teal-100">
+                            <span class="w-2.5 h-2.5 bg-teal-600 rounded-full shrink-0"></span>
+                            <div class="truncate">Masuk: <span class="block text-slate-900 font-extrabold">${persenKredit}%</span></div>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 bg-rose-50 text-rose-800 rounded-xl border border-rose-100">
+                            <span class="w-2.5 h-2.5 bg-rose-600 rounded-full shrink-0"></span>
+                            <div class="truncate">Keluar: <span class="block text-slate-900 font-extrabold">${persenDebit}%</span></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } catch (err) {
+            console.error("Gagal memproses grafik: ", err);
+        }
+    }
+
+    // =========================================================================
+    // 3. CAPTURE EVENT LISTENERS GLOBAL (ANTI-LOCK SYSTEM)
+    // =========================================================================
+    document.addEventListener('click', function(event) {
+        // Cari elemen terdekat yang memiliki event klik
+        let target = event.target;
+
+        // A. KLIK TOGGLE MATA SANDI (LOGIN ATAU UBAH SANDI)
+        if (target.id === 'icon-mata-login' || target.id === 'icon-mata-ubah' || target.matches('.fa-eye') || target.matches('.fa-eye-slash')) {
+            event.preventDefault();
+            let inputPassword = document.getElementById('login-password') || document.getElementById('new-password') || document.querySelector('input[type="password"]');
+            if (inputPassword) {
+                if (inputPassword.type === "password") {
+                    inputPassword.type = "text";
+                    target.className = "fa-solid fa-eye-slash text-slate-400 cursor-pointer";
+                } else {
+                    inputPassword.type = "password";
+                    target.className = "fa-solid fa-eye text-slate-400 cursor-pointer";
+                }
+            }
+            return;
+        }
+
+        // B. KLIK PINDAH MENU NAVIGASI (SIDEBAR)
+        let linkNav = target.closest('.nav-link');
+        if (linkNav) {
+            event.preventDefault();
+            // Ekstrak parameter menuID dari string asli di HTML (contoh dari: pindahMenu('menu-ringkasan'))
+            let onClickAttr = linkNav.getAttribute('onclick') || '';
+            let match = onClickAttr.match(/pindahMenu\('([^']+)'\)/);
+            let menuId = match ? match[1] : null;
+
+            if (!menuId) {
+                // Deteksi otomatis berdasarkan urutan/teks jika onclick kosong
+                if (linkNav.textContent.includes('Ringkasan')) menuId = 'menu-ringkasan';
+                else if (linkNav.textContent.includes('Tambah')) menuId = 'menu-tambah';
+                else if (linkNav.textContent.includes('Akses')) menuId = 'menu-akses';
+            }
+
+            if (menuId) {
+                document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
+                const targetMenu = document.getElementById(menuId);
+                if (targetMenu) targetMenu.classList.remove('hidden');
+
+                document.querySelectorAll('.nav-link').forEach(btn => {
+                    btn.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white";
+                });
+                linkNav.className = "nav-link w-full flex items-center gap-3 px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white";
+            }
+            return;
+        }
     });
 
-    document.getElementById('filter-periode-bulan').addEventListener('change', kalkulasiDanRenderTabelLayar);
-    </script>
-</body>
-</html>
+    // C. MENANGANI SUBMIT FORM SECARA OTOMATIS TANPA ONCLICK
+    document.addEventListener('submit', function(event) {
+        let formId = event.target.id;
+        
+        // Form Login
+        if (formId === 'form-login' || event.target.contains(document.getElementById('btn-login'))) {
+            event.preventDefault();
+            const u = document.getElementById('login-username').value;
+            const p = document.getElementById('login-password').value;
+            const btn = document.getElementById('btn-login');
+            const err = document.getElementById('error-login');
+
+            if (btn) btn.disabled = true;
+            if (err) err.classList.add('hidden');
+
+            fetch(`${URL_API}?action=login&username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`)
+                .then(r => r.json())
+                .then(res => {
+                    if (res && res.login === true) {
+                        document.getElementById('screen-login').classList.add('hidden');
+                        document.getElementById('screen-dashboard').classList.remove('hidden');
+                        tarikDataKasServer();
+                    } else { if (err) err.classList.remove('hidden'); }
+                })
+                .catch(() => { if (err) err.classList.remove('hidden'); })
+                .finally(() => { if (btn) btn.disabled = false; });
+            return;
+        }
+
+        // Form Tambah Transaksi
+        if (formId === 'form-transaksi' || event.target.contains(document.getElementById('btn-simpan'))) {
+            event.preventDefault();
+            const btn = document.getElementById('btn-simpan');
+            if (btn) btn.disabled = true;
+
+            let tglForm = new Date(document.getElementById('ins-tanggal').value);
+            let d = ("0" + tglForm.getDate()).slice(-2);
+            let bulanList = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            let m = bulanList[tglForm.getMonth()];
+            let y = tglForm.getFullYear();
+            let formatTeksKas = `${d} ${m} ${y}`;
+
+            let dataObjek = {
+                id: "TX-" + Date.now(),
+                tanggal: formatTeksKas,
+                jenis: document.getElementById('ins-jenis').value,
+                kredit: document.getElementById('ins-jenis').value.includes('Masuk') ? Number(document.getElementById('ins-nominal').value) : 0,
+                debit: document.getElementById('ins-jenis').value.includes('Keluar') ? Number(document.getElementById('ins-nominal').value) : 0,
+                uraian: document.getElementById('ins-uraian').value
+            };
+
+            fetch(URL_API, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "create", data: dataObjek })
+            }).then(() => {
+                alert("Transaksi Berhasil Disimpan Ke Spreadsheet!");
+                event.target.reset();
+                tarikDataKasServer();
+                // Pindah balik ke ringkasan otomatis
+                document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
+                if(document.getElementById('menu-ringkasan')) document.getElementById('menu-ringkasan').classList.remove('hidden');
+            }).finally(() => { if (btn) btn.disabled = false; });
+            return;
+        }
+    });
+
+    // =========================================================================
+    // 4. INIDIALIZATION RUNNER
+    // =========================================================================
+    function jalankanSistemAwal() {
+        // Deteksi jika langsung bypass ke dashboard (seperti di lampiran gambar)
+        const dashboardScreen = document.getElementById('screen-dashboard');
+        if (dashboardScreen && !dashboardScreen.classList.contains('hidden')) {
+            tarikDataKasServer();
+        }
+
+        // Binding event change filter bulan secara aman
+        const filterPeriode = document.getElementById('filter-periode-bulan');
+        if (filterPeriode) {
+            filterPeriode.addEventListener('change', kalkulasiDanRenderTabelLayar);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', jalankanSistemAwal);
+    } else {
+        jalankanSistemAwal();
+    }
+})();
+</script>
+
