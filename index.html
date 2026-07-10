@@ -607,7 +607,44 @@
             document.getElementById(`menu-${targetMenu}`).classList.remove('hidden');
             document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm";
         }
+
+    <script>
+        // 1. Inisialisasi Tahun
+        const selectTahun = document.getElementById('selectTahun');
+        const tahunSekarang = new Date().getFullYear();
+        for (let i = tahunSekarang - 2; i <= tahunSekarang + 1; i++) {
+            let opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            if (i === tahunSekarang) opt.selected = true;
+            selectTahun.appendChild(opt);
+        }
+
+        // 2. Fungsi Utama Fetch
+        async function updateLaporan() {
+            const bulan = document.getElementById('selectBulan').value;
+            const tahun = document.getElementById('selectTahun').value;
+
+            try {
+                const response = await fetch(`data_kas.php?bulan=${bulan}&tahun=${tahun}`);
+                const data = await response.json();
+
+                // Pastikan ID ini sama dengan ID di elemen HTML Anda
+                document.getElementById('saldo-awal').innerText = data.saldo_awal;
+                document.getElementById('total-masuk').innerText = data.total_masuk;
+                document.getElementById('total-keluar').innerText = data.total_keluar;
+
+                console.log("Data berhasil di-update untuk:", bulan, tahun);
+            } catch (error) {
+                console.error("Error saat fetch data:", error);
+            }
+        }
+
+        // 3. Panggil saat halaman pertama kali dibuka
+        updateLaporan();
     </script>
+</body>
+</html>
 </body>
 </html>
 
