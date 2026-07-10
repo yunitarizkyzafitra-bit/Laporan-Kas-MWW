@@ -131,26 +131,7 @@
                             LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
                         </h1>
                         <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1" id="label-periode-buku">
-                           <div class="flex items-center gap-2 text-white text-sm mt-2">
-    <span>PERIODE LAPORAN BUKU:</span>
-    <select id="selectBulan" class="text-teal-900 font-bold px-2 py-0.5 rounded cursor-pointer" onchange="updateLaporan()">
-        <option value="01">Januari</option>
-        <option value="02">Februari</option>
-        <option value="03">Maret</option>
-        <option value="04">April</option>
-        <option value="05" selected>Mei</option>
-        <option value="06">Juni</option>
-        <option value="07">Juli</option>
-        <option value="08">Agustus</option>
-        <option value="09">September</option>
-        <option value="10">Oktober</option>
-        <option value="11">November</option>
-        <option value="12">Desember</option>
-    </select>
-    
-    <select id="selectTahun" class="text-teal-900 font-bold px-2 py-0.5 rounded cursor-pointer" onchange="updateLaporan()">
-        </select>
-</div>
+                            Periode Laporan Buku: Mei 2026
                         </p>
                     </div>
                 </div>
@@ -607,48 +588,7 @@
             document.getElementById(`menu-${targetMenu}`).classList.remove('hidden');
             document.getElementById(`btn-${targetMenu}`).className = "px-4 py-2 rounded-lg text-xs font-bold transition duration-150 cursor-pointer bg-teal-700 text-white shadow-sm";
         }
-
-    ... (isi konten aplikasi Anda) ...
-
-    <script>
-        // 1. Inisialisasi Tahun
-        const selectTahun = document.getElementById('selectTahun');
-        const tahunSekarang = new Date().getFullYear();
-        for (let i = tahunSekarang - 2; i <= tahunSekarang + 1; i++) {
-            let opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            if (i === tahunSekarang) opt.selected = true;
-            selectTahun.appendChild(opt);
-        }
-
-        // 2. Fungsi Utama Fetch
-        async function updateLaporan() {
-            const bulan = document.getElementById('selectBulan').value;
-            const tahun = document.getElementById('selectTahun').value;
-
-            try {
-                const response = await fetch(`data_kas.php?bulan=${bulan}&tahun=${tahun}`);
-                const data = await response.json();
-
-                // Pastikan ID ini sama dengan ID di elemen HTML Anda
-                document.getElementById('saldo-awal').innerText = data.saldo_awal;
-                document.getElementById('total-masuk').innerText = data.total_masuk;
-                document.getElementById('total-keluar').innerText = data.total_keluar;
-
-                console.log("Data berhasil di-update untuk:", bulan, tahun);
-            } catch (error) {
-                console.error("Error saat fetch data:", error);
-            }
-        }
-
-        // 3. Panggil saat halaman pertama kali dibuka
-        updateLaporan();
     </script>
-</body>
-</html>
-</body>
-</html>
 </body>
 </html>
 
