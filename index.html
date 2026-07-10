@@ -131,7 +131,26 @@
                             LAPORAN KAS MUSLIMAH WAHDAH WILAYAH SULAWESI TENGAH
                         </h1>
                         <p class="text-[10px] md:text-xs font-bold tracking-widest uppercase text-amber-300 mt-1" id="label-periode-buku">
-                            Periode Laporan Buku: Mei 2026
+                           <div class="flex items-center gap-2 text-white text-sm mt-2">
+    <span>PERIODE LAPORAN BUKU:</span>
+    <select id="selectBulan" class="text-teal-900 font-bold px-2 py-0.5 rounded cursor-pointer" onchange="updateLaporan()">
+        <option value="01">Januari</option>
+        <option value="02">Februari</option>
+        <option value="03">Maret</option>
+        <option value="04">April</option>
+        <option value="05" selected>Mei</option>
+        <option value="06">Juni</option>
+        <option value="07">Juli</option>
+        <option value="08">Agustus</option>
+        <option value="09">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+    </select>
+    
+    <select id="selectTahun" class="text-teal-900 font-bold px-2 py-0.5 rounded cursor-pointer" onchange="updateLaporan()">
+        </select>
+</div>
                         </p>
                     </div>
                 </div>
