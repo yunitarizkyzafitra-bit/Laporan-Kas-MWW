@@ -4,27 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Kas Muslimah Wahdah Wilayah Sulawesi Tengah</title>
-
-    <!-- ================= METADATA IKON UNTUK ANDROID & IPHONE ================= -->
-    <!-- Mengatur agar Android mendeteksi halaman ini sebagai Web App Mandiri -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Kas MWW">
-    
-    <!-- Link Gambar Logo MWW Resmi untuk Ikon Layar Utama -->
-    <link rel="icon" type="image/png" sizes="192x192" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png">
-    
-    <!-- Manifest Data untuk Android (Memaksa Chrome membuang logo G dan menggantinya dengan logo MWW) -->
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Laporan%20Kas%20MWW%22,%22short_name%22:%22Kas%20MWW%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#008080%22,%22theme_color%22:%22#008080%22,%22icons%22:[{%22src%22:%22https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22}]}">
-
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -64,7 +49,7 @@
                     <div class="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center border border-gold flex-shrink-0">
                         <img src="https://wahdah.or.id/wp-content/uploads/2014/03/logo-wahdah-png.png" alt="Logo MWW" class="object-contain w-full h-full rounded-md">
                     </div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">DPW MUSLIMAH WAHDAH WILAYAH <span class="whitespace-nowrap">SULAWESI TENGAH</span></span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-white leading-tight">MWW Sulawesi Tengah</span>
                 </div>
             </div>
 
@@ -316,11 +301,12 @@
 
     <!-- ================= ENGINE SYSTEM SCRIPTS ================= -->
     <script>
-        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbwTa1fb2hcC1LbBtsAou3c6E_jrFUcVtFjNHzHTYKDG3wMi2Eb3doqac7MLHdha3VXLzg/exec";
+        const URL_SPREADSHEET_API = "https://script.google.com/macros/s/AKfycbwPLZAQwJj4aaIpE_ZV6B0xtjiMQQb0e5ONjgAR5fV1xdyB2_jcSg6sUAw822cyn-sF7w/exec";
         
         const SALDO_AWAL_MEI = 16152981;
         let dataTransaksi = [];
 
+        // DATA BULAN MEI TERKINI DIKEMBALIKAN UTUH SEPENUHNYA
         const DATA_MEI_DEFAULT = [
             { tanggal: "02 MAY 2026 01:53", keterangan: "Biaya Administrasi", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
             { tanggal: "02 MAY 2026 17:51", keterangan: "Pemindahbukan logistik mw", debit: 2871000, kredit: 0, divisi: "Logistik" },
@@ -332,7 +318,7 @@
             { tanggal: "05 MAY 2026 12:38", keterangan: "Pemindahbukan lebihnya dana Amplop Ramadhan", debit: 0, kredit: 180000, divisi: "Ramadhan" },
             { tanggal: "05 MAY 2026 15:34", keterangan: "Pemindahbukan GDR MW SULTENG", debit: 0, kredit: 22683000, divisi: "GDR MW Sulteng" },
             { tanggal: "06 MAY 2026 08:33", keterangan: "Biaya Pemindahbukan e-Banking", debit: 2500, kredit: 0, divisi: "Umum/Admin" },
-            { tanggal: "06 MAY 2026 08:33", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
+            { tanggal: "06 MAY 2026 08:33", font: "semibold", keterangan: "Pemindahbukan", debit: 2838963, kredit: 0, divisi: "Umum" },
             { tanggal: "12 MAY 2026 07:35", keterangan: "Pemindahbukan fee pemateri balut", debit: 297000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "14 MAY 2026 17:30", keterangan: "Pemindahbukan fee pemateri kapus morowali", debit: 270000, kredit: 0, divisi: "Dakwah / Pemateri" },
             { tanggal: "16 MAY 2026 12:24", keterangan: "Pemindahbukan khidmat untuk winarti", debit: 250000, kredit: 0, divisi: "Sosial / Khidmat" },
@@ -351,6 +337,7 @@
             document.getElementById('input-tanggal').value = skrg.toLocaleDateString('en-GB', opsiTgl).replace(/,/g, '');
         };
 
+        // Fungsi Toggle Mata (Buka/Tutup Password)
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-password');
             const eyeIcon = document.getElementById('eye-icon');
@@ -364,6 +351,7 @@
             }
         }
 
+        // Proses Login Dinamis (Membaca Mandiri dari LocalStorage)
         function prosesLogin() {
             const userIn = document.getElementById('auth-username').value.trim().toLowerCase();
             const passIn = document.getElementById('auth-password').value.trim().toLowerCase();
@@ -380,6 +368,7 @@
             }
         }
 
+        // Simpan Password Baru Mandiri Tanpa Perlu Kode Baru Lagi
         function simpanKredensialBaru(e) {
             e.preventDefault();
             const userBaru = document.getElementById('new-username').value.trim();
@@ -393,7 +382,7 @@
             localStorage.setItem('mww_user', userBaru);
             localStorage.setItem('mww_pass', passBaru);
 
-            alert(`Sukses! Akun diperbarui.\nUsername: ${userBaru}\nPassword: ${passBaru}`);
+            alert(`Sukses! Akun diperbarui.\nUsername: ${userBaru}\nPassword: ${passBaru}\nGunakan akun baru ini saat login kembali.`);
             document.getElementById('form-ubah-akses').reset();
             pindahMenu('ringkasan');
         }
