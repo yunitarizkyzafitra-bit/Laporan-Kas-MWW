@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Kas MWW</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,88 +10,100 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
-<body class="bg-slate-50 font-sans">
+<body class="bg-slate-50">
 
-    <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-4 bg-teal-50">
+    <!-- LOGIN -->
+    <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-4">
         <img src="logo-mww-png.png" class="w-24 h-24 mb-4">
-        <form id="form-login" class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-sm">
-            <input type="text" id="login-user" placeholder="Username" class="w-full p-4 mb-3 border rounded-xl" required>
-            <input type="password" id="login-pass" placeholder="Password" class="w-full p-4 mb-6 border rounded-xl" required>
-            <button type="submit" class="w-full bg-teal-700 text-white p-4 rounded-xl font-bold">MASUK</button>
+        <form id="form-login" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border">
+            <input type="text" id="login-username" placeholder="Username" class="w-full p-3 mb-4 border rounded-xl" required>
+            <div class="relative mb-6">
+                <input type="password" id="login-password" placeholder="Password" class="w-full p-3 border rounded-xl pr-10" required>
+                <i id="icon-mata" class="fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" onclick="togglePassword()"></i>
+            </div>
+            <button type="submit" class="w-full bg-teal-600 text-white p-3 rounded-xl font-bold">MASUK</button>
         </form>
     </div>
 
-    <div id="screen-dashboard" class="hidden min-h-screen p-4 md:p-8 max-w-4xl mx-auto">
-        <div class="flex items-center gap-6 mb-8 bg-white p-6 rounded-3xl shadow-sm border border-teal-100">
+    <!-- DASHBOARD -->
+    <div id="screen-dashboard" class="hidden min-h-screen p-6 max-w-4xl mx-auto">
+        <div class="flex items-center gap-6 mb-8 bg-white p-6 rounded-3xl shadow border">
             <img src="logo-mww-png.png" class="w-16 h-16">
-            <div>
-                <h1 class="text-xl font-extrabold text-teal-800">Laporan Kas</h1>
-                <p class="text-xs font-bold text-slate-500 uppercase">Muslimah Wahdah Wilayah Sulawesi Tengah</p>
-            </div>
+            <div><h1 class="text-xl font-extrabold text-teal-800">Laporan Kas</h1><p class="text-xs font-bold text-slate-500 uppercase">Muslimah Wahdah Wilayah Sulawesi Tengah</p></div>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-slate-800 p-4 rounded-2xl text-white"><p class="text-[9px] opacity-70 uppercase">Saldo Awal</p><h2 id="val-saldo-awal" class="text-sm font-bold">Rp 0</h2></div>
-            <div class="bg-emerald-600 p-4 rounded-2xl text-white"><p class="text-[9px] opacity-70 uppercase">Penerimaan</p><h2 id="val-penerimaan" class="text-sm font-bold">Rp 0</h2></div>
-            <div class="bg-rose-600 p-4 rounded-2xl text-white"><p class="text-[9px] opacity-70 uppercase">Pengeluaran</p><h2 id="val-pengeluaran" class="text-sm font-bold">Rp 0</h2></div>
-            <div class="bg-teal-700 p-4 rounded-2xl text-white"><p class="text-[9px] opacity-70 uppercase">Saldo Akhir</p><h2 id="val-saldo-akhir" class="text-sm font-bold">Rp 0</h2></div>
+            <div class="bg-slate-800 p-4 rounded-2xl text-white"><p class="text-[9px] uppercase opacity-70">Saldo Awal</p><h2 id="val-saldo-awal" class="text-sm font-bold">Rp 0</h2></div>
+            <div class="bg-emerald-600 p-4 rounded-2xl text-white"><p class="text-[9px] uppercase opacity-70">Penerimaan</p><h2 id="val-penerimaan" class="text-sm font-bold">Rp 0</h2></div>
+            <div class="bg-rose-600 p-4 rounded-2xl text-white"><p class="text-[9px] uppercase opacity-70">Pengeluaran</p><h2 id="val-pengeluaran" class="text-sm font-bold">Rp 0</h2></div>
+            <div class="bg-teal-700 p-4 rounded-2xl text-white"><p class="text-[9px] uppercase opacity-70">Saldo Akhir</p><h2 id="val-saldo-akhir" class="text-sm font-bold">Rp 0</h2></div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
-            <form id="form-input" class="bg-white p-6 rounded-3xl shadow-sm border border-teal-100">
+            <form id="form-input" class="bg-white p-6 rounded-3xl border">
                 <input type="date" id="input-tgl" class="w-full p-3 mb-3 border rounded-xl" required>
                 <select id="input-jenis" class="w-full p-3 mb-3 border rounded-xl"><option>Pemasukan</option><option>Pengeluaran</option></select>
                 <input type="number" id="input-nom" placeholder="Nominal" class="w-full p-3 mb-3 border rounded-xl" required>
                 <input type="text" id="input-uraian" placeholder="Uraian" class="w-full p-3 mb-4 border rounded-xl" required>
-                <button type="submit" class="w-full bg-teal-600 text-white p-3 rounded-xl font-bold">SIMPAN</button>
+                <button type="submit" class="w-full bg-teal-600 text-white p-3 rounded-xl font-bold">SIMPAN DATA</button>
             </form>
-            <div class="bg-white p-6 rounded-3xl shadow-sm"><canvas id="kasChart"></canvas></div>
+            <div class="bg-white p-6 rounded-3xl border"><canvas id="kasChart"></canvas></div>
         </div>
 
-        <div class="mt-8 bg-white p-6 rounded-3xl shadow-sm overflow-x-auto">
-            <button onclick="exportPDF()" class="mb-4 bg-slate-800 text-white px-6 py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-file-pdf mr-2"></i> EXPORT PDF</button>
-            <table class="w-full text-left text-sm"><thead class="border-b"><tr><th>Tanggal</th><th>Uraian</th><th>Jenis</th><th>Nominal</th></tr></thead><tbody id="tabel-uraian"></tbody></table>
+        <div class="mt-8 bg-white p-6 rounded-3xl border overflow-x-auto">
+            <button onclick="exportPDF()" class="mb-4 bg-slate-800 text-white px-6 py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-file-pdf mr-2"></i> DOWNLOAD PDF</button>
+            <table class="w-full text-left text-sm" id="tabel-log"><thead class="border-b"><tr><th>Tanggal</th><th>Uraian</th><th>Jenis</th><th>Nominal</th></tr></thead><tbody id="tabel-uraian"></tbody></table>
         </div>
     </div>
 
     <script>
-        const URL_API = "https://script.google.com/macros/s/AKfycbw2KbdnaFq0FwCoXj8K_olGRDIFuScpcY6kwHS4L9ajR0geIYyWBCWV6KDnRUOeMgbOaA/exec";
-        let rawData = [];
+        function togglePassword() {
+            const pass = document.getElementById('login-password'), icon = document.getElementById('icon-mata');
+            pass.type = pass.type === "password" ? "text" : "password";
+            icon.className = pass.type === "password" ? "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" : "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400";
+        }
 
         document.getElementById('form-login').onsubmit = (e) => {
             e.preventDefault();
-            document.getElementById('screen-login').classList.add('hidden');
-            document.getElementById('screen-dashboard').classList.remove('hidden');
-            loadData();
+            const u = document.getElementById('login-username').value, p = document.getElementById('login-password').value;
+            google.script.run.withSuccessHandler(res => {
+                if(u === res.user && p === res.pass) {
+                    document.getElementById('screen-login').classList.add('hidden');
+                    document.getElementById('screen-dashboard').classList.remove('hidden');
+                    loadData();
+                } else { alert("Login Gagal!"); }
+            }).getKredensial();
         };
 
         function loadData() {
             google.script.run.withSuccessHandler(res => {
-                rawData = res.transaksi;
-                const now = new Date();
-                const currentMonth = now.getMonth();
-                const dataBulanIni = rawData.filter(t => new Date(t.tanggal).getMonth() === currentMonth);
-                
-                let deb = dataBulanIni.reduce((a,b) => a + b.debit, 0);
-                let kre = dataBulanIni.reduce((a,b) => a + b.kredit, 0);
-                
+                const deb = res.transaksi.reduce((a,b) => a + b.debit, 0);
+                const kre = res.transaksi.reduce((a,b) => a + b.kredit, 0);
                 document.getElementById('val-saldo-awal').innerText = "Rp " + res.saldoAwal.toLocaleString();
                 document.getElementById('val-penerimaan').innerText = "Rp " + deb.toLocaleString();
                 document.getElementById('val-pengeluaran').innerText = "Rp " + kre.toLocaleString();
                 document.getElementById('val-saldo-akhir').innerText = "Rp " + (res.saldoAwal + deb - kre).toLocaleString();
                 
                 const tbody = document.getElementById('tabel-uraian');
-                tbody.innerHTML = rawData.map(t => `<tr><td class="p-3">${t.tanggal}</td><td>${t.uraian}</td><td>${t.jenis}</td><td>${Number(t.debit || t.kredit).toLocaleString()}</td></tr>`).join('');
+                tbody.innerHTML = res.transaksi.map(t => `<tr><td class="p-3">${t.tanggal}</td><td>${t.uraian}</td><td>${t.jenis}</td><td>${Number(t.debit || t.kredit).toLocaleString()}</td></tr>`).join('');
                 
-                new Chart(document.getElementById('kasChart').getContext('2d'), { type: 'doughnut', data: { labels: ['Masuk', 'Keluar'], datasets: [{ data: [deb, kre], backgroundColor: ['#059669', '#e11d48'] }] } });
+                const ctx = document.getElementById('kasChart').getContext('2d');
+                if(window.myChart) window.myChart.destroy();
+                window.myChart = new Chart(ctx, { type: 'doughnut', data: { labels: ['Pemasukan', 'Pengeluaran'], datasets: [{ data: [deb, kre], backgroundColor: ['#059669', '#e11d48'] }] } });
             }).getData();
         }
+
+        document.getElementById('form-input').onsubmit = (e) => {
+            e.preventDefault();
+            const data = { tanggal: document.getElementById('input-tgl').value, jenis: document.getElementById('input-jenis').value, nominal: document.getElementById('input-nom').value, uraian: document.getElementById('input-uraian').value };
+            google.script.run.withSuccessHandler(() => { alert("Tersimpan!"); loadData(); }).tambahData(data);
+        };
 
         function exportPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.text("Laporan Kas MWW Sulawesi Tengah", 14, 15);
-            doc.autoTable({ html: '#tabel-uraian', startY: 25 });
+            doc.autoTable({ html: '#tabel-log', startY: 25 });
             doc.save("Laporan_Kas.pdf");
         }
     </script>
