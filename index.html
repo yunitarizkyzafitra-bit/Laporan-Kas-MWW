@@ -12,14 +12,19 @@
 
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-4 bg-teal-50">
         <img src="logo-mww-png.png" alt="Logo MWW" class="w-20 h-20 mb-3 object-contain">
-        <form id="form-login" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border border-teal-100">
-            <input type="text" id="login-username" placeholder="Username" required class="w-full p-3 mb-4 bg-slate-50 border rounded-xl text-xs font-bold">
-            <div class="relative mb-6">
-                <input type="password" id="login-password" placeholder="Password" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold">
-                <i id="icon-mata" class="fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" onclick="togglePassword()"></i>
-            </div>
-            <button type="submit" class="w-full bg-teal-600 text-white font-bold p-3 rounded-xl text-xs uppercase">MASUK</button>
-        </form>
+        <form id="form-login" class="...">
+    <input type="text" id="login-username" ...>
+    
+    <div class="relative w-full">
+    <input type="password" id="login-password" placeholder="Password" required 
+           class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold pr-10"> <i id="icon-mata" 
+       class="fa-solid fa-eye absolute right-3 top-3.5 cursor-pointer text-slate-400" 
+       onclick="togglePassword()" 
+       style="z-index: 9999;"> </i>
+</div>
+    
+    <button type="submit" ...>MASUK</button>
+</form>
     </div>
 
     <div id="screen-dashboard" class="hidden min-h-screen flex flex-col">
@@ -75,32 +80,33 @@
     let KREDENSIAL = { user: "", password: "" }; // Menggunakan 'password'
 
     // 1. FUNGSI TOGGLE
-    function togglePassword() {
+   function togglePassword() {
         const i = document.getElementById('login-password');
         const icon = document.getElementById('icon-mata');
         if (i.type === "password") { 
             i.type = "text"; 
-            icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400"; 
+            icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400 z-10"; 
         } else { 
             i.type = "password"; 
-            icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400"; 
+            icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400 z-10"; 
         }
     }
-
     // 2. FUNGSI LOGIN (Menggunakan 'password')
     document.getElementById('form-login').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const user = document.getElementById('login-username').value;
-        const pass = document.getElementById('login-password').value;
-        
-        // Cek username dan password
-        if (user === KREDENSIAL.user && pass === KREDENSIAL.password) {
-            document.getElementById('screen-login').classList.add('hidden');
-            document.getElementById('screen-dashboard').classList.remove('hidden');
-        } else { 
-            alert("Username atau Password Salah!"); 
-        }
-    });
+    e.preventDefault();
+    const user = document.getElementById('login-username').value;
+    const pass = document.getElementById('login-password').value;
+    
+    console.log("Input User:", user); // Cek di Console
+    console.log("Data Kredensial:", KREDENSIAL); // Cek apakah data sudah terisi
+    
+    if (user === KREDENSIAL.user && pass === KREDENSIAL.password) {
+        document.getElementById('screen-login').classList.add('hidden');
+        document.getElementById('screen-dashboard').classList.remove('hidden');
+    } else { 
+        alert("Username atau Password Salah! Pastikan data di sheet Pengaturan sudah benar."); 
+    }
+});
 
     // 3. PENGAMBILAN DATA
     window.onload = () => {
