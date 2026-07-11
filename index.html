@@ -84,7 +84,7 @@
         // Login & Sinkronisasi
         window.onload = () => {
             fetch(URL_API + "?action=read").then(r => r.json()).then(res => {
-                KREDENSIAL = { user: res.user, pin: res.pin };
+                KREDENSIAL = { user: res.kredensial.username, pin: res.kredensial.pin };
                 let masuk = 0, keluar = 0;
                 const tbody = document.getElementById('tabel-kas-body');
                 res.transaksi.forEach(t => {
