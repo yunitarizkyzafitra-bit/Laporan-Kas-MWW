@@ -12,19 +12,14 @@
 
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-4 bg-teal-50">
         <img src="logo-mww-png.png" alt="Logo MWW" class="w-20 h-20 mb-3 object-contain">
-        <form id="form-login" class="...">
-    <input type="text" id="login-username" ...>
-    
-    <div class="relative w-full">
-    <input type="password" id="login-password" placeholder="Password" required 
-           class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold pr-10"> <i id="icon-mata" 
-       class="fa-solid fa-eye absolute right-3 top-3.5 cursor-pointer text-slate-400" 
-       onclick="togglePassword()" 
-       style="z-index: 9999;"> </i>
-</div>
-    
-    <button type="submit" ...>MASUK</button>
-</form>
+        <form id="form-login" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border border-teal-100">
+            <input type="text" id="login-username" placeholder="Username" required class="w-full p-3 mb-4 bg-slate-50 border rounded-xl text-xs font-bold">
+            <div class="relative mb-6">
+                <input type="password" id="login-password" placeholder="Password" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold">
+                <i id="icon-mata" class="fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" onclick="togglePassword()"></i>
+            </div>
+            <button type="submit" class="w-full bg-teal-600 text-white font-bold p-3 rounded-xl text-xs uppercase">MASUK</button>
+        </form>
     </div>
 
     <div id="screen-dashboard" class="hidden min-h-screen flex flex-col">
@@ -34,114 +29,83 @@
 
         <div class="flex-1 flex flex-col md:flex-row">
             <nav class="w-full md:w-64 bg-teal-950 p-4 flex md:flex-col gap-2">
-                <button onclick="pindahMenu('menu-ringkasan')" class="nav-link px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">Laporan Kas</button>
-                <button onclick="pindahMenu('menu-tambah')" class="nav-link px-4 py-3 text-xs font-bold rounded-xl text-teal-300">Tambah Transaksi</button>
+                <button onclick="pindahMenu('menu-ringkasan')" id="btn-menu-ringkasan" class="nav-link px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">Laporan Kas</button>
+                <button onclick="pindahMenu('menu-tambah')" id="btn-menu-tambah" class="nav-link px-4 py-3 text-xs font-bold rounded-xl text-teal-300">Tambah Transaksi</button>
             </nav>
 
             <main class="flex-1 p-6">
                 <div id="menu-ringkasan" class="menu-content">
-                    <div class="flex gap-2 mb-4">
-                        <select id="filter-bulan" onchange="renderDashboard()" class="p-2 border rounded-lg text-xs font-bold">
-                            <option value="5">Mei</option>
-                            <option value="6">Juni</option>
-                        </select>
-                        <select id="filter-tahun" onchange="renderDashboard()" class="p-2 border rounded-lg text-xs font-bold">
-                            <option value="2026">2026</option>
-                        </select>
-                    </div>
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-white p-4 rounded-xl border"><p class="text-[10px] text-gray-500">Saldo Awal</p><p id="card-saldo-awal" class="font-bold text-sm">Rp 0</p></div>
-                        <div class="bg-white p-4 rounded-xl border"><p class="text-[10px] text-teal-600">Pemasukan</p><p id="card-pemasukkan" class="font-bold text-sm">Rp 0</p></div>
-                        <div class="bg-white p-4 rounded-xl border"><p class="text-[10px] text-rose-600">Pengeluaran</p><p id="card-pengeluaran" class="font-bold text-sm">Rp 0</p></div>
-                        <div class="bg-white p-4 rounded-xl border"><p class="text-[10px] text-teal-800">Saldo Akhir</p><p id="card-saldo-akhir" class="font-bold text-sm">Rp 0</p></div>
+                        <div class="bg-white p-4 rounded-xl border">
+                            <p class="text-[10px] text-gray-500">Saldo Awal</p>
+                            <p id="card-saldo-awal" class="font-bold text-sm">Rp 0</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border">
+                            <p class="text-[10px] text-teal-600">Pemasukan</p>
+                            <p id="card-pemasukkan" class="font-bold text-sm">Rp 0</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border">
+                            <p class="text-[10px] text-rose-600">Pengeluaran</p>
+                            <p id="card-pengeluaran" class="font-bold text-sm">Rp 0</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border bg-teal-50">
+                            <p class="text-[10px] text-teal-800">Saldo Akhir</p>
+                            <p id="card-saldo-akhir" class="font-bold text-sm">Rp 0</p>
+                        </div>
                     </div>
-                    <canvas id="chartKas" class="mb-6"></canvas>
-                    <table class="w-full text-xs bg-white rounded-xl shadow"><tbody id="tabel-kas-body"></tbody></table>
-                </div>
-
-                <div id="menu-tambah" class="menu-content hidden p-6 bg-white rounded-2xl border">
-                    <h2 class="font-bold text-slate-800 mb-4 uppercase text-xs">Tambah Transaksi</h2>
-                    <form id="form-transaksi" class="space-y-3">
-                        <input type="date" id="ins-tanggal" required class="w-full p-3 border rounded-xl text-xs">
-                        <input type="hidden" id="ins-bulan" value="5">
-                        <input type="hidden" id="ins-tahun" value="2026">
-                        <select id="ins-jenis" class="w-full p-3 border rounded-xl text-xs"><option>Pemasukan</option><option>Pengeluaran</option></select>
-                        <input type="number" id="ins-nominal" placeholder="Nominal" required class="w-full p-3 border rounded-xl text-xs">
-                        <input type="text" id="ins-uraian" placeholder="Uraian" class="w-full p-3 border rounded-xl text-xs">
-                        <button type="submit" class="w-full bg-teal-600 text-white font-bold p-3 rounded-xl text-xs">SIMPAN</button>
-                    </form>
+                    <table class="w-full text-xs bg-white rounded-xl shadow">
+                        <thead><tr class="border-b"><th>Tanggal</th><th>Jenis</th><th>Nominal</th></tr></thead>
+                        <tbody id="tabel-kas-body"></tbody>
+                    </table>
                 </div>
             </main>
         </div>
     </div>
 
     <script>
-    const URL_API = "https://script.google.com/macros/s/AKfycbxCl-g25F4QaYMSOSBWY3MPIpSp5GmI0-B44sFx6HAswRlzgTSB_8lz0xOmFE7HQmPcAg/exec"; 
-    let KREDENSIAL = { user: "", password: "" }; // Menggunakan 'password'
+        const URL_API = "https://script.google.com/macros/s/AKfycbz1vLQDrgA4uNIux4A9JUCzoY21CXXb7tUVMsWajKYDb-l4i6vxSvaO7wT3KoEAul0rJg/exec"; 
+        const SALDO_AWAL = 16152981;
+        let KREDENSIAL = { user: "", pin: "" };
 
-    // 1. FUNGSI TOGGLE
-   function togglePassword() {
-        const i = document.getElementById('login-password');
-        const icon = document.getElementById('icon-mata');
-        if (i.type === "password") { 
-            i.type = "text"; 
-            icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400 z-10"; 
-        } else { 
-            i.type = "password"; 
-            icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400 z-10"; 
-        }
-    }
-    // 2. FUNGSI LOGIN (Menggunakan 'password')
-    document.getElementById('form-login').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const user = document.getElementById('login-username').value;
-    const pass = document.getElementById('login-password').value;
-    
-    console.log("Input User:", user); // Cek di Console
-    console.log("Data Kredensial:", KREDENSIAL); // Cek apakah data sudah terisi
-    
-    if (user === KREDENSIAL.user && pass === KREDENSIAL.password) {
-        document.getElementById('screen-login').classList.add('hidden');
-        document.getElementById('screen-dashboard').classList.remove('hidden');
-    } else { 
-        alert("Username atau Password Salah! Pastikan data di sheet Pengaturan sudah benar."); 
-    }
-});
-
-    // 3. PENGAMBILAN DATA
-    window.onload = () => {
-    // 1. Ambil data dari Apps Script
-    fetch(URL_API) 
-    .then(r => r.json())
-    .then(res => {
-        
-        // --- BAGIAN INI UNTUK LOGIN ---
-        // Kita isi variabel KREDENSIAL agar form login bisa mengenali username & password
-        if (res.kredensial) {
-            KREDENSIAL = { 
-                user: res.kredensial.username, 
-                password: res.kredensial.password 
-            };
+        // Toggle Password
+        function togglePassword() {
+            const i = document.getElementById('login-password');
+            const icon = document.getElementById('icon-mata');
+            if (i.type === "password") { i.type = "text"; icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400"; }
+            else { i.type = "password"; icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400"; }
         }
 
-        // --- BAGIAN INI UNTUK TABEL & DASHBOARD ---
-        if (res.transaksi) {
-            ALL_DATA = res.transaksi; // Simpan data ke variabel global
-            
-            const tbody = document.getElementById('tabel-kas-body');
-            tbody.innerHTML = ""; // Bersihkan tabel agar tidak dobel
-            
-            ALL_DATA.forEach(t => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="p-3">${t.tanggal}</td>
-                        <td class="p-3">${t.jenis}</td>
-                        <td class="p-3">Rp ${Number(t.kredit || t.debit).toLocaleString()}</td>
-                    </tr>`;
+        // Pindah Menu
+        function pindahMenu(id) {
+            document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        // Login & Sinkronisasi
+        window.onload = () => {
+            fetch(URL_API + "?action=read").then(r => r.json()).then(res => {
+                KREDENSIAL = { user: res.kredensial.username, pin: res.kredensial.pin };
+                let masuk = 0, keluar = 0;
+                const tbody = document.getElementById('tabel-kas-body');
+                res.transaksi.forEach(t => {
+                    masuk += Number(t.kredit);
+                    keluar += Number(t.debit);
+                    tbody.innerHTML += `<tr><td class="p-3">${t.tanggal}</td><td class="p-3">${t.jenis}</td><td class="p-3">Rp ${Number(t.kredit||t.debit).toLocaleString()}</td></tr>`;
+                });
+                document.getElementById('card-pemasukkan').innerText = "Rp " + masuk.toLocaleString();
+                document.getElementById('card-pengeluaran').innerText = "Rp " + keluar.toLocaleString();
+                document.getElementById('card-saldo-awal').innerText = "Rp " + SALDO_AWAL.toLocaleString();
+                document.getElementById('card-saldo-akhir').innerText = "Rp " + (SALDO_AWAL + masuk - keluar).toLocaleString();
             });
-            
-            // Jalankan hitungan otomatis dan grafik
-            renderDashboard(); 
-        }
-    });
-};
+        };
+
+        document.getElementById('form-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('login-username').value === KREDENSIAL.user && document.getElementById('login-password').value === KREDENSIAL.pin) {
+                document.getElementById('screen-login').classList.add('hidden');
+                document.getElementById('screen-dashboard').classList.remove('hidden');
+            } else { alert("User/PIN Salah"); }
+        });
+    </script>
+</body>
+</html>
