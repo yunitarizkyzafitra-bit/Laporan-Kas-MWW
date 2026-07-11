@@ -71,22 +71,71 @@
     </div>
 
     <script>
-        const URL_API = "https://script.google.com/macros/s/AKfycbyE1JambmBI6tmj-c7pdHxxM2k3CKqvSIc1k0X-XmdUUvxYP6_HAWQz-BKANJC85bnSTg/exec";
-        let ALL_DATA = [];
+    const URL_API = "https://script.google.com/macros/s/AKfycbxCl-g25F4QaYMSOSBWY3MPIpSp5GmI0-B44sFx6HAswRlzgTSB_8lz0xOmFE7HQmPcAg/exec"; 
+    let KREDENSIAL = { user: "", password: "" }; // Menggunakan 'password'
 
-        function togglePassword() { /* Kode asli Anda */ }
-        function pindahMenu(id) {
-            document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+    // 1. FUNGSI TOGGLE
+    function togglePassword() {
+        const i = document.getElementById('login-password');
+        const icon = document.getElementById('icon-mata');
+        if (i.type === "password") { 
+            i.type = "text"; 
+            icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400"; 
+        } else { 
+            i.type = "password"; 
+            icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400"; 
+        }
+    }
+
+    // 2. FUNGSI LOGIN (Menggunakan 'password')
+    document.getElementById('form-login').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('login-username').value;
+        const pass = document.getElementById('login-password').value;
+        
+        // Cek username dan password
+        if (user === KREDENSIAL.user && pass === KREDENSIAL.password) {
+            document.getElementById('screen-login').classList.add('hidden');
+            document.getElementById('screen-dashboard').classList.remove('hidden');
+        } else { 
+            alert("Username atau Password Salah!"); 
+        }
+    });
+
+    // 3. PENGAMBILAN DATA
+    window.onload = () => {
+    // 1. Ambil data dari Apps Script
+    fetch(URL_API) 
+    .then(r => r.json())
+    .then(res => {
+        
+        // --- BAGIAN INI UNTUK LOGIN ---
+        // Kita isi variabel KREDENSIAL agar form login bisa mengenali username & password
+        if (res.kredensial) {
+            KREDENSIAL = { 
+                user: res.kredensial.username, 
+                password: res.kredensial.password 
+            };
         }
 
-        // Logic Dashboard & Chart (Disederhanakan untuk performa)
-        function renderDashboard() {
-            // ... (Fungsi hitung saldo dan update chart seperti yang dibahas sebelumnya)
+        // --- BAGIAN INI UNTUK TABEL & DASHBOARD ---
+        if (res.transaksi) {
+            ALL_DATA = res.transaksi; // Simpan data ke variabel global
+            
+            const tbody = document.getElementById('tabel-kas-body');
+            tbody.innerHTML = ""; // Bersihkan tabel agar tidak dobel
+            
+            ALL_DATA.forEach(t => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3">${t.tanggal}</td>
+                        <td class="p-3">${t.jenis}</td>
+                        <td class="p-3">Rp ${Number(t.kredit || t.debit).toLocaleString()}</td>
+                    </tr>`;
+            });
+            
+            // Jalankan hitungan otomatis dan grafik
+            renderDashboard(); 
         }
-
-        // Fetch data saat load
-        fetch(URL_API).then(r=>r.json()).then(data => { ALL_DATA = data; renderDashboard(); });
-    </script>
-</body>
-</html>
+    });
+};
