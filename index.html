@@ -2,109 +2,112 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kas DPW Muslimah Wahdah Wilayah Sulawesi Tengah</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aplikasi Kas DPW Muslimah Wahdah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-50 font-sans">
 
+    <!-- LAYAR LOGIN -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-4 bg-teal-50">
         <img src="logo-mww-png.png" alt="Logo MWW" class="w-20 h-20 mb-3 object-contain">
         <form id="form-login" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border border-teal-100">
             <input type="text" id="login-username" placeholder="Username" required class="w-full p-3 mb-4 bg-slate-50 border rounded-xl text-xs font-bold">
             <div class="relative mb-6">
-                <input type="password" id="login-password" placeholder="Password" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold">
+                <input type="password" id="login-password" placeholder="Password" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold pr-10">
                 <i id="icon-mata" class="fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" onclick="togglePassword()"></i>
             </div>
             <button type="submit" class="w-full bg-teal-600 text-white font-bold p-3 rounded-xl text-xs uppercase">MASUK</button>
         </form>
     </div>
 
-    <div id="screen-dashboard" class="hidden min-h-screen flex flex-col">
-        <header class="bg-teal-600 text-white px-6 py-4 shadow-md">
-            <h1 class="text-xs font-black uppercase">DPW MUSLIMAH WAHDAH SULAWESI TENGAH</h1>
-        </header>
+    <!-- LAYAR DASHBOARD -->
+    <div id="screen-dashboard" class="hidden min-h-screen p-4 bg-slate-50 max-w-md mx-auto">
+        <!-- Header -->
+        <div class="flex items-center gap-4 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-teal-100">
+            <img src="logo-mww-png.png" alt="Logo MWW" class="w-12 h-12 object-contain">
+            <div>
+                <h1 class="text-sm font-bold text-teal-800">Laporan Kas</h1>
+                <p class="text-[10px] text-slate-500 font-semibold">Muslimah Wahdah Wilayah Sulawesi Tengah</p>
+            </div>
+        </div>
 
-        <div class="flex-1 flex flex-col md:flex-row">
-            <nav class="w-full md:w-64 bg-teal-950 p-4 flex md:flex-col gap-2">
-                <button onclick="pindahMenu('menu-ringkasan')" id="btn-menu-ringkasan" class="nav-link px-4 py-3 text-xs font-bold rounded-xl bg-teal-600 text-white">Laporan Kas</button>
-                <button onclick="pindahMenu('menu-tambah')" id="btn-menu-tambah" class="nav-link px-4 py-3 text-xs font-bold rounded-xl text-teal-300">Tambah Transaksi</button>
-            </nav>
+        <!-- Statistik -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-slate-800 p-4 rounded-xl text-white shadow"><p class="text-[9px] uppercase opacity-70">Total Kas</p><h2 id="total-kas" class="text-sm font-bold">Rp 0</h2></div>
+            <div class="bg-teal-600 p-4 rounded-xl text-white shadow"><p class="text-[9px] uppercase opacity-70">Penerimaan</p><h2 id="val-penerimaan" class="text-sm font-bold">Rp 0</h2></div>
+        </div>
 
-            <main class="flex-1 p-6">
-                <div id="menu-ringkasan" class="menu-content">
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-white p-4 rounded-xl border">
-                            <p class="text-[10px] text-gray-500">Saldo Awal</p>
-                            <p id="card-saldo-awal" class="font-bold text-sm">Rp 0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border">
-                            <p class="text-[10px] text-teal-600">Pemasukan</p>
-                            <p id="card-pemasukkan" class="font-bold text-sm">Rp 0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border">
-                            <p class="text-[10px] text-rose-600">Pengeluaran</p>
-                            <p id="card-pengeluaran" class="font-bold text-sm">Rp 0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border bg-teal-50">
-                            <p class="text-[10px] text-teal-800">Saldo Akhir</p>
-                            <p id="card-saldo-akhir" class="font-bold text-sm">Rp 0</p>
-                        </div>
-                    </div>
-                    <table class="w-full text-xs bg-white rounded-xl shadow">
-                        <thead><tr class="border-b"><th>Tanggal</th><th>Jenis</th><th>Nominal</th></tr></thead>
-                        <tbody id="tabel-kas-body"></tbody>
-                    </table>
-                </div>
-            </main>
+        <!-- Grafik -->
+        <div class="bg-white p-4 rounded-2xl shadow mb-6 border border-teal-100">
+            <canvas id="kasChart"></canvas>
+        </div>
+
+        <!-- Form Input -->
+        <form id="form-input" class="bg-white p-6 rounded-2xl shadow mb-6 border border-teal-100">
+            <h3 class="font-bold text-teal-800 mb-4 uppercase text-xs">Input Transaksi</h3>
+            <input type="date" id="input-tanggal" required class="w-full p-2 mb-3 bg-slate-50 border rounded-lg text-xs">
+            <select id="input-jenis" required class="w-full p-2 mb-3 bg-slate-50 border rounded-lg text-xs">
+                <option value="Pemasukan">Pemasukan (Debit)</option>
+                <option value="Pengeluaran">Pengeluaran (Kredit)</option>
+            </select>
+            <input type="number" id="input-nominal" placeholder="Nominal" required class="w-full p-2 mb-3 bg-slate-50 border rounded-lg text-xs">
+            <input type="text" id="input-uraian" placeholder="Uraian" required class="w-full p-2 mb-4 bg-slate-50 border rounded-lg text-xs">
+            <button type="submit" class="w-full bg-teal-600 text-white p-2 rounded-lg text-xs font-bold uppercase">Simpan Data</button>
+        </form>
+
+        <!-- Tabel Uraian -->
+        <div class="bg-white p-4 rounded-2xl shadow overflow-x-auto">
+            <table class="w-full text-[10px] text-left">
+                <thead><tr class="text-slate-400 border-b"><th>Uraian</th><th>Jenis</th><th>Nominal</th></tr></thead>
+                <tbody id="tabel-uraian"></tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        const URL_API = "https://script.google.com/macros/s/AKfycbz1vLQDrgA4uNIux4A9JUCzoY21CXXb7tUVMsWajKYDb-l4i6vxSvaO7wT3KoEAul0rJg/exec"; 
-        const SALDO_AWAL = 16152981;
-        let KREDENSIAL = { user: "", pin: "" };
-
-        // Toggle Password
+        const URL_API = "https://script.google.com/macros/s/AKfycbxl_13cQTXJZnPr5UakDwmu047KPv6BT5nCU7Z3ToJmpACa5iRqBZAe1I8NipZOret_BQ/exec";
+        
         function togglePassword() {
-            const i = document.getElementById('login-password');
-            const icon = document.getElementById('icon-mata');
-            if (i.type === "password") { i.type = "text"; icon.className = "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400"; }
-            else { i.type = "password"; icon.className = "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400"; }
+            const i = document.getElementById('login-password'), icon = document.getElementById('icon-mata');
+            i.type = i.type === "password" ? "text" : "password";
+            icon.className = i.type === "password" ? "fa-solid fa-eye absolute right-4 top-4 cursor-pointer text-slate-400" : "fa-solid fa-eye-slash absolute right-4 top-4 cursor-pointer text-slate-400";
         }
-
-        // Pindah Menu
-        function pindahMenu(id) {
-            document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-        }
-
-        // Login & Sinkronisasi
-        window.onload = () => {
-            fetch(URL_API + "?action=read").then(r => r.json()).then(res => {
-                KREDENSIAL = { user: res.kredensial.username, pin: res.kredensial.pin };
-                let masuk = 0, keluar = 0;
-                const tbody = document.getElementById('tabel-kas-body');
-                res.transaksi.forEach(t => {
-                    masuk += Number(t.kredit);
-                    keluar += Number(t.debit);
-                    tbody.innerHTML += `<tr><td class="p-3">${t.tanggal}</td><td class="p-3">${t.jenis}</td><td class="p-3">Rp ${Number(t.kredit||t.debit).toLocaleString()}</td></tr>`;
-                });
-                document.getElementById('card-pemasukkan').innerText = "Rp " + masuk.toLocaleString();
-                document.getElementById('card-pengeluaran').innerText = "Rp " + keluar.toLocaleString();
-                document.getElementById('card-saldo-awal').innerText = "Rp " + SALDO_AWAL.toLocaleString();
-                document.getElementById('card-saldo-akhir').innerText = "Rp " + (SALDO_AWAL + masuk - keluar).toLocaleString();
-            });
-        };
 
         document.getElementById('form-login').addEventListener('submit', function(e) {
             e.preventDefault();
-            if (document.getElementById('login-username').value === KREDENSIAL.user && document.getElementById('login-password').value === KREDENSIAL.pin) {
-                document.getElementById('screen-login').classList.add('hidden');
-                document.getElementById('screen-dashboard').classList.remove('hidden');
-            } else { alert("User/PIN Salah"); }
+            document.getElementById('screen-login').classList.add('hidden');
+            document.getElementById('screen-dashboard').classList.remove('hidden');
+            loadData();
+        });
+
+        function loadData() {
+            fetch(URL_API).then(r=>r.json()).then(res => {
+                const trans = res.transaksi;
+                let deb = trans.reduce((a,b)=>a+b.debit, 0);
+                let kre = trans.reduce((a,b)=>a+b.kredit, 0);
+                
+                document.getElementById('total-kas').innerText = "Rp " + (deb - kre).toLocaleString();
+                document.getElementById('val-penerimaan').innerText = "Rp " + deb.toLocaleString();
+                
+                const tbody = document.getElementById('tabel-uraian');
+                tbody.innerHTML = trans.slice(-5).map(t => `<tr class="border-b"><td>${t.uraian}</td><td>${t.jenis}</td><td>${Number(t.debit || t.kredit).toLocaleString()}</td></tr>`).join('');
+                
+                new Chart(document.getElementById('kasChart').getContext('2d'), { type: 'pie', data: { labels: ['Debit', 'Kredit'], datasets: [{ data: [deb, kre], backgroundColor: ['#0d9488', '#e11d48'] }] } });
+            });
+        }
+
+        document.getElementById('form-input').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                tanggal: document.getElementById('input-tanggal').value,
+                jenis: document.getElementById('input-jenis').value,
+                nominal: document.getElementById('input-nominal').value,
+                uraian: document.getElementById('input-uraian').value
+            };
+            fetch(URL_API, { method: "POST", body: JSON.stringify(data) }).then(() => { alert("Tersimpan!"); loadData(); this.reset(); });
         });
     </script>
 </body>
